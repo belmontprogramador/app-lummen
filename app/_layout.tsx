@@ -1,24 +1,45 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { Stack, usePathname } from "expo-router";
+import { AuthProvider } from "@/context/AuthContext";
+import OneSignal from "react-native-onesignal";
+import { useEffect } from "react";
+import { View } from "react-native";
+import { GlobalHeader } from "@/components/GlobalHeader";
+import { AereaShowHeader } from "@/components/AereaShowHeader";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    OneSignal.setAppId("SEU-ONESIGNAL-APP-ID");
+    OneSignal.promptForPushNotificationsWithUserResponse();
+
+    OneSignal.setNotificationOpenedHandler((result) => {
+      console.log("NOTIFICAÇÃO ABERTA:", result);
+    });
+
+    OneSignal.getDeviceState().then((state) => {
+      console.log("Player ID:", state?.userId);
+      console.log("Push Token:", state?.pushToken);
+    });
+  }, []);
+
+  // 🎯 Se for a página /aereashow → usar header exclusivo
+  const isAereaShow = pathname === "/aereashow";
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <AuthProvider>
+      <View style={{ flex: 1 }}>
+
+        {/* HEADER DINÂMICO */}
+        {isAereaShow ? (
+          <AereaShowHeader />
+        ) : (
+          <GlobalHeader />
+        )}
+
+        {/* Conteúdo das rotas */}
+        <Stack screenOptions={{ headerShown: false }} />
+      </View>
+    </AuthProvider>
   );
 }
