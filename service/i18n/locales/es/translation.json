@@ -1,0 +1,41 @@
+{
+  "forgot": {
+    "title": "Recuperar contraseña",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "emailInvalid": "Ingresa un correo válido",
+    "emailSent": "Hemos enviado un enlace de recuperación a tu correo.",
+    "emailError": "No se pudo enviar el correo. Inténtalo nuevamente.",
+    "submit": "Enviar enlace de recuperación",
+    "backToLogin": "Volver al inicio de sesión"
+  },
+ 
+  "login": {
+    "email": "Correo electrónico",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loading": "Cargando...",
+    "password": "Contraseña",
+    "register": "Crear cuenta",
+    "submit": "Iniciar sesión",
+    "title": "Iniciar sesión"
+  },
+  "register": {
+  "title": "Crear cuenta",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "pickPhoto": "Elegir foto",
+  "errorMissingFields": "Completa todos los campos y selecciona una foto.",
+  "errorCreate": "Error al crear la cuenta.",
+  "success": "¡Cuenta creada con éxito!",
+  "submit": "Registrar"
+},
+"tabs": {
+  "home": "Inicio",
+  "explore": "Explorar",
+  "community": "Comunidad",
+  "likes": "Me gusta",
+  "chat": "Chat",
+  "profile": "Perfil"
+}
+
+
+}

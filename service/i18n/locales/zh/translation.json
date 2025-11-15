@@ -1,0 +1,40 @@
+{
+  "forgot": {
+    "title": "Восстановить пароль",
+    "emailPlaceholder": "Введите свою электронную почту",
+    "emailInvalid": "Введите действительный email",
+    "emailSent": "Мы отправили ссылку для восстановления на ваш email.",
+    "emailError": "Не удалось отправить письмо. Попробуйте снова.",
+    "submit": "Отправить ссылку восстановления",
+    "backToLogin": "Вернуться ко входу"
+  },
+  "login": {
+    "email": "电子邮箱",
+    "forgotPassword": "忘记密码？",
+    "loading": "加载中...",
+    "password": "密码",
+    "register": "创建账户",
+    "submit": "登录",
+    "title": "登录"
+  },
+  "register": {
+  "title": "创建账号",
+  "email": "邮箱",
+  "password": "密码",
+  "pickPhoto": "选择照片",
+  "errorMissingFields": "请填写所有字段并选择一张照片。",
+  "errorCreate": "创建账号时出错。",
+  "success": "账号创建成功！",
+  "submit": "注册"
+},
+"tabs": {
+  "home": "首页",
+  "explore": "探索",
+  "community": "社区",
+  "likes": "点赞",
+  "chat": "聊天",
+  "profile": "个人资料"
+}
+
+
+}

@@ -13,7 +13,7 @@ export function AereaShowHeader() {
       }}
     >
       <Image
-        source={require("../assets/images/logo2.png")}
+        source={require("../../assets/images/logo2.png")}
         style={{ width: 40, height: 40 }}
         resizeMode="contain"
       />

@@ -1,0 +1,40 @@
+{
+  "forgot": {
+    "backToLogin": "",
+    "emailError": "",
+    "emailInvalid": "",
+    "emailPlaceholder": "",
+    "emailSent": "",
+    "submit": "",
+    "title": ""
+  },
+  "login": {
+    "email": "E-Mail",
+    "forgotPassword": "Passwort vergessen?",
+    "loading": "Wird geladen...",
+    "password": "Passwort",
+    "register": "Konto erstellen",
+    "submit": "Anmelden",
+    "title": "Login"
+  },
+  "register": {
+  "title": "Konto erstellen",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "pickPhoto": "Foto auswählen",
+  "errorMissingFields": "Füllen Sie alle Felder aus und wählen Sie ein Foto.",
+  "errorCreate": "Fehler beim Erstellen des Kontos.",
+  "success": "Konto erfolgreich erstellt!",
+  "submit": "Registrieren"
+},
+"tabs": {
+  "home": "Startseite",
+  "explore": "Erkunden",
+  "community": "Gemeinschaft",
+  "likes": "Likes",
+  "chat": "Chat",
+  "profile": "Profil"
+}
+
+
+}

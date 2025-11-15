@@ -1,0 +1,40 @@
+{
+  "forgot": {
+    "backToLogin": "",
+    "emailError": "",
+    "emailInvalid": "",
+    "emailPlaceholder": "",
+    "emailSent": "",
+    "submit": "",
+    "title": ""
+  },
+  "login": {
+    "email": "Эл. почта",
+    "forgotPassword": "Забыли пароль?",
+    "loading": "Загрузка...",
+    "password": "Пароль",
+    "register": "Создать аккаунт",
+    "submit": "Войти",
+    "title": "Вход"
+  },
+  "register": {
+  "title": "Создать аккаунт",
+  "email": "Электронная почта",
+  "password": "Пароль",
+  "pickPhoto": "Выбрать фото",
+  "errorMissingFields": "Заполните все поля и выберите фото.",
+  "errorCreate": "Ошибка создания аккаунта.",
+  "success": "Аккаунт успешно создан!",
+  "submit": "Зарегистрироваться"
+},
+"tabs": {
+  "home": "Главная",
+  "explore": "Поиск",
+  "community": "Сообщество",
+  "likes": "Лайки",
+  "chat": "Чат",
+  "profile": "Профиль"
+}
+
+
+}

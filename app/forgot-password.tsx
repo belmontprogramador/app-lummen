@@ -2,8 +2,11 @@ import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import { UsersAPI } from "@/service/users";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPassword() {
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -11,7 +14,7 @@ export default function ForgotPassword() {
 
   async function handleSubmit() {
     if (!email.trim()) {
-      setError("Informe um email válido");
+      setError(t("forgot.emailInvalid"));
       return;
     }
 
@@ -21,10 +24,10 @@ export default function ForgotPassword() {
 
     try {
       await UsersAPI.forgotPassword(email);
-      setMessage("Enviamos um link de recuperação para seu email.");
+      setMessage(t("forgot.emailSent"));
       router.replace("/");
     } catch (err: any) {
-      setError("Não foi possível enviar o email. Tente novamente.");
+      setError(t("forgot.emailError"));
     } finally {
       setLoading(false);
     }
@@ -33,11 +36,11 @@ export default function ForgotPassword() {
   return (
     <View style={{ flex: 1, padding: 20, justifyContent: "center" }}>
       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>
-        Recuperar senha
+        {t("forgot.title")}
       </Text>
 
       <TextInput
-        placeholder="Digite seu email"
+        placeholder={t("forgot.emailPlaceholder")}
         autoCapitalize="none"
         style={{ borderWidth: 1, padding: 12, marginBottom: 10 }}
         value={email}
@@ -61,7 +64,7 @@ export default function ForgotPassword() {
           <ActivityIndicator color="#fff" />
         ) : (
           <Text style={{ color: "#fff", fontWeight: "bold" }}>
-            Enviar link de recuperação
+            {t("forgot.submit")}
           </Text>
         )}
       </TouchableOpacity>
@@ -71,7 +74,7 @@ export default function ForgotPassword() {
         style={{ marginTop: 20 }}
       >
         <Text style={{ color: "#007BFF", textAlign: "center" }}>
-          Voltar ao login
+          {t("forgot.backToLogin")}
         </Text>
       </TouchableOpacity>
     </View>

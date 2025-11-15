@@ -1,0 +1,41 @@
+
+  {
+  "forgot": {
+    "title": "Récupérer le mot de passe",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "emailInvalid": "Entrez un e-mail valide",
+    "emailSent": "Nous avons envoyé un lien de récupération à votre e-mail.",
+    "emailError": "Impossible d'envoyer l'e-mail. Réessayez.",
+    "submit": "Envoyer le lien de récupération",
+    "backToLogin": "Retour à la connexion"
+  },
+  "login": {
+    "email": "E-mail",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loading": "Chargement...",
+    "password": "Mot de passe",
+    "register": "Créer un compte",
+    "submit": "Se connecter",
+    "title": "Connexion"
+  },
+  "register": {
+  "title": "Créer un compte",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "pickPhoto": "Choisir une photo",
+  "errorMissingFields": "Remplissez tous les champs et choisissez une photo.",
+  "errorCreate": "Erreur lors de la création du compte.",
+  "success": "Compte créé avec succès !",
+  "submit": "S'inscrire"
+},
+"tabs": {
+  "home": "Accueil",
+  "explore": "Explorer",
+  "community": "Communauté",
+  "likes": "Favoris",
+  "chat": "Chat",
+  "profile": "Profil"
+}
+
+
+}

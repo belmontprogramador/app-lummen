@@ -2,8 +2,10 @@ import { useState, useContext } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { AuthContext } from "@/context/AuthContext";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
+  const { t } = useTranslation();  
   const { signIn, loading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,11 +23,11 @@ export default function Login() {
   return (
     <View style={{ padding: 20, flex: 1, justifyContent: "center" }}>
       <Text style={{ fontSize: 28, fontWeight: "bold", marginBottom: 30 }}>
-        Login
+        {t("login.title")}
       </Text>
 
       <TextInput
-        placeholder="Email"
+        placeholder={t("login.email")}
         autoCapitalize="none"
         style={{ borderWidth: 1, padding: 12, marginBottom: 10 }}
         value={email}
@@ -33,7 +35,7 @@ export default function Login() {
       />
 
       <TextInput
-        placeholder="Senha"
+        placeholder={t("login.password")}
         secureTextEntry
         style={{ borderWidth: 1, padding: 12, marginBottom: 10 }}
         value={password}
@@ -44,13 +46,13 @@ export default function Login() {
       <View style={{ marginBottom: 20 }}>
         <TouchableOpacity onPress={() => router.push("/forgot-password")}>
           <Text style={{ color: "#007BFF", marginBottom: 8 }}>
-            Esqueceu a senha?
+            {t("login.forgotPassword")}
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.push("/register")}>
           <Text style={{ color: "#007BFF" }}>
-            Registrar
+            {t("login.register")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -73,7 +75,7 @@ export default function Login() {
             fontWeight: "bold",
           }}
         >
-          {loading ? "Entrando..." : "Entrar"}
+          {loading ? t("login.loading") : t("login.submit")}
         </Text>
       </TouchableOpacity>
     </View>

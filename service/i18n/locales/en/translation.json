@@ -1,0 +1,39 @@
+{
+  "forgot": {
+    "title": "Recover password",
+    "emailPlaceholder": "Enter your email",
+    "emailInvalid": "Enter a valid email",
+    "emailSent": "We sent a recovery link to your email.",
+    "emailError": "Unable to send the email. Try again.",
+    "submit": "Send recovery link",
+    "backToLogin": "Back to login"
+  },
+  "login": {
+    "email": "Email",
+    "forgotPassword": "Forgot your password?",
+    "loading": "Loading...",
+    "password": "Password",
+    "register": "Create account",
+    "submit": "Sign in",
+    "title": "Login"
+  },
+  "register": {
+    "title": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "pickPhoto": "Choose Photo",
+    "errorMissingFields": "Fill in all fields and choose a photo.",
+    "errorCreate": "Error creating account.",
+    "success": "Account created successfully!",
+    "submit": "Register"
+  },
+  "tabs": {
+  "home": "Home",
+  "explore": "Explore",
+  "community": "Community",
+  "likes": "Likes",
+  "chat": "Chat",
+  "profile": "Profile"
+}
+
+}

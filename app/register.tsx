@@ -3,8 +3,12 @@ import { View, Text, TextInput, TouchableOpacity, Image, ActivityIndicator } fro
 import * as ImagePicker from "expo-image-picker";
 import { UsersAPI } from "@/service/users";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function Register() {
+  const { t } = useTranslation();
+
+  const [name, setName] = useState("");      // 🟢 NOME AQUI
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState<any>(null);
@@ -13,7 +17,7 @@ export default function Register() {
 
   async function pickImage() {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"] as any, // funciona no Web
+      mediaTypes: ["images"] as any,
       allowsEditing: true,
       quality: 0.7,
     });
@@ -30,8 +34,8 @@ export default function Register() {
   }
 
   async function handleRegister() {
-    if (!email || !password || !photo) {
-      setError("Preencha todos os campos e escolha uma foto.");
+    if (!name || !email || !password || !photo) {
+      setError(t("register.errorMissingFields"));
       return;
     }
 
@@ -40,15 +44,16 @@ export default function Register() {
 
     try {
       await UsersAPI.create({
+        name,      // 🟢 ENVIANDO NOME
         email,
         password,
         photo,
       });
 
-      alert("Conta criada com sucesso!");
+      alert(t("register.success"));
       router.replace("/");
     } catch (err) {
-      setError("Erro ao criar conta.");
+      setError(t("register.errorCreate"));
     } finally {
       setLoading(false);
     }
@@ -57,11 +62,19 @@ export default function Register() {
   return (
     <View style={{ padding: 20, flex: 1, justifyContent: "center" }}>
       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>
-        Criar conta
+        {t("register.title")}
       </Text>
 
+      {/* 🟢 INPUT DO NOME */}
       <TextInput
-        placeholder="Email"
+        placeholder={t("register.name")}
+        value={name}
+        onChangeText={setName}
+        style={{ borderWidth: 1, padding: 12, marginBottom: 10 }}
+      />
+
+      <TextInput
+        placeholder={t("register.email")}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -69,10 +82,10 @@ export default function Register() {
       />
 
       <TextInput
-        placeholder="Senha"
+        placeholder={t("register.password")}
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
         style={{ borderWidth: 1, padding: 12, marginBottom: 10 }}
       />
 
@@ -85,7 +98,9 @@ export default function Register() {
           marginBottom: 10,
         }}
       >
-        <Text style={{ color: "#fff", textAlign: "center" }}>Escolher Foto</Text>
+        <Text style={{ color: "#fff", textAlign: "center" }}>
+          {t("register.pickPhoto")}
+        </Text>
       </TouchableOpacity>
 
       {photo && (
@@ -115,7 +130,9 @@ export default function Register() {
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text style={{ color: "#fff", fontWeight: "bold" }}>Registrar</Text>
+          <Text style={{ color: "#fff", fontWeight: "bold" }}>
+            {t("register.submit")}
+          </Text>
         )}
       </TouchableOpacity>
     </View>

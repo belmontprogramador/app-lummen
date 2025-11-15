@@ -1,7 +1,10 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 export default function TabLayout() {
+  const { t } = useTranslation();
+
   return (
     <Tabs
       screenOptions={{
@@ -13,7 +16,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="inicio"
         options={{
-          title: "Início",
+          title: t("tabs.home"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -23,18 +26,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="explorar"
         options={{
-          title: "Explorar",
+          title: t("tabs.explore"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search-outline" size={size} color={color} />
           ),
         }}
       />
 
-      {/* 🔥 Nova aba Comunidade */}
       <Tabs.Screen
         name="comunidade"
         options={{
-          title: "Comunidade",
+          title: t("tabs.community"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" size={size} color={color} />
           ),
@@ -44,7 +46,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="curtidas"
         options={{
-          title: "Curtidas",
+          title: t("tabs.likes"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="heart-outline" size={size} color={color} />
           ),
@@ -54,18 +56,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="chat"
         options={{
-          title: "Chat",
+          title: t("tabs.chat"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="chatbubble-ellipses-outline" size={size} color={color} />
           ),
         }}
       />
 
-      {/* 👤 Perfil sempre por último */}
       <Tabs.Screen
         name="perfil"
         options={{
-          title: "Perfil",
+          title: t("tabs.profile"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" size={size} color={color} />
           ),

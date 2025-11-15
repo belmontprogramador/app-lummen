@@ -34,12 +34,12 @@ export function GlobalHeader() {
       {/* Centro: duas imagens */}
       <View style={{ flexDirection: "row", gap: 8 }}>
         <Image
-          source={require("../assets/images/logo2.png")}
+          source={require("../../assets/images/logo2.png")}
           style={{ width: 32, height: 32 }}
           resizeMode="contain"
         />
         <Image
-          source={require("../assets/images/logo1.png")}
+          source={require("../../assets/images/logo1.png")}
           style={{ width: 32, height: 32 }}
           resizeMode="contain"
         />
