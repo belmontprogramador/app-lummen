@@ -87,14 +87,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // UPDATE USER (LOCAL)
   // Perfeito para PerfilEditar
   // ---------------------------
-  async function updateUser(data: Partial<User>) {
-    if (!user) return;
+ async function updateUser(data: Partial<User>) {
+  if (!user) return;
 
-    const updated = { ...user, ...data };
+  let updated = { ...user, ...data };
 
-    setUser(updated);
-    await AsyncStorage.setItem("@user", JSON.stringify(updated));
+  // 🔥 quebrar cache de imagem
+  if (data.photo) {
+    updated.photo = data.photo + "?t=" + Date.now();
   }
+
+  setUser(updated);
+  await AsyncStorage.setItem("@user", JSON.stringify(updated));
+}
 
   // ---------------------------
   // RETURN

@@ -89,16 +89,18 @@ export default function PerfilEditar() {
         style={{ alignSelf: "center", marginBottom: 10 }}
       >
         <Image
-          source={{
-            uri: photo?.uri || `https://botgrupo.lummen-app.com${user.photo}`,
-          }}
-          style={{
-            width: 120,
-            height: 120,
-            borderRadius: 60,
-            backgroundColor: "#eee",
-          }}
-        />
+  key={user.photo} // 🔥 força re-render quando a foto muda
+  source={{
+    uri: photo?.uri || `https://botgrupo.lummen-app.com${user.photo}`,
+  }}
+  style={{
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "#eee",
+  }}
+/>
+
         <Text
           style={{
             textAlign: "center",
