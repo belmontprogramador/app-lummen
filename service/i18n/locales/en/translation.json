@@ -1,12 +1,12 @@
 {
   "forgot": {
-    "title": "Recover password",
-    "emailPlaceholder": "Enter your email",
-    "emailInvalid": "Enter a valid email",
-    "emailSent": "We sent a recovery link to your email.",
+    "backToLogin": "Back to login",
     "emailError": "Unable to send the email. Try again.",
+    "emailInvalid": "Enter a valid email",
+    "emailPlaceholder": "Enter your email",
+    "emailSent": "We sent a recovery link to your email.",
     "submit": "Send recovery link",
-    "backToLogin": "Back to login"
+    "title": "Recover password"
   },
   "login": {
     "email": "Email",
@@ -18,22 +18,22 @@
     "title": "Login"
   },
   "register": {
-    "title": "Create account",
     "email": "Email",
+    "errorCreate": "Error creating account.",
+    "errorMissingFields": "Fill in all fields and choose a photo.",
+    "name": "",
     "password": "Password",
     "pickPhoto": "Choose Photo",
-    "errorMissingFields": "Fill in all fields and choose a photo.",
-    "errorCreate": "Error creating account.",
+    "submit": "Register",
     "success": "Account created successfully!",
-    "submit": "Register"
+    "title": "Create account"
   },
   "tabs": {
-  "home": "Home",
-  "explore": "Explore",
-  "community": "Community",
-  "likes": "Likes",
-  "chat": "Chat",
-  "profile": "Profile"
-}
-
+    "chat": "Chat",
+    "community": "Community",
+    "explore": "Explore",
+    "home": "Home",
+    "likes": "Likes",
+    "profile": "Profile"
+  }
 }

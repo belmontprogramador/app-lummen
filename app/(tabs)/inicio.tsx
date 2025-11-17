@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, View, Dimensions, ActivityIndicator } from "react-native";
 
 import { useAuthGuard } from "@/hooks/useAuthGuard";
-import { UsersAPI } from "@/service/users";
+import { FeedAPI } from "@/service/feed"; //  👈 TROCA AQUI !!!
 
 import SwipeUserCard from "@/components/ComponentsInicio/SwipeUserCard";
 import ProfileDetails from "@/components/ComponentsInicio/ProfileDetails";
@@ -23,7 +23,7 @@ export default function Inicio() {
 
   async function loadUsers() {
     try {
-      const res = await UsersAPI.list(1, 20);
+      const res = await FeedAPI.list(1, 20); //  👈 TROCA AQUI !!!
       setUsers(res.data.items || []);
     } catch (e) {
       console.log("Erro:", e);
@@ -37,12 +37,10 @@ export default function Inicio() {
   }
 
   function handleLike() {
-    console.log("LIKE!");
     skipUser();
   }
 
   function handleDislike() {
-    console.log("DISLIKE!");
     skipUser();
   }
 
@@ -66,17 +64,25 @@ export default function Inicio() {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {/* 🔥 CARD PRINCIPAL */}
           <SwipeUserCard user={u} onSkip={skipUser} />
 
-          {/* 🔥 BOTÕES LIKE / DESLIKE */}
           <LikeDislikeButtons
             onLike={handleLike}
             onDislike={handleDislike}
           />
 
-          {/* 🔥 OUTROS DETALHES */}
-          <ProfileDetails profile={u.profile} />
+          <ProfileDetails
+            profile={{
+              ...u.profileBasic,
+              ...u.profileLocation,
+              ...u.profileLifestyle,
+              ...u.profileWork,
+              ...u.profileRelation,
+              ...u.profileInterests,
+              ...u.profileExtra,
+            }}
+          />
+
           <PreferencesDetails preference={u.preference} />
 
           <View style={{ height: 100 }} />

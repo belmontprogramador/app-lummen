@@ -1,12 +1,12 @@
 {
   "forgot": {
-    "title": "パスワードを回復",
-    "emailPlaceholder": "メールアドレスを入力してください",
-    "emailInvalid": "有効なメールアドレスを入力してください",
-    "emailSent": "回復リンクをメールに送信しました。",
+    "backToLogin": "ログインに戻る",
     "emailError": "メールを送信できませんでした。もう一度お試しください。",
+    "emailInvalid": "有効なメールアドレスを入力してください",
+    "emailPlaceholder": "メールアドレスを入力してください",
+    "emailSent": "回復リンクをメールに送信しました。",
     "submit": "回復リンクを送信",
-    "backToLogin": "ログインに戻る"
+    "title": "パスワードを回復"
   },
   "login": {
     "email": "メールアドレス",
@@ -18,23 +18,22 @@
     "title": "ログイン"
   },
   "register": {
-  "title": "アカウントを作成",
-  "email": "メールアドレス",
-  "password": "パスワード",
-  "pickPhoto": "写真を選択",
-  "errorMissingFields": "すべての項目を入力し、写真を選択してください。",
-  "errorCreate": "アカウントの作成中にエラーが発生しました。",
-  "success": "アカウントが正常に作成されました！",
-  "submit": "登録"
-},
-"tabs": {
-  "home": "ホーム",
-  "explore": "探索",
-  "community": "コミュニティ",
-  "likes": "いいね",
-  "chat": "チャット",
-  "profile": "プロフィール"
-}
-
-
+    "email": "メールアドレス",
+    "errorCreate": "アカウントの作成中にエラーが発生しました。",
+    "errorMissingFields": "すべての項目を入力し、写真を選択してください。",
+    "name": "",
+    "password": "パスワード",
+    "pickPhoto": "写真を選択",
+    "submit": "登録",
+    "success": "アカウントが正常に作成されました！",
+    "title": "アカウントを作成"
+  },
+  "tabs": {
+    "chat": "チャット",
+    "community": "コミュニティ",
+    "explore": "探索",
+    "home": "ホーム",
+    "likes": "いいね",
+    "profile": "プロフィール"
+  }
 }

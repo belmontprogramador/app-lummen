@@ -3,8 +3,9 @@ import { User, UserUpdateData } from "@/types/user";
 import { LoginResponse } from "@/types/auth";
 import { PaginationResponse } from "@/types/api";
 
-
-
+// ----------------------------------------------------
+// UPLOAD UTIL (mantido 100% intacto)
+// ----------------------------------------------------
 export async function uploadWithPhoto(
   endpoint: string,
   data: Record<string, any>,
@@ -15,15 +16,14 @@ export async function uploadWithPhoto(
   for (const key in data) {
     const value = data[key];
 
-    // -----------------------------
-    // 📌 1) CAMPOS DE ARQUIVO
-    // -----------------------------
+    // 1) FOTO PRINCIPAL
     if (key === "photo" && value) {
       const file = await prepareFile(value);
       form.append("photo", file as any);
       continue;
     }
 
+    // 2) FOTOS EXTRAS (galeria)
     if (key === "photos" && Array.isArray(value)) {
       for (const item of value) {
         const file = await prepareFile(item);
@@ -32,6 +32,7 @@ export async function uploadWithPhoto(
       continue;
     }
 
+    // 3) ALTERAÇÃO POR POSIÇÃO (galeria)
     if (key === "photo_position_file" && value) {
       const file = await prepareFile(value);
       form.append("photo_position_file", file as any);
@@ -43,9 +44,7 @@ export async function uploadWithPhoto(
       continue;
     }
 
-    // -----------------------------
-    // 📌 2) STRINGS / NÚMEROS / BOOLEAN
-    // -----------------------------
+    // 4) CAMPOS SIMPLES
     if (
       typeof value === "string" ||
       typeof value === "number" ||
@@ -55,17 +54,13 @@ export async function uploadWithPhoto(
       continue;
     }
 
-    // -----------------------------
-    // 📌 3) ARRAYS DE STRINGS (idiomas, interesses etc)
-    // -----------------------------
+    // 5) ARRAYS
     if (Array.isArray(value)) {
       value.forEach((v) => form.append(key + "[]", String(v)));
       continue;
     }
 
-    // -----------------------------
-    // 📌 4) QUALQUER OUTRO TIPO
-    // -----------------------------
+    // 6) JSON
     if (value !== undefined && value !== null) {
       form.append(key, JSON.stringify(value));
     }
@@ -79,20 +74,19 @@ export async function uploadWithPhoto(
   });
 }
 
-
 async function prepareFile(item: any): Promise<any> {
-  // WEB — já é File
+  // WEB
   if (typeof File !== "undefined" && item instanceof File) {
     return item;
   }
 
-  // WEB — URI precisa virar Blob
+  // WEB (URI)
   if (item?.uri && typeof window !== "undefined") {
     const blob = await fetch(item.uri).then((res) => res.blob());
     return new File([blob], item.name || "file.jpg", { type: blob.type });
   }
 
-  // MOBILE — padrão React Native
+  // MOBILE
   return {
     uri: item.uri,
     type: item.type || "image/jpeg",
@@ -100,44 +94,46 @@ async function prepareFile(item: any): Promise<any> {
   };
 }
 
+// ----------------------------------------------------
+// USERS API — total refactor
+// ----------------------------------------------------
 
 export const UsersAPI = {
-  create: (data: Record<string, any>) => uploadWithPhoto("/users", data, "POST"),
+  // CREATE USER (com foto)
+  create: (data: Record<string, any>) =>
+    uploadWithPhoto("/users", data, "POST"),
 
+  // LOGIN
   login: (email: string, password: string) =>
     api.post<LoginResponse>("/users/login", { email, password }),
 
+  // LIST USERS
   list: (page = 1, limit = 20, q = "") =>
     api.get<PaginationResponse<User>>("/users", {
       params: { page, limit, q },
     }),
 
+  // GET SINGLE
   getOne: (id: string) => api.get<User>(`/users/${id}`),
 
-update: (id: string, data: UserUpdateData) => {
-  const hasFiles =
-    data.photo ||
-    data.photos ||
-    data.photo_position_file;
+  // UPDATE USER (com ou sem foto)
+  update: (id: string, data: UserUpdateData) => {
+    const hasFiles =
+      data.photo ||
+      data.photos ||
+      data.photo_position_file;
 
-  if (hasFiles) {
-    return uploadWithPhoto(`/users/${id}`, data, "PATCH");
-  }
+    if (hasFiles) {
+      return uploadWithPhoto(`/users/${id}`, data, "PATCH");
+    }
 
-  // PATCH JSON normal quando não há arquivos
-  return api.patch(`/users/${id}`, data);
-},
+    return api.patch(`/users/${id}`, data);
+  },
 
-
-
+  // DELETE USER
   remove: (id: string) => api.delete(`/users/${id}`),
 
+  // ADMIN: STATUS
   setStatus: (id: string, status: string) =>
     api.patch(`/users/${id}/status`, { status }),
-
-  forgotPassword: (email: string) =>
-    api.post("/users/forgot-password", { email }),
-
-  resetPassword: (token: string, newPassword: string) =>
-    api.post("/users/reset-password", { token, newPassword }),
 };

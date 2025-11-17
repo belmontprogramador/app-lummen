@@ -18,23 +18,22 @@
     "title": "Login"
   },
   "register": {
-  "title": "Konto erstellen",
-  "email": "E-Mail",
-  "password": "Passwort",
-  "pickPhoto": "Foto auswählen",
-  "errorMissingFields": "Füllen Sie alle Felder aus und wählen Sie ein Foto.",
-  "errorCreate": "Fehler beim Erstellen des Kontos.",
-  "success": "Konto erfolgreich erstellt!",
-  "submit": "Registrieren"
-},
-"tabs": {
-  "home": "Startseite",
-  "explore": "Erkunden",
-  "community": "Gemeinschaft",
-  "likes": "Likes",
-  "chat": "Chat",
-  "profile": "Profil"
-}
-
-
+    "email": "E-Mail",
+    "errorCreate": "Fehler beim Erstellen des Kontos.",
+    "errorMissingFields": "Füllen Sie alle Felder aus und wählen Sie ein Foto.",
+    "name": "",
+    "password": "Passwort",
+    "pickPhoto": "Foto auswählen",
+    "submit": "Registrieren",
+    "success": "Konto erfolgreich erstellt!",
+    "title": "Konto erstellen"
+  },
+  "tabs": {
+    "chat": "Chat",
+    "community": "Gemeinschaft",
+    "explore": "Erkunden",
+    "home": "Startseite",
+    "likes": "Likes",
+    "profile": "Profil"
+  }
 }

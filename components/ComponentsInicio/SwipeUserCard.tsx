@@ -2,11 +2,10 @@ import { useState, useMemo } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
 export default function SwipeUserCard({ user, onSkip }: any) {
-  
-  // 🔥 todas as fotos: foto de perfil + carrossel
+
   const allPhotos = useMemo(() => {
     const arr = [];
-    if (user.photo) arr.push(user.photo); // foto do perfil
+    if (user.photo) arr.push(user.photo);
     if (user.photos?.length > 0) {
       arr.push(...user.photos.map((p: any) => p.url));
     }
@@ -19,7 +18,6 @@ export default function SwipeUserCard({ user, onSkip }: any) {
     setPhotoIndex((prev) => (prev + 1) % allPhotos.length);
   }
 
-  // 🔥 idade
   const age = useMemo(() => {
     if (!user.profile?.birthday) return "";
     const birth = new Date(user.profile.birthday);
@@ -38,28 +36,61 @@ export default function SwipeUserCard({ user, onSkip }: any) {
 
   return (
     <View style={{ alignItems: "center" }}>
-      
-      {/* FOTO ATUAL */}
-      <TouchableOpacity onPress={nextPhoto}>
-        <Image
-          source={{
-            uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`
-          }}
-          style={{
-            width: 330,
-            height: 330,
-            borderRadius: 20,
-            backgroundColor: "#ccc",
-            marginBottom: 15,
-          }}
-        />
-      </TouchableOpacity>
 
-      {/* NOME + IDADE + CIDADE */}
+      {/* FOTO + BARRA SOBREPOSTA */}
+      <View style={{ width: 330, height: 330, marginBottom: 15 }}>
+
+        {/* 🔥 Barra sobreposta na parte superior da foto */}
+        <View
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 0,
+            right: 0,
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingHorizontal: 12,
+            zIndex: 10,
+          }}
+        >
+          {allPhotos.map((_, idx) => (
+            <View
+              key={idx}
+              style={{
+                flex: 1,
+                height: 4,
+                marginHorizontal: 3,
+                borderRadius: 4,
+                backgroundColor:
+                  idx === photoIndex ? "#fff" : "rgba(255,255,255,0.4)",
+              }}
+            />
+          ))}
+        </View>
+
+        {/* FOTO */}
+        <TouchableOpacity onPress={nextPhoto} style={{ flex: 1 }}>
+          <Image
+            source={{
+              uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`
+            }}
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: 20,
+              backgroundColor: "#ccc",
+            }}
+          />
+        </TouchableOpacity>
+
+      </View>
+
+      {/* NOME + IDADE */}
       <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>
         {user.name} {age ? `, ${age}` : ""}
       </Text>
 
+      {/* CIDADE */}
       {city !== "" && (
         <Text style={{ fontSize: 18, color: "#444", marginTop: 4 }}>
           {city}

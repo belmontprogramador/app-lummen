@@ -1,13 +1,12 @@
-
-  {
+{
   "forgot": {
-    "title": "Récupérer le mot de passe",
-    "emailPlaceholder": "Entrez votre e-mail",
-    "emailInvalid": "Entrez un e-mail valide",
-    "emailSent": "Nous avons envoyé un lien de récupération à votre e-mail.",
+    "backToLogin": "Retour à la connexion",
     "emailError": "Impossible d'envoyer l'e-mail. Réessayez.",
+    "emailInvalid": "Entrez un e-mail valide",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "emailSent": "Nous avons envoyé un lien de récupération à votre e-mail.",
     "submit": "Envoyer le lien de récupération",
-    "backToLogin": "Retour à la connexion"
+    "title": "Récupérer le mot de passe"
   },
   "login": {
     "email": "E-mail",
@@ -19,23 +18,22 @@
     "title": "Connexion"
   },
   "register": {
-  "title": "Créer un compte",
-  "email": "E-mail",
-  "password": "Mot de passe",
-  "pickPhoto": "Choisir une photo",
-  "errorMissingFields": "Remplissez tous les champs et choisissez une photo.",
-  "errorCreate": "Erreur lors de la création du compte.",
-  "success": "Compte créé avec succès !",
-  "submit": "S'inscrire"
-},
-"tabs": {
-  "home": "Accueil",
-  "explore": "Explorer",
-  "community": "Communauté",
-  "likes": "Favoris",
-  "chat": "Chat",
-  "profile": "Profil"
-}
-
-
+    "email": "E-mail",
+    "errorCreate": "Erreur lors de la création du compte.",
+    "errorMissingFields": "Remplissez tous les champs et choisissez une photo.",
+    "name": "",
+    "password": "Mot de passe",
+    "pickPhoto": "Choisir une photo",
+    "submit": "S'inscrire",
+    "success": "Compte créé avec succès !",
+    "title": "Créer un compte"
+  },
+  "tabs": {
+    "chat": "Chat",
+    "community": "Communauté",
+    "explore": "Explorer",
+    "home": "Accueil",
+    "likes": "Favoris",
+    "profile": "Profil"
+  }
 }

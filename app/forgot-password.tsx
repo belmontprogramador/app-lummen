@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
-import { UsersAPI } from "@/service/users";
+import { passwordResetService } from "@/service/passwordResetService";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 
@@ -23,9 +23,14 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      await UsersAPI.forgotPassword(email);
+      await passwordResetService.forgotPassword(email);
       setMessage(t("forgot.emailSent"));
-      router.replace("/");
+
+      // 🔥 Dá um pequeno delay para o usuário ver o feedback
+      setTimeout(() => {
+        router.replace("/");
+      }, 1200);
+
     } catch (err: any) {
       setError(t("forgot.emailError"));
     } finally {

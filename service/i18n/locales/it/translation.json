@@ -1,12 +1,12 @@
 {
   "forgot": {
-    "title": "Recupera password",
-    "emailPlaceholder": "Inserisci la tua email",
-    "emailInvalid": "Inserisci un'email valida",
-    "emailSent": "Ti abbiamo inviato un link di recupero via email.",
+    "backToLogin": "Torna al login",
     "emailError": "Impossibile inviare l'email. Riprova.",
+    "emailInvalid": "Inserisci un'email valida",
+    "emailPlaceholder": "Inserisci la tua email",
+    "emailSent": "Ti abbiamo inviato un link di recupero via email.",
     "submit": "Invia link di recupero",
-    "backToLogin": "Torna al login"
+    "title": "Recupera password"
   },
   "login": {
     "email": "Email",
@@ -18,23 +18,22 @@
     "title": "Accesso"
   },
   "register": {
-  "title": "Crea account",
-  "email": "Email",
-  "password": "Password",
-  "pickPhoto": "Scegli foto",
-  "errorMissingFields": "Compila tutti i campi e scegli una foto.",
-  "errorCreate": "Errore durante la creazione dell'account.",
-  "success": "Account creato con successo!",
-  "submit": "Registrati"
-},
-"tabs": {
-  "home": "Home",
-  "explore": "Esplora",
-  "community": "Comunità",
-  "likes": "Like",
-  "chat": "Chat",
-  "profile": "Profilo"
-}
-
-
+    "email": "Email",
+    "errorCreate": "Errore durante la creazione dell'account.",
+    "errorMissingFields": "Compila tutti i campi e scegli una foto.",
+    "name": "",
+    "password": "Password",
+    "pickPhoto": "Scegli foto",
+    "submit": "Registrati",
+    "success": "Account creato con successo!",
+    "title": "Crea account"
+  },
+  "tabs": {
+    "chat": "Chat",
+    "community": "Comunità",
+    "explore": "Esplora",
+    "home": "Home",
+    "likes": "Like",
+    "profile": "Profilo"
+  }
 }

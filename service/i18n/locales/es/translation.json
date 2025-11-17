@@ -1,14 +1,13 @@
 {
   "forgot": {
-    "title": "Recuperar contraseña",
-    "emailPlaceholder": "Ingresa tu correo electrónico",
-    "emailInvalid": "Ingresa un correo válido",
-    "emailSent": "Hemos enviado un enlace de recuperación a tu correo.",
+    "backToLogin": "Volver al inicio de sesión",
     "emailError": "No se pudo enviar el correo. Inténtalo nuevamente.",
+    "emailInvalid": "Ingresa un correo válido",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "emailSent": "Hemos enviado un enlace de recuperación a tu correo.",
     "submit": "Enviar enlace de recuperación",
-    "backToLogin": "Volver al inicio de sesión"
+    "title": "Recuperar contraseña"
   },
- 
   "login": {
     "email": "Correo electrónico",
     "forgotPassword": "¿Olvidaste tu contraseña?",
@@ -19,23 +18,22 @@
     "title": "Iniciar sesión"
   },
   "register": {
-  "title": "Crear cuenta",
-  "email": "Correo electrónico",
-  "password": "Contraseña",
-  "pickPhoto": "Elegir foto",
-  "errorMissingFields": "Completa todos los campos y selecciona una foto.",
-  "errorCreate": "Error al crear la cuenta.",
-  "success": "¡Cuenta creada con éxito!",
-  "submit": "Registrar"
-},
-"tabs": {
-  "home": "Inicio",
-  "explore": "Explorar",
-  "community": "Comunidad",
-  "likes": "Me gusta",
-  "chat": "Chat",
-  "profile": "Perfil"
-}
-
-
+    "email": "Correo electrónico",
+    "errorCreate": "Error al crear la cuenta.",
+    "errorMissingFields": "Completa todos los campos y selecciona una foto.",
+    "name": "",
+    "password": "Contraseña",
+    "pickPhoto": "Elegir foto",
+    "submit": "Registrar",
+    "success": "¡Cuenta creada con éxito!",
+    "title": "Crear cuenta"
+  },
+  "tabs": {
+    "chat": "Chat",
+    "community": "Comunidad",
+    "explore": "Explorar",
+    "home": "Inicio",
+    "likes": "Me gusta",
+    "profile": "Perfil"
+  }
 }
