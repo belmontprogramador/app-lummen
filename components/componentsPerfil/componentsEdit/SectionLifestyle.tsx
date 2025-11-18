@@ -1,6 +1,6 @@
 // src/components/profileEdit/SectionLifestyle.tsx
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
 type Props = {
   form: any;
@@ -22,10 +22,11 @@ function OptionChips({
       {options.map((opt: any) => {
         const selected = value === opt.value;
         return (
-          <View
+          <TouchableOpacity
             key={opt.value}
+            onPress={() => onChange(opt.value)}
             style={{
-              paddingHorizontal: 10,
+              paddingHorizontal: 12,
               paddingVertical: 6,
               borderRadius: 20,
               borderWidth: 1,
@@ -34,13 +35,10 @@ function OptionChips({
               backgroundColor: selected ? "#000" : "#fff",
             }}
           >
-            <Text
-              style={{ color: selected ? "#fff" : "#000" }}
-              onPress={() => onChange(opt.value)}
-            >
+            <Text style={{ color: selected ? "#fff" : "#000" }}>
               {opt.label}
             </Text>
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>
@@ -48,129 +46,149 @@ function OptionChips({
 }
 
 export default function SectionLifestyle({ form, setForm, enums }: Props) {
-  const zodiac = enums?.ZodiacSign || [];
   const pets = enums?.PetsPreference || [];
   const drinking = enums?.DrinkingStatus || [];
   const smoking = enums?.SmokingStatus || [];
   const activity = enums?.ActivityFrequency || [];
   const communication = enums?.CommunicationStyle || [];
 
+  const pf = form.profileLifestyle || {};
+
   return (
-    <View style={{ marginBottom: 24 }}>
+    <View style={{ marginBottom: 32 }}>
       <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
         Lifestyle
       </Text>
 
-      {/* Zodiac */}
-      <Text>Zodiac</Text>
-      <OptionChips
-        options={zodiac}
-        value={form.zodiac}
-        onChange={(val) =>
-          setForm((prev: any) => ({
-            ...prev,
-            zodiac: val,
-          }))
-        }
-      />
-      {form.zodiac === "OTHER" && (
-        <>
-          <Text style={{ marginTop: 8 }}>Other zodiac</Text>
-          <TextInput
-            value={form.zodiacOther || ""}
-            onChangeText={(v) =>
-              setForm((prev: any) => ({ ...prev, zodiacOther: v }))
-            }
-            style={{ borderWidth: 1, padding: 10, borderRadius: 6, marginTop: 4 }}
-          />
-        </>
-      )}
-
-      {/* Pets */}
-      <Text style={{ marginTop: 12 }}>Pets</Text>
+      {/* PETS */}
+      <Text>Pets</Text>
       <OptionChips
         options={pets}
-        value={form.pets}
+        value={pf.pets}
         onChange={(val) =>
           setForm((prev: any) => ({
             ...prev,
-            pets: val,
+            profileLifestyle: {
+              ...prev.profileLifestyle,
+              pets: val,
+              petsOther: val !== "OTHER" ? "" : prev.profileLifestyle?.petsOther,
+            },
           }))
         }
       />
-      {form.pets === "OTHER" && (
+
+      {pf.pets === "OTHER" && (
         <>
           <Text style={{ marginTop: 8 }}>Other pets</Text>
           <TextInput
-            value={form.petsOther || ""}
+            value={pf.petsOther || ""}
             onChangeText={(v) =>
-              setForm((prev: any) => ({ ...prev, petsOther: v }))
+              setForm((prev: any) => ({
+                ...prev,
+                profileLifestyle: {
+                  ...prev.profileLifestyle,
+                  petsOther: v,
+                },
+              }))
             }
-            style={{ borderWidth: 1, padding: 10, borderRadius: 6, marginTop: 4 }}
+            style={{
+              borderWidth: 1,
+              padding: 10,
+              borderRadius: 6,
+              marginTop: 4,
+            }}
           />
         </>
       )}
 
-      {/* Drinking */}
+      {/* DRINKING */}
       <Text style={{ marginTop: 12 }}>Drinking</Text>
       <OptionChips
         options={drinking}
-        value={form.drinking}
+        value={pf.drinking}
         onChange={(val) =>
           setForm((prev: any) => ({
             ...prev,
-            drinking: val,
+            profileLifestyle: {
+              ...prev.profileLifestyle,
+              drinking: val,
+            },
           }))
         }
       />
 
-      {/* Smoking */}
+      {/* SMOKING */}
       <Text style={{ marginTop: 12 }}>Smoking</Text>
       <OptionChips
         options={smoking}
-        value={form.smoking}
+        value={pf.smoking}
         onChange={(val) =>
           setForm((prev: any) => ({
             ...prev,
-            smoking: val,
+            profileLifestyle: {
+              ...prev.profileLifestyle,
+              smoking: val,
+            },
           }))
         }
       />
 
-      {/* Activity */}
+      {/* ACTIVITY LEVEL */}
       <Text style={{ marginTop: 12 }}>Activity level</Text>
       <OptionChips
         options={activity}
-        value={form.activityLevel}
+        value={pf.activityLevel}
         onChange={(val) =>
           setForm((prev: any) => ({
             ...prev,
-            activityLevel: val,
+            profileLifestyle: {
+              ...prev.profileLifestyle,
+              activityLevel: val,
+            },
           }))
         }
       />
 
-      {/* Communication */}
+      {/* COMMUNICATION */}
       <Text style={{ marginTop: 12 }}>Communication style</Text>
       <OptionChips
         options={communication}
-        value={form.communication}
+        value={pf.communication}
         onChange={(val) =>
           setForm((prev: any) => ({
             ...prev,
-            communication: val,
+            profileLifestyle: {
+              ...prev.profileLifestyle,
+              communication: val,
+              communicationOther:
+                val !== "OTHER"
+                  ? ""
+                  : prev.profileLifestyle?.communicationOther,
+            },
           }))
         }
       />
-      {form.communication === "OTHER" && (
+
+      {pf.communication === "OTHER" && (
         <>
           <Text style={{ marginTop: 8 }}>Other communication style</Text>
           <TextInput
-            value={form.communicationOther || ""}
+            value={pf.communicationOther || ""}
             onChangeText={(v) =>
-              setForm((prev: any) => ({ ...prev, communicationOther: v }))
+              setForm((prev: any) => ({
+                ...prev,
+                profileLifestyle: {
+                  ...prev.profileLifestyle,
+                  communicationOther: v,
+                },
+              }))
             }
-            style={{ borderWidth: 1, padding: 10, borderRadius: 6, marginTop: 4 }}
+            style={{
+              borderWidth: 1,
+              padding: 10,
+              borderRadius: 6,
+              marginTop: 4,
+            }}
           />
         </>
       )}

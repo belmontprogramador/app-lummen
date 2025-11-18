@@ -11,6 +11,9 @@ import { AereaShowHeader } from "@/components/headers/AereaShowHeader";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../service/i18n/i18n";
 
+// 🔥 IMPORTANTE PARA O ERRO
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 export default function RootLayout() {
   const pathname = usePathname();
 
@@ -23,18 +26,18 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      {/* PROVIDER DO I18N 👇 */}
       <I18nextProvider i18n={i18n}>
-        <View style={{ flex: 1 }}>
 
-          {isAereaShow ? (
-            <AereaShowHeader />
-          ) : (
-            <GlobalHeader />
-          )}
+        {/* 🔥 WRAPPER OBRIGATÓRIO PARA RESOLVER O ERRO DO DraggableFlatList */}
+        <GestureHandlerRootView style={{ flex: 1 }}>
 
-          <Stack screenOptions={{ headerShown: false }} />
-        </View>
+          <View style={{ flex: 1 }}>
+            {isAereaShow ? <AereaShowHeader /> : <GlobalHeader />}
+            <Stack screenOptions={{ headerShown: false }} />
+          </View>
+
+        </GestureHandlerRootView>
+
       </I18nextProvider>
     </AuthProvider>
   );

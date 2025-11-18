@@ -1,9 +1,10 @@
+// src/components/ComponentsInicio/ProfileDetails.tsx
+
 import { View, Text } from "react-native";
 
 export default function ProfileDetails({ profile }: any) {
   if (!profile) return null;
 
-  // 🔥 Mapa de labels amigáveis
   const labels: any = {
     bio: "Bio",
     birthday: "Aniversário",
@@ -53,17 +54,22 @@ export default function ProfileDetails({ profile }: any) {
 
       {Object.keys(labels).map((key) => {
         const value = profile[key];
+        if (value === null || value === undefined) return null;
 
-        // arrays vazios → não mostra
-        if (Array.isArray(value) && value.length === 0) return null;
+        let displayValue = "—";
 
-        // strings nulas ou vazias → mostra com "—"
-        const displayValue =
-          value && !Array.isArray(value)
-            ? value
-            : Array.isArray(value)
-            ? value.join(", ")
-            : "—";
+        if (Array.isArray(value)) {
+          // Array com enums traduzidos
+          displayValue = value
+            .map((v) => (typeof v === "object" && v.label ? v.label : v))
+            .join(", ");
+        } else if (typeof value === "object" && value.label) {
+          // Objeto { value, label }
+          displayValue = value.label;
+        } else if (value) {
+          // string normal
+          displayValue = value;
+        }
 
         return (
           <Text key={key} style={{ marginBottom: 6 }}>

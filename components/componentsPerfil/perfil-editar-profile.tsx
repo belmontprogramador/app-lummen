@@ -5,6 +5,10 @@ import * as Localization from "expo-localization";
 
 import SectionBasicInfo from "@/components/componentsPerfil/componentsEdit/SectionBasicInfo";
 import SectionIntention from "@/components/componentsPerfil/componentsEdit/SectionIntention";
+import SectionLifestyle from "@/components/componentsPerfil/componentsEdit/SectionLifestyle";
+import SectionWorkEducation from "@/components/componentsPerfil/componentsEdit/SectionWorkEducation";
+import SectionInterests from "@/components/componentsPerfil/componentsEdit/SectionInterests";
+import SectionLocation from "@/components/componentsPerfil/componentsEdit/SectionLocation"; // <-- IMPORTAÇÃO AQUI
 
 import api from "@/service/api";
 
@@ -55,13 +59,28 @@ export default function Perfil() {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 20 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ padding: 20 }}
+      >
 
         {/* -------- BASIC INFO -------- */}
         <SectionBasicInfo form={form} setForm={setForm} enums={enums} />
 
+        {/* -------- LOCATION -------- */}
+        <SectionLocation form={form} setForm={setForm} />
+
         {/* -------- INTENTION -------- */}
         <SectionIntention form={form} setForm={setForm} enums={enums} />
+
+        {/* -------- LIFESTYLE -------- */}
+        <SectionLifestyle form={form} setForm={setForm} enums={enums} />
+
+        {/* -------- WORK & EDUCATION -------- */}
+        <SectionWorkEducation form={form} setForm={setForm} enums={enums} />
+
+        {/* -------- INTERESTS -------- */}
+        <SectionInterests form={form} setForm={setForm} enums={enums} />
 
         {/* -------- SAVE BUTTON -------- */}
         <TouchableOpacity

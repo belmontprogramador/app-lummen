@@ -1,171 +1,98 @@
 // src/components/profileEdit/SectionInterests.tsx
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   form: any;
   setForm: React.Dispatch<React.SetStateAction<any>>;
+  enums: any;
 };
 
-function arrayToString(arr?: string[]) {
-  if (!arr || !Array.isArray(arr)) return "";
-  return arr.join(", ");
+// Toggle helper
+function toggle(arr: string[], value: string) {
+  if (arr.includes(value)) {
+    return arr.filter((v) => v !== value);
+  }
+  return [...arr, value];
 }
 
-function stringToArray(text: string): string[] {
-  return text
-    .split(",")
-    .map((t) => t.trim())
-    .filter((t) => !!t);
-}
+export default function SectionInterests({ form, setForm, enums }: Props) {
+  // Pegando todos os enums do backend:
+  const languages = enums?.Language || [];
+  const activities = enums?.InterestActivity || [];
+  const lifestyle = enums?.InterestLifestyle || [];
+  const creativity = enums?.InterestCreativity || [];
+  const sports = enums?.InterestSports || [];
+  const music = enums?.InterestMusic || [];
+  const nightlife = enums?.InterestNightlife || [];
+  const tvcinema = enums?.InterestTvCinema || [];
 
-export default function SectionInterests({ form, setForm }: Props) {
+  // Renderizador de grupo de chips
+  const renderGroup = (
+    title: string,
+    items: any[],
+    field: keyof typeof form
+  ) => (
+    <View style={{ marginBottom: 20 }}>
+      <Text style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}>
+        {title}
+      </Text>
+
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        {items.map((opt: any) => {
+          const selected = form[field]?.includes(opt.value);
+
+          return (
+            <TouchableOpacity
+              key={opt.value}
+              onPress={() =>
+                setForm((prev: any) => ({
+                  ...prev,
+                  [field]: toggle(prev[field] || [], opt.value),
+                }))
+              }
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 6,
+                borderRadius: 20,
+                borderWidth: 1,
+                marginRight: 8,
+                marginBottom: 8,
+                backgroundColor: selected ? "#000" : "#fff",
+                borderColor: selected ? "#000" : "#777",
+              }}
+            >
+              <Text style={{ color: selected ? "#fff" : "#000" }}>
+                {opt.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
+  );
+
   return (
     <View style={{ marginBottom: 24 }}>
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: "bold",
+          marginBottom: 16,
+          marginTop: 5,
+        }}
+      >
         Interests & Activities
       </Text>
 
-      {/* LANGUAGES */}
-      <Text>Languages (comma separated)</Text>
-      <TextInput
-        value={arrayToString(form.languages)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({ ...p, languages: stringToArray(v) }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* ACTIVITIES */}
-      <Text>Activities</Text>
-      <TextInput
-        value={arrayToString(form.interestsActivities)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsActivities: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* LIFESTYLE */}
-      <Text>Lifestyle</Text>
-      <TextInput
-        value={arrayToString(form.interestsLifestyle)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsLifestyle: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* CREATIVITY */}
-      <Text>Creativity & hobbies</Text>
-      <TextInput
-        value={arrayToString(form.interestsCreativity)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsCreativity: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* SPORTS */}
-      <Text>Sports & fitness</Text>
-      <TextInput
-        value={arrayToString(form.interestsSportsFitness)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsSportsFitness: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* MUSIC */}
-      <Text>Music</Text>
-      <TextInput
-        value={arrayToString(form.interestsMusic)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsMusic: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* NIGHTLIFE */}
-      <Text>Nightlife</Text>
-      <TextInput
-        value={arrayToString(form.interestsNightlife)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsNightlife: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
-
-      {/* TV & CINEMA */}
-      <Text>TV & cinema</Text>
-      <TextInput
-        value={arrayToString(form.interestsTvCinema)}
-        onChangeText={(v) =>
-          setForm((p: any) => ({
-            ...p,
-            interestsTvCinema: stringToArray(v),
-          }))
-        }
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 6,
-          marginBottom: 10,
-        }}
-      />
+      {renderGroup("Languages", languages, "languages")}
+      {renderGroup("Activities", activities, "interestsActivities")}
+      {renderGroup("Lifestyle", lifestyle, "interestsLifestyle")}
+      {renderGroup("Creativity & Hobbies", creativity, "interestsCreativity")}
+      {renderGroup("Sports & Fitness", sports, "interestsSportsFitness")}
+      {renderGroup("Music", music, "interestsMusic")}
+      {renderGroup("Nightlife", nightlife, "interestsNightlife")}
+      {renderGroup("TV & Cinema", tvcinema, "interestsTvCinema")}
     </View>
   );
 }

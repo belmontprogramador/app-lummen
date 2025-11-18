@@ -1,8 +1,15 @@
+// src/app/(tabs)/inicio.tsx
+
 import { useEffect, useState } from "react";
-import { ScrollView, View, Dimensions, ActivityIndicator } from "react-native";
+import {
+  ScrollView,
+  View,
+  Dimensions,
+  ActivityIndicator
+} from "react-native";
 
 import { useAuthGuard } from "@/hooks/useAuthGuard";
-import { FeedAPI } from "@/service/feed"; //  👈 TROCA AQUI !!!
+import { FeedAPI } from "@/service/feed";
 
 import SwipeUserCard from "@/components/ComponentsInicio/SwipeUserCard";
 import ProfileDetails from "@/components/ComponentsInicio/ProfileDetails";
@@ -23,7 +30,9 @@ export default function Inicio() {
 
   async function loadUsers() {
     try {
-      const res = await FeedAPI.list(1, 20); //  👈 TROCA AQUI !!!
+      const res = await FeedAPI.list(1, 20);
+
+      // 🔥 AGORA USAMOS u.profile traduzido
       setUsers(res.data.items || []);
     } catch (e) {
       console.log("Erro:", e);
@@ -34,14 +43,6 @@ export default function Inicio() {
 
   function skipUser() {
     setUsers((prev) => prev.slice(1));
-  }
-
-  function handleLike() {
-    skipUser();
-  }
-
-  function handleDislike() {
-    skipUser();
   }
 
   if (loading) {
@@ -64,25 +65,19 @@ export default function Inicio() {
           }}
           showsVerticalScrollIndicator={false}
         >
+          {/* FOTO + SWIPE */}
           <SwipeUserCard user={u} onSkip={skipUser} />
 
+          {/* BOTÕES DE LIKE */}
           <LikeDislikeButtons
-            onLike={handleLike}
-            onDislike={handleDislike}
+            onLike={skipUser}
+            onDislike={skipUser}
           />
 
-          <ProfileDetails
-            profile={{
-              ...u.profileBasic,
-              ...u.profileLocation,
-              ...u.profileLifestyle,
-              ...u.profileWork,
-              ...u.profileRelation,
-              ...u.profileInterests,
-              ...u.profileExtra,
-            }}
-          />
+          {/* 🔥 PERFIL TRADUZIDO */}
+          <ProfileDetails profile={u.profile} />
 
+          {/* 🔥 PREFERÊNCIAS (se tiver enum, traduzir depois no backend) */}
           <PreferencesDetails preference={u.preference} />
 
           <View style={{ height: 100 }} />
