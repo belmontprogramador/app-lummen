@@ -58,24 +58,20 @@ export default function PerfilFotos() {
     }
   }
 
- async function deletePhoto(photoId: string) {
-  try {
-    console.log("Apagando foto", photoId);
-    await PhotosAPI.remove(photoId);
-
-    setPhotos(prev => prev.filter(p => p.id !== photoId));
-  } catch (err: any) {
-    console.log("Erro delete:", err.response?.data || err);
-    Alert.alert("Erro", "Falha ao excluir a foto.");
+  async function deletePhoto(photoId: string) {
+    try {
+      await PhotosAPI.remove(photoId);
+      setPhotos(prev => prev.filter(p => p.id !== photoId));
+    } catch (err: any) {
+      console.log("Erro delete:", err.response?.data || err);
+      Alert.alert("Erro", "Falha ao excluir a foto.");
+    }
   }
-}
-
 
   async function saveOrder() {
     try {
       setSaving(true);
 
-      // 🔥 Array final que o back exige
       const data = photos.map((p, index) => ({
         id: p.id ?? null,
         position: index + 1,
@@ -93,7 +89,6 @@ export default function PerfilFotos() {
   }
 
   function renderItem({ item, drag }: any) {
-     console.log("FOTO NO FRONT:", item);
     return (
       <TouchableOpacity 
         onLongPress={drag}
@@ -133,7 +128,6 @@ export default function PerfilFotos() {
         Minhas fotos
       </Text>
 
-      {/* Botão adicionar */}
       <TouchableOpacity 
         onPress={addPhoto}
         style={{
@@ -143,7 +137,9 @@ export default function PerfilFotos() {
           marginBottom: 20,
         }}
       >
-        <Text style={{ textAlign: "center", color: "#fff" }}>Adicionar foto</Text>
+        <Text style={{ textAlign: "center", color: "#fff" }}>
+          Adicionar foto
+        </Text>
       </TouchableOpacity>
 
       {loading ? (
@@ -152,12 +148,11 @@ export default function PerfilFotos() {
         <DraggableFlatList
           data={photos}
           onDragEnd={({ data }) => setPhotos(data)}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           renderItem={renderItem}
         />
       )}
 
-      {/* Botão salvar ordem */}
       <TouchableOpacity 
         onPress={saveOrder}
         disabled={saving}

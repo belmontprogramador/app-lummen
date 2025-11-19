@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { View, Button, ScrollView, TouchableOpacity, Text } from "react-native";
-import { Stack } from "expo-router"; // ⭐ PARA ESCONDER O HEADER PADRÃO
+import { Stack } from "expo-router";
 
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { AuthContext } from "@/context/AuthContext";
@@ -20,13 +20,13 @@ export default function Perfil() {
     "user" | "profile" | "fotos" | "preferencesFree" | "preferencesPremium"
   >("user");
 
+  const isFotos = tab === "fotos";
+
   return (
     <View style={{ flex: 1 }}>
-      
-      {/* 🔥 REMOVE O HEADER PADRÃO QUE ESTAVA QUEBRANDO O LAYOUT */}
       <Stack.Screen options={{ headerShown: false }} />
 
-      {/* --- TOPO: BOTÕES DE TROCA --- */}
+      {/* TOP MENU */}
       <View style={{ backgroundColor: "#f2f2f2" }}>
         <ScrollView
           horizontal
@@ -103,23 +103,23 @@ export default function Perfil() {
         </ScrollView>
       </View>
 
-      {/* --- CONTEÚDO --- */}
-      <ScrollView
-        style={{ flex: 1 }}
-        contentContainerStyle={{ paddingBottom: 40 }}
-      >
-        {tab === "user" && <PerfilEditarUser />}
-        {tab === "profile" && <PerfilEditarProfile />}
-        {tab === "fotos" && <PerfilFotos />}
-        {tab === "preferencesFree" && <PreferencesFreeScreen />}
-        {tab === "preferencesPremium" && <PreferencesPremiumScreen />}
-      </ScrollView>
+      {/* CONTEÚDO */}
+      {isFotos ? (
+        // ⚠️ NÃO USE ScrollView AQUI
+        <PerfilFotos />
+      ) : (
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 40 }}>
+          {tab === "user" && <PerfilEditarUser />}
+          {tab === "profile" && <PerfilEditarProfile />}
+          {tab === "preferencesFree" && <PreferencesFreeScreen />}
+          {tab === "preferencesPremium" && <PreferencesPremiumScreen />}
+        </ScrollView>
+      )}
 
-      {/* --- LOGOUT --- */}
+      {/* LOGOUT */}
       <View style={{ padding: 20 }}>
         <Button title="Sair" onPress={signOut} />
       </View>
-
     </View>
   );
 }
