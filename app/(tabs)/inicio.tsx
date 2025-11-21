@@ -49,9 +49,10 @@ export default function Inicio() {
     try {
       setLoading(true);
 
-      const isPaid = user?.isPaid === true;
+     const isPremiumRoute = user?.plan?.allowedRoutes?.includes("feed_list_premium");
 
-      const res = await FeedAPI.list(1, 20, isPaid);
+const res = await FeedAPI.list(1, 20, isPremiumRoute);
+
       setUsers(res?.data?.items || []);
     } catch (e) {
       console.log("Erro ao carregar feed:", e);

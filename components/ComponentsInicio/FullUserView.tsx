@@ -9,6 +9,7 @@ import LikeDislikeButtons from "./LikeDislikeButtons";
 
 import FeedFreeComponent from "./FeedFreeComponent";
 import FeedPremiumComponent from "./FeedPremiumComponent";
+import UserPreferencesView from "./UserPreferencesView"; // <-- IMPORTANTE
 
 export default function FullUserView({
   user,
@@ -20,16 +21,19 @@ export default function FullUserView({
   const screenWidth = Dimensions.get("window").width;
   const { user: authUser } = useContext(AuthContext);
 
-  // PREMIUM = pagou OU tem rota premium liberada
-  const isPremium =
-    authUser?.isPaid === true ||
-    authUser?.plan?.allowedRoutes?.includes("feed_list_premium");
+  // Pegamos as rotas liberadas
+  const allowed = authUser?.plan?.allowedRoutes || [];
+
+  // Níveis
+  const isPremium = allowed.includes("feed_list_premium");
+  const isSuperPremium = allowed.includes("feed_list_super_premium");
 
   return (
     <ScrollView
       style={{ width: screenWidth, padding: 20 }}
       showsVerticalScrollIndicator={false}
     >
+      {/* Foto + Carousel */}
       <SwipeUserCard user={user} onSkip={onSkip} />
 
       <LikeDislikeButtons
@@ -38,11 +42,20 @@ export default function FullUserView({
         onSuperLike={onSuperLike}
       />
 
-      {/* 🔥 FREE vê apenas o básico */}
-      {!isPremium && <FeedFreeComponent user={user} />}
+      {/* ========= FREE ========= */}
+      {!isPremium && !isSuperPremium && (
+        <FeedFreeComponent user={user} />
+      )}
 
-      {/* 🔥 PREMIUM vê tudo, sem repetir FREE */}
-      {isPremium && <FeedPremiumComponent user={user} />}
+      {/* ========= PREMIUM ========= */}
+      {(isPremium || isSuperPremium) && (
+        <FeedPremiumComponent user={user} />
+      )}
+
+      {/* ========= SUPER PREMIUM ========= */}
+      {isSuperPremium && (
+        <UserPreferencesView preference={user.preference} />
+      )}
 
       <View style={{ height: 100 }} />
     </ScrollView>

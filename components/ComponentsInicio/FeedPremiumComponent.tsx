@@ -4,14 +4,8 @@ import { View, Text } from "react-native";
 
 export default function FeedPremiumComponent({ user }: any) {
   const profile = user.profile || {};
-  const preference = user.preference || {};
-
-  const hiddenPrefKeys = ["userId", "updatedAt"];
 
   const profileKeys = Object.keys(profile);
-  const preferenceKeys = Object.keys(preference).filter(
-    (k) => !hiddenPrefKeys.includes(k)
-  );
 
   const getAge = (date: string) => {
     if (!date) return null;
@@ -52,7 +46,7 @@ export default function FeedPremiumComponent({ user }: any) {
 
   return (
     <View style={{ marginTop: 25 }}>
-      {/* PROFILE */}
+      {/* PROFILE ONLY */}
       <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 10 }}>
         Sobre
       </Text>
@@ -61,18 +55,6 @@ export default function FeedPremiumComponent({ user }: any) {
         <Text key={key} style={{ marginBottom: 6 }}>
           <Text style={{ fontWeight: "bold" }}>{key}: </Text>
           {normalizeValue(key, profile[key])}
-        </Text>
-      ))}
-
-      {/* PREFERENCES */}
-      <Text style={{ fontSize: 22, fontWeight: "bold", marginVertical: 10 }}>
-        Preferências
-      </Text>
-
-      {preferenceKeys.map((key) => (
-        <Text key={key} style={{ marginBottom: 6 }}>
-          <Text style={{ fontWeight: "bold" }}>{key}: </Text>
-          {normalizeValue(key, preference[key])}
         </Text>
       ))}
     </View>
