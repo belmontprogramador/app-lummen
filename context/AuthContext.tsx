@@ -5,35 +5,29 @@ import { User } from "@/types/user";
 import { LoginResponse } from "@/types/auth";
 import { router } from "expo-router";
 
-// ---------------------------
-// TIPAGEM DO CONTEXTO
-// ---------------------------
 export interface AuthContextType {
   user: User | null;
   loading: boolean;
 
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
-
-  // 👇 função usada pelo PerfilEditar
   updateUser: (data: Partial<User>) => Promise<void>;
+
+  // ⭐ Novo
+  refreshUser: () => Promise<void>;
 }
 
-// ---------------------------
-// CRIAÇÃO DO CONTEXTO
-// ---------------------------
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType
 );
 
-// ---------------------------
-// PROVIDER
-// ---------------------------
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Restaurar sessão ao abrir o app
+  // ---------------------------
+  // RESTORE SESSION
+  // ---------------------------
   useEffect(() => {
     restoreSession();
   }, []);
@@ -48,6 +42,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setLoading(false);
+  }
+
+  // ---------------------------
+  // ⭐ REFRESH USER (importante)
+  // ---------------------------
+  async function refreshUser() {
+    try {
+      const res = await UsersAPI.me(); // GET /users/me
+      const fresh = res.data;
+
+      setUser(fresh);
+      await AsyncStorage.setItem("@user", JSON.stringify(fresh));
+
+      console.log("🔄 Usuário atualizado com sucesso:", fresh.plan?.name);
+    } catch (err) {
+      console.log("Erro ao atualizar usuário:", err);
+    }
   }
 
   // ---------------------------
@@ -66,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(data.user);
 
       router.replace("/aereashow");
-    } catch (error) {
+    } catch {
       throw new Error("Email ou senha inválidos");
     } finally {
       setLoading(false);
@@ -84,22 +95,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   // ---------------------------
-  // UPDATE USER (LOCAL)
-  // Perfeito para PerfilEditar
+  // UPDATE LOCAL USER
   // ---------------------------
- async function updateUser(data: Partial<User>) {
-  if (!user) return;
+  async function updateUser(data: Partial<User>) {
+    if (!user) return;
 
-  let updated = { ...user, ...data };
+    let updated = { ...user, ...data };
 
-  // 🔥 quebrar cache de imagem
-  if (data.photo) {
-    updated.photo = data.photo + "?t=" + Date.now();
+    if (data.photo) {
+      updated.photo = data.photo + "?t=" + Date.now();
+    }
+
+    setUser(updated);
+    await AsyncStorage.setItem("@user", JSON.stringify(updated));
   }
-
-  setUser(updated);
-  await AsyncStorage.setItem("@user", JSON.stringify(updated));
-}
 
   // ---------------------------
   // RETURN
@@ -111,7 +120,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         signIn,
         signOut,
-        updateUser, // 👈 totalmente tipado e funcionando
+        updateUser,
+        refreshUser,   // ⭐ agora está disponível para todo app
       }}
     >
       {children}

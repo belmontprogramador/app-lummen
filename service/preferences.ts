@@ -11,7 +11,7 @@ export const PreferencesAPI = {
 
   update: async (data: any) => {
     try {
-      const res = await api.patch("/user-preferences", data);
+      const res = await api.patch("/user-preferences/premium", data);
       return { ok: true, data: res.data };
     } catch (err: any) {
       if (err.response?.status === 403) {

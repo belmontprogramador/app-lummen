@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import { GlobalHeader } from "@/components/headers/GlobalHeader";
 import { AereaShowHeader } from "@/components/headers/AereaShowHeader";
+import "./global.css";
+
 
 // IMPORTANTE 👇👇👇
 import { I18nextProvider } from "react-i18next";

@@ -1,0 +1,17 @@
+/* Corrige ScrollView no Web */
+html, body, #root, #__next {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Permitir scroll dentro do app */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+:root {
+  --overflow: auto;
+}

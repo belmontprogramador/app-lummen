@@ -1,53 +1,86 @@
 // src/app/(tabs)/inicio.tsx
 
-import { useEffect, useState } from "react";
-import {
-  ScrollView,
-  View,
-  Dimensions,
-  ActivityIndicator
-} from "react-native";
+import { useEffect, useState, useCallback, useContext } from "react";
+import { ScrollView, ActivityIndicator, Dimensions } from "react-native";
 
+import { router, useFocusEffect } from "expo-router";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { FeedAPI } from "@/service/feed";
+import { AuthContext } from "@/context/AuthContext";
 
-import SwipeUserCard from "@/components/ComponentsInicio/SwipeUserCard";
-import ProfileDetails from "@/components/ComponentsInicio/ProfileDetails";
-import PreferencesDetails from "@/components/ComponentsInicio/PreferencesDetails";
-import LikeDislikeButtons from "@/components/ComponentsInicio/LikeDislikeButtons";
+import BottomSheetPlans from "@/components/modals/BottomSheetPlans";
+import FullUserView from "@/components/ComponentsInicio/FullUserView";
+
+import { checkAccess } from "@/utils/checkAccess";
 
 export default function Inicio() {
   useAuthGuard();
+  const { user, refreshUser } = useContext(AuthContext);
 
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showPlansModal, setShowPlansModal] = useState(false);
 
   const screenWidth = Dimensions.get("window").width;
 
-  useEffect(() => {
-    loadUsers();
-  }, []);
+  // Atualiza o state do user quando entra na tela
+  useFocusEffect(
+    useCallback(() => {
+      refreshUser();
+    }, [])
+  );
 
+  useEffect(() => {
+    if (!user) return;
+
+    // Checagem de rota dinâmica (feed_list agora é free/premium)
+    const blockScreen = checkAccess(user, "feed_list_free");
+
+    if (blockScreen) {
+      setLoading(false);
+      return;
+    }
+
+    loadUsers();
+  }, [user]);
+
+  // ⚡ Carrega feed conforme o tipo do usuário: FREE x PREMIUM
   async function loadUsers() {
     try {
-      const res = await FeedAPI.list(1, 20);
+      setLoading(true);
 
-      // 🔥 AGORA USAMOS u.profile traduzido
-      setUsers(res.data.items || []);
+      const isPaid = user?.isPaid === true;
+
+      const res = await FeedAPI.list(1, 20, isPaid);
+      setUsers(res?.data?.items || []);
     } catch (e) {
-      console.log("Erro:", e);
+      console.log("Erro ao carregar feed:", e);
     } finally {
       setLoading(false);
     }
   }
 
-  function skipUser() {
-    setUsers((prev) => prev.slice(1));
+  if (loading) {
+    return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
   }
 
-  if (loading) {
-    return <ActivityIndicator size="large" style={{ flex: 1 }} />;
+  // 🔥 Caso usuário não tenha acesso à rota free/premium
+  const blockScreen = checkAccess(user, "feed_list_free");
+  if (blockScreen) {
+    return (
+      <>
+        {blockScreen}
+        <BottomSheetPlans
+          visible={showPlansModal}
+          onClose={() => setShowPlansModal(false)}
+        />
+      </>
+    );
   }
+
+  const skipUser = () => {
+    setUsers((prev) => prev.slice(1));
+  };
 
   return (
     <ScrollView
@@ -57,31 +90,14 @@ export default function Inicio() {
       style={{ flex: 1 }}
     >
       {users.map((u) => (
-        <ScrollView
+        <FullUserView
           key={u.id}
-          style={{
-            width: screenWidth,
-            padding: 20,
-          }}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* FOTO + SWIPE */}
-          <SwipeUserCard user={u} onSkip={skipUser} />
-
-          {/* BOTÕES DE LIKE */}
-          <LikeDislikeButtons
-            onLike={skipUser}
-            onDislike={skipUser}
-          />
-
-          {/* 🔥 PERFIL TRADUZIDO */}
-          <ProfileDetails profile={u.profile} />
-
-          {/* 🔥 PREFERÊNCIAS (se tiver enum, traduzir depois no backend) */}
-          <PreferencesDetails preference={u.preference} />
-
-          <View style={{ height: 100 }} />
-        </ScrollView>
+          user={u}
+          onLike={skipUser}
+          onDislike={skipUser}
+          onSkip={skipUser}
+          onSuperLike={() => console.log("superlike")}
+        />
       ))}
     </ScrollView>
   );

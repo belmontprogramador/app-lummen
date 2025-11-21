@@ -1,14 +1,36 @@
+// ========================
+// MODELO DO PLANO DO USUÁRIO
+// ========================
+export interface UserPlan {
+  id: string;
+  name: string;            // Ex: "free", "premium", "gold"
+  title: string;
+  price: number;
+  durationDays: number;
+  allowedRoutes: string[];
+  routePayment?: Record<string, boolean>;
+}
+
+// ========================
+// MODELO DO USER
+// ========================
 export interface User {
   id: string;
   email: string;
-  name?: string;    
+  name?: string;
   photo?: string;
   isPaid: boolean;
   status?: string;
   createdAt?: string;
   updatedAt?: string;
+
+  // 🟣 ADICIONADO — plano atual do usuário
+  plan?: UserPlan | null;
 }
 
+// ========================
+// UPDATE DO USER
+// ========================
 export interface UserUpdateData {
   // Atualização direta do USER
   email?: string;
@@ -21,7 +43,7 @@ export interface UserUpdateData {
   // Foto de perfil
   photo?: any;
 
-  // ❗ Mantemos essas para compatibilidade futura, mas sem uso agora
+  // Mantido por compatibilidade
   photos?: any[];
   photo_position_file?: any;
   photo_position_index?: number;

@@ -5,12 +5,12 @@ import { Stack } from "expo-router";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { AuthContext } from "@/context/AuthContext";
 
-import PerfilEditarUser from "@/components/componentsPerfil/perfil-editar";
-import PerfilEditarProfile from "@/components/componentsPerfil/perfil-editar-profile";
-import PerfilFotos from "@/components/componentsPerfil/perfil-fotos";
+import PerfilEditarUser from "@/components/componentsPerfil/componentsProfile/componentsFree/editarPerfil/perfil-editar";
+import PerfilEditarProfile from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/perfil-editar-profile";
+import PerfilFotos from "@/components/componentsPerfil/componentsProfile/componentsFree/editarPhotos/perfil-fotos";
 
-import PreferencesFreeScreen from "@/components/compenentsPreferences/PreferencesFreeScreen";
-import PreferencesPremiumScreen from "@/components/compenentsPreferences/PreferencesPremiumScreen";
+import PreferencesFreeScreen from "@/components/componentsPerfil/compenentsPreferences/componentspFree/PreferencesFreeScreen";
+import PreferencesPremiumScreen from "@/components/componentsPerfil/compenentsPreferences/componentsPremium/PreferencesPremiumScreen";
 
 export default function Perfil() {
   useAuthGuard();

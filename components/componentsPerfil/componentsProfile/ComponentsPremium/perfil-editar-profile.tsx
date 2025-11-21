@@ -3,12 +3,12 @@ import { View, ScrollView, TouchableOpacity, Text, Alert } from "react-native";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import * as Localization from "expo-localization";
 
-import SectionBasicInfo from "@/components/componentsPerfil/componentsEdit/SectionBasicInfo";
-import SectionIntention from "@/components/componentsPerfil/componentsEdit/SectionIntention";
-import SectionLifestyle from "@/components/componentsPerfil/componentsEdit/SectionLifestyle";
-import SectionWorkEducation from "@/components/componentsPerfil/componentsEdit/SectionWorkEducation";
-import SectionInterests from "@/components/componentsPerfil/componentsEdit/SectionInterests";
-import SectionLocation from "@/components/componentsPerfil/componentsEdit/SectionLocation"; // <-- IMPORTAÇÃO AQUI
+import SectionBasicInfo from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionBasicInfo";
+import SectionIntention from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionIntention";
+import SectionLifestyle from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionLifestyle";
+import SectionWorkEducation from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionWorkEducation";
+import SectionInterests from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionInterests";
+import SectionLocation from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/componentsEdit/SectionLocation"; // <-- IMPORTAÇÃO AQUI
 
 import api from "@/service/api";
 

@@ -107,6 +107,9 @@ export const UsersAPI = {
   login: (email: string, password: string) =>
     api.post<LoginResponse>("/users/login", { email, password }),
 
+  // ⭐ NOVO: GET USER ME (atualiza dados após mudar plano, etc)
+  me: () => api.get<User>("/users/me"),
+
   // LIST USERS
   list: (page = 1, limit = 20, q = "") =>
     api.get<PaginationResponse<User>>("/users", {
@@ -137,3 +140,4 @@ export const UsersAPI = {
   setStatus: (id: string, status: string) =>
     api.patch(`/users/${id}/status`, { status }),
 };
+

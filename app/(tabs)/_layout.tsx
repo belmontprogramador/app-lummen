@@ -58,7 +58,11 @@ export default function TabLayout() {
         options={{
           title: t("tabs.chat"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbubble-ellipses-outline" size={size} color={color} />
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -70,6 +74,16 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
+        }}
+      />
+
+      {/* ===================================== */}
+      {/* 🔥 TELA DE PLANOS OCULTA — NÃO APARECE */}
+      {/* ===================================== */}
+      <Tabs.Screen
+        name="plans"
+        options={{
+          href: null, // ← ISSO REMOVE DA TAB BAR
         }}
       />
     </Tabs>
