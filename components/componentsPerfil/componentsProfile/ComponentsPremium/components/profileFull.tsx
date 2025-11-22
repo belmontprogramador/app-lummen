@@ -62,27 +62,31 @@ export default function PerfilCompleto() {
   };
 
   // Salvar tudo (respeitando o nível)
-  const handleSave = async () => {
-    try {
-      setSaving(true);
+ // Salvar tudo (respeitando o nível)
+const handleSave = async () => {
+  try {
+    setSaving(true);
 
-      if (canEditPremium) {
-        await userProfilesService.updateProfilePremium(form);
-      } else if (canEditFree) {
-        await userProfilesService.updateProfileFree(form);
-      } else {
-        Alert.alert("Acesso negado", "Seu plano não permite editar o perfil.");
-        return;
-      }
+    console.log("📦 Payload enviado para o backend:", form); // <--- AQUI
 
-      Alert.alert("✅ Sucesso", "Perfil atualizado com sucesso!");
-    } catch (e) {
-      console.log("❌ Erro ao salvar perfil:", e);
-      Alert.alert("Erro", "Não foi possível salvar o perfil.");
-    } finally {
-      setSaving(false);
+    if (canEditPremium) {
+      await userProfilesService.updateProfilePremium(form);
+    } else if (canEditFree) {
+      await userProfilesService.updateProfileFree(form);
+    } else {
+      Alert.alert("Acesso negado", "Seu plano não permite editar o perfil.");
+      return;
     }
-  };
+
+    Alert.alert("✅ Sucesso", "Perfil atualizado com sucesso!");
+  } catch (e) {
+    console.log("❌ Erro ao salvar perfil:", e);
+    Alert.alert("Erro", "Não foi possível salvar o perfil.");
+  } finally {
+    setSaving(false);
+  }
+};
+
 
   if (loading) {
     return (
