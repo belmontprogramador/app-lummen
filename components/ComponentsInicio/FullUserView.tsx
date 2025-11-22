@@ -1,5 +1,3 @@
-// src/components/ComponentsInicio/FullUserView.tsx
-
 import { View, ScrollView, Dimensions } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
@@ -37,25 +35,20 @@ export default function FullUserView({
       <SwipeUserCard user={user} onSkip={onSkip} />
 
       <LikeDislikeButtons
+        user={user}               // ✅ Correção — envia o user como prop
         onLike={onLike}
         onDislike={onDislike}
         onSuperLike={onSuperLike}
       />
 
       {/* ========= FREE ========= */}
-      {!isPremium && !isSuperPremium && (
-        <FeedFreeComponent user={user} />
-      )}
+      {!isPremium && !isSuperPremium && <FeedFreeComponent user={user} />}
 
       {/* ========= PREMIUM ========= */}
-      {(isPremium || isSuperPremium) && (
-        <FeedPremiumComponent user={user} />
-      )}
+      {(isPremium || isSuperPremium) && <FeedPremiumComponent user={user} />}
 
       {/* ========= SUPER PREMIUM ========= */}
-      {isSuperPremium && (
-        <UserPreferencesView preference={user.preference} />
-      )}
+      {isSuperPremium && <UserPreferencesView preference={user.preference} />}
 
       <View style={{ height: 100 }} />
     </ScrollView>

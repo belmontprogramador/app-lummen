@@ -1,7 +1,49 @@
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { LikesAPI } from "@/service/likes";
 
-export default function LikeDislikeButtons({ onLike, onDislike, onSuperLike }: any) {
+export default function LikeDislikeButtons({ user, onLike, onDislike, onSuperLike }: any) {
+  const handleLike = async () => {
+    try {
+      if (!user?.id) {
+        console.log("⚠️ Nenhum usuário selecionado para LIKE");
+        return;
+      }
+
+      console.log("❤️ Enviando LIKE para:", user.id);
+      const res = await LikesAPI.create(user.id);
+      console.log("✅ Resposta LIKE:", res);
+      if (onLike) onLike();
+    } catch (err) {
+      console.log("❌ Erro ao curtir:", err);
+    }
+  };
+
+  const handleSuperLike = async () => {
+    try {
+      if (!user?.id) {
+        console.log("⚠️ Nenhum usuário selecionado para SUPER LIKE");
+        return;
+      }
+
+      console.log("💎 Enviando SUPER LIKE para:", user.id);
+      const res = await LikesAPI.create(user.id, true);
+      console.log("✅ Resposta SUPER LIKE:", res);
+      if (onSuperLike) onSuperLike();
+    } catch (err) {
+      console.log("❌ Erro no Super Like:", err);
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      console.log("👎 Dislike clicado para:", user?.id);
+      if (onDislike) onDislike();
+    } catch (err) {
+      console.log("❌ Erro no Dislike:", err);
+    }
+  };
+
   return (
     <View
       style={{
@@ -12,10 +54,9 @@ export default function LikeDislikeButtons({ onLike, onDislike, onSuperLike }: a
         paddingVertical: 10,
       }}
     >
-
       {/* DISLIKE */}
       <TouchableOpacity
-        onPress={onDislike}
+        onPress={handleDislike}
         style={{
           width: 70,
           height: 70,
@@ -34,7 +75,7 @@ export default function LikeDislikeButtons({ onLike, onDislike, onSuperLike }: a
 
       {/* SUPER LIKE */}
       <TouchableOpacity
-        onPress={onSuperLike}
+        onPress={handleSuperLike}
         style={{
           width: 60,
           height: 60,
@@ -53,7 +94,7 @@ export default function LikeDislikeButtons({ onLike, onDislike, onSuperLike }: a
 
       {/* LIKE */}
       <TouchableOpacity
-        onPress={onLike}
+        onPress={handleLike}
         style={{
           width: 70,
           height: 70,
