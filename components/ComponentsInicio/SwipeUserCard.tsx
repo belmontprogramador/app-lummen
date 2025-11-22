@@ -97,20 +97,8 @@ export default function SwipeUserCard({ user, onSkip }: any) {
         </Text>
       )}
 
-      {/* BOTÃO SKIP */}
-      <TouchableOpacity
-        onPress={onSkip}
-        style={{
-          marginTop: 25,
-          backgroundColor: "#000",
-          paddingVertical: 12,
-          paddingHorizontal: 40,
-          borderRadius: 10,
-        }}
-      >
-        <Text style={{ color: "#fff", fontSize: 18 }}>Skip</Text>
-      </TouchableOpacity>
-
+      {/* ⛔️ Botão de SKIP foi removido */}
+      
     </View>
   );
 }

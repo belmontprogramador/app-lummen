@@ -1,5 +1,5 @@
 import { View, ScrollView, Dimensions } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 import SwipeUserCard from "./SwipeUserCard";
@@ -7,7 +7,10 @@ import LikeDislikeButtons from "./LikeDislikeButtons";
 
 import FeedFreeComponent from "./FeedFreeComponent";
 import FeedPremiumComponent from "./FeedPremiumComponent";
-import UserPreferencesView from "./UserPreferencesView"; // <-- IMPORTANTE
+import UserPreferencesView from "./UserPreferencesView";
+
+import MatchModal from "./MatchModal"; // <-- IMPORTANTE
+import { UsersAPI } from "@/service/users";
 
 export default function FullUserView({
   user,
@@ -16,13 +19,39 @@ export default function FullUserView({
   onSuperLike,
   onSkip,
 }: any) {
+
   const screenWidth = Dimensions.get("window").width;
   const { user: authUser } = useContext(AuthContext);
 
-  // Pegamos as rotas liberadas
-  const allowed = authUser?.plan?.allowedRoutes || [];
+  // -----------------------------
+  //   MATCH MODAL STATE
+  // -----------------------------
+  const [matchVisible, setMatchVisible] = useState(false);
+  const [matchedUser, setMatchedUser] = useState<any>(null);
 
-  // Níveis
+  async function handleMatch(targetUser: any) {
+  console.log("🔥 MATCH RECEBIDO NO handleMatch:", targetUser);
+
+  if (!targetUser?.id) {
+    console.log("⚠️ MATCH sem user válido. Cancelado.");
+    return;
+  }
+
+  // Buscar o user COMPLETO antes de abrir modal
+  try {
+    const res = await UsersAPI.getOne(targetUser.id);
+    console.log("📦 USER2 COMPLETO:", res.data);
+    setMatchedUser(res.data);
+    setMatchVisible(true);
+  } catch (err) {
+    console.log("❌ ERRO carregando user2", err);
+  }
+}
+
+  // -----------------------------
+  // PREMIUM LEVELS
+  // -----------------------------
+  const allowed = authUser?.plan?.allowedRoutes || [];
   const isPremium = allowed.includes("feed_list_premium");
   const isSuperPremium = allowed.includes("feed_list_super_premium");
 
@@ -34,11 +63,13 @@ export default function FullUserView({
       {/* Foto + Carousel */}
       <SwipeUserCard user={user} onSkip={onSkip} />
 
+      {/* LIKE / DISLIKE / SUPER LIKE BOTÕES */}
       <LikeDislikeButtons
-        user={user}               // ✅ Correção — envia o user como prop
+        user={user}
         onLike={onLike}
         onDislike={onDislike}
         onSuperLike={onSuperLike}
+        onMatch={handleMatch}     // <-- ADICIONADO AQUI
       />
 
       {/* ========= FREE ========= */}
@@ -48,9 +79,21 @@ export default function FullUserView({
       {(isPremium || isSuperPremium) && <FeedPremiumComponent user={user} />}
 
       {/* ========= SUPER PREMIUM ========= */}
-      {isSuperPremium && <UserPreferencesView preference={user.preference} />}
+      {isSuperPremium && (
+        <UserPreferencesView preference={user.preference} />
+      )}
 
       <View style={{ height: 100 }} />
+
+      {/* ==============================
+          MATCH MODAL
+      =============================== */}
+      <MatchModal
+        visible={matchVisible}
+        user1={authUser}
+        user2={matchedUser}
+        onClose={() => setMatchVisible(false)}
+      />
     </ScrollView>
   );
 }

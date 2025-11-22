@@ -2,45 +2,77 @@ import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LikesAPI } from "@/service/likes";
 
-export default function LikeDislikeButtons({ user, onLike, onDislike, onSuperLike }: any) {
-  const handleLike = async () => {
-    try {
-      if (!user?.id) {
-        console.log("⚠️ Nenhum usuário selecionado para LIKE");
-        return;
-      }
+export default function LikeDislikeButtons({
+  user,
+  onLike,
+  onDislike,
+  onSuperLike,
+  onMatch
+}: any) {
 
-      console.log("❤️ Enviando LIKE para:", user.id);
-      const res = await LikesAPI.create(user.id);
-      console.log("✅ Resposta LIKE:", res);
-      if (onLike) onLike();
-    } catch (err) {
-      console.log("❌ Erro ao curtir:", err);
+ const handleLike = async () => {
+  try {
+    const res = await LikesAPI.create(user.id);
+
+    if (res?.matched) {
+      console.log("🎉 MATCH DETECTADO");
+
+      const matchedData =
+        res?.otherUser ||
+        res?.targetUser ||
+        res?.matchedUser ||
+        res?.user ||
+        user;
+
+      if (onMatch) onMatch(matchedData);
+
+      return; // ⛔ MUITO IMPORTANTE → NÃO PULA O USER !!!
     }
-  };
+
+    // Só pula SE NÃO tiver match
+    if (onLike) onLike();
+
+  } catch (err) {
+    console.log("🔥 [ERRO LIKE] Detalhes:", err);
+  }
+};
 
   const handleSuperLike = async () => {
     try {
+      console.log("👉 [SUPER LIKE CLICK] Usuário:", user?.id);
+
       if (!user?.id) {
-        console.log("⚠️ Nenhum usuário selecionado para SUPER LIKE");
+        console.log("⚠️ [SUPER LIKE] user.id inexistente. Cancelando.");
         return;
       }
 
-      console.log("💎 Enviando SUPER LIKE para:", user.id);
+      console.log("📡 [SUPER LIKE] Enviando requisição para API...");
       const res = await LikesAPI.create(user.id, true);
-      console.log("✅ Resposta SUPER LIKE:", res);
+
+      console.log("💎 [SUPER LIKE RESPOSTA] API:", res);
+
+      if (res?.matched) {
+        console.log("🎉💎 [MATCH SUPER LIKE] MATCH com:", user.id);
+        if (onMatch) onMatch(user);
+      } else {
+        console.log("❌💎 [NO MATCH SUPER LIKE] Nenhum match.");
+      }
+
       if (onSuperLike) onSuperLike();
+
     } catch (err) {
-      console.log("❌ Erro no Super Like:", err);
+      console.log("🔥 [ERRO SUPER LIKE] Detalhes:", err);
     }
   };
 
   const handleDislike = async () => {
     try {
-      console.log("👎 Dislike clicado para:", user?.id);
+      console.log("👎 [DISLIKE CLICK] Usuário:", user?.id);
+
       if (onDislike) onDislike();
+
     } catch (err) {
-      console.log("❌ Erro no Dislike:", err);
+      console.log("🔥 [ERRO DISLIKE] Detalhes:", err);
     }
   };
 
