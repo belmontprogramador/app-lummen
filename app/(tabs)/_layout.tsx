@@ -86,6 +86,14 @@ export default function TabLayout() {
           href: null, // ← ISSO REMOVE DA TAB BAR
         }}
       />
+
+      <Tabs.Screen
+  name="perfilUsuario/[id]"
+  options={{
+    href: null, // oculta da tab bar
+  }}
+/>
+
     </Tabs>
   );
 }

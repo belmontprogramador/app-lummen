@@ -1,9 +1,6 @@
 import api from "./api";
 
 export const LikesAPI = {
-  //
-  // ❤️ LIKE
-  //
   async create(likedId: string, isSuper = false) {
     const res = await api.post("/likes", { likedId, isSuper });
     return res.data;
@@ -16,7 +13,7 @@ export const LikesAPI = {
 
   async check(likedId: string) {
     const res = await api.get(`/likes/check/${likedId}`);
-    return res.data; // { liked: boolean }
+    return res.data;
   },
 
   async received() {
@@ -24,9 +21,17 @@ export const LikesAPI = {
     return res.data;
   },
 
-  //
-  // 💔 DISLIKE
-  //
+  async getAll() {
+  const res = await api.get("/likes/all");
+  return res.data;
+},
+
+  // ✅ AQUI — ADICIONAR
+  async getSent() {
+    const res = await api.get("/likes/sent");
+    return res.data;
+  },
+
   async dislike(dislikedId: string) {
     const res = await api.post("/likes/dislike", { dislikedId });
     return res.data;
@@ -37,9 +42,6 @@ export const LikesAPI = {
     return res.data;
   },
 
-  //
-  // ⏭ SKIP
-  //
   async skip(skippedId: string) {
     const res = await api.post("/likes/skip", { skippedId });
     return res.data;
