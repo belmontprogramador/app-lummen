@@ -30,7 +30,7 @@ export default function FullUserView({
   const [matchedUser, setMatchedUser] = useState<any>(null);
 
   async function handleMatch(targetUser: any) {
-  console.log("🔥 MATCH RECEBIDO NO handleMatch:", targetUser);
+
 
   if (!targetUser?.id) {
     console.log("⚠️ MATCH sem user válido. Cancelado.");
@@ -40,11 +40,11 @@ export default function FullUserView({
   // Buscar o user COMPLETO antes de abrir modal
   try {
     const res = await UsersAPI.getOne(targetUser.id);
-    console.log("📦 USER2 COMPLETO:", res.data);
+   
     setMatchedUser(res.data);
     setMatchVisible(true);
   } catch (err) {
-    console.log("❌ ERRO carregando user2", err);
+
   }
 }
 

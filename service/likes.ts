@@ -22,11 +22,10 @@ export const LikesAPI = {
   },
 
   async getAll() {
-  const res = await api.get("/likes/all");
-  return res.data;
-},
+    const res = await api.get("/likes/all");
+    return res.data;
+  },
 
-  // ✅ AQUI — ADICIONAR
   async getSent() {
     const res = await api.get("/likes/sent");
     return res.data;
@@ -44,6 +43,12 @@ export const LikesAPI = {
 
   async skip(skippedId: string) {
     const res = await api.post("/likes/skip", { skippedId });
+    return res.data;
+  },
+
+  // ✅ AQUI! Função nova para listar matches
+  async matches() {
+    const res = await api.get("/likes/matches");
     return res.data;
   },
 };

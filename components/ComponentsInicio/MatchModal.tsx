@@ -1,17 +1,7 @@
 import { View, Text, Image, TouchableOpacity, Modal } from "react-native";
 import { router } from "expo-router";
 
-export default function MatchModal({ visible, user1, user2, onClose }: any) {
-
-  // 🔥 LOGS PARA DEBUGAR
-  console.log("🟣 MODAL RENDER → visible:", visible);
-  console.log("👤 user1:", user1);
-  console.log("📷 user1.photo:", user1?.photo);
-  console.log("🖼 user1.photos array:", user1?.photos);
-
-  console.log("👤 user2:", user2);
-  console.log("📷 user2.photo:", user2?.photo);
-  console.log("🖼 user2.photos array:", user2?.photos);
+export default function MatchModal({ visible, user1, user2, onClose }: any) {  
 
   return (
     <Modal animationType="fade" transparent visible={visible}>

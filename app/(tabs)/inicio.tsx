@@ -55,7 +55,7 @@ const res = await FeedAPI.list(1, 20, isPremiumRoute);
 
       setUsers(res?.data?.items || []);
     } catch (e) {
-      console.log("Erro ao carregar feed:", e);
+ 
     } finally {
       setLoading(false);
     }

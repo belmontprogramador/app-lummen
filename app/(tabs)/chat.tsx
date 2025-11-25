@@ -1,12 +1,13 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import MatchList from "@/components/chat/MatchList";
 
 export default function Chat() {
   useAuthGuard();
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 22 }}>Chat</Text>
+    <View style={{ flex: 1 }}>
+      <MatchList />
     </View>
   );
 }
