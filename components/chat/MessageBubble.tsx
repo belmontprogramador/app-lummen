@@ -3,6 +3,14 @@ import { View, Text, Image } from "react-native";
 export default function MessageBubble({ msg, userId }: any) {
   const isMe = msg.fromId !== userId;
 
+  const baseURL = "https://botgrupo.lummen-app.com";
+
+  // Se a URL vier relativa (ex: "/uploads/chat/..."), prefixa com o domínio
+  const finalUrl =
+    msg.imageUrl && msg.imageUrl.startsWith("/uploads")
+      ? baseURL + msg.imageUrl
+      : msg.imageUrl;
+
   return (
     <View
       style={{
@@ -22,7 +30,7 @@ export default function MessageBubble({ msg, userId }: any) {
 
       {msg.imageUrl ? (
         <Image
-          source={{ uri: msg.imageUrl }}
+          source={{ uri: finalUrl }}
           style={{
             width: 200,
             height: 200,
