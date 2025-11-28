@@ -77,20 +77,24 @@ export default function TabLayout() {
         }}
       />
 
-      {/* ===================================== */}
-      {/* 🔥 TELA DE PLANOS OCULTA — NÃO APARECE */}
-      {/* ===================================== */}
+      {/* ============================= */}
+      {/* 🔥 TELAS OCULTAS DA TAB BAR */}
+      {/* ============================= */}
+
       <Tabs.Screen
         name="plans"
-        options={{
-          href: null, // ← ISSO REMOVE DA TAB BAR
-        }}
+        options={{ href: null }}
       />
 
       <Tabs.Screen
-  name="perfilUsuario/[id]"
+        name="perfilUsuario/[id]"
+        options={{ href: null }}
+      />
+
+     <Tabs.Screen
+  name="blog"
   options={{
-    href: null, // oculta da tab bar
+    href: null, // ✅ agora vai funcionar de verdade
   }}
 />
 
