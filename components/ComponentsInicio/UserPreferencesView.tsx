@@ -1,32 +1,58 @@
-// src/components/ComponentsInicio/UserPreferencesView.tsx
-
 import { View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function UserPreferencesView({ preference }: any) {
+  const { t } = useTranslation();
   const pref = preference || {};
 
-  // campos que não devem aparecer
+  // ❌ Campos técnicos que NUNCA devem aparecer
   const hiddenPrefKeys = ["userId", "createdAt", "updatedAt"];
 
   const preferenceKeys = Object.keys(pref).filter(
     (key) => !hiddenPrefKeys.includes(key)
   );
 
+  // ✅ Labels via i18n
+  const labels: any = {
+    preferredGenders: t("userPreferences.fields.preferredGenders"),
+    preferredOrientations: t("userPreferences.fields.preferredOrientations"),
+    preferredPronouns: t("userPreferences.fields.preferredPronouns"),
+    heightCm: t("userPreferences.fields.heightCm"),
+    preferredIntentions: t("userPreferences.fields.preferredIntentions"),
+    preferredRelationshipTypes: t("userPreferences.fields.preferredRelationshipTypes"),
+    preferredZodiacs: t("userPreferences.fields.preferredZodiacs"),
+    preferredPets: t("userPreferences.fields.preferredPets"),
+    preferredSmoking: t("userPreferences.fields.preferredSmoking"),
+    preferredDrinking: t("userPreferences.fields.preferredDrinking"),
+    preferredActivityLevel: t("userPreferences.fields.preferredActivityLevel"),
+    preferredCommunication: t("userPreferences.fields.preferredCommunication"),
+    jobTitle: t("userPreferences.fields.jobTitle"),
+    company: t("userPreferences.fields.company"),
+    preferredEducationLevels: t("userPreferences.fields.preferredEducationLevels"),
+    preferredLanguages: t("userPreferences.fields.preferredLanguages"),
+    preferredInterestsActivities: t("userPreferences.fields.preferredInterestsActivities"),
+    preferredInterestsLifestyle: t("userPreferences.fields.preferredInterestsLifestyle"),
+    preferredInterestsCreativity: t("userPreferences.fields.preferredInterestsCreativity"),
+    preferredInterestsSportsFitness: t("userPreferences.fields.preferredInterestsSportsFitness"),
+    preferredInterestsMusic: t("userPreferences.fields.preferredInterestsMusic"),
+    preferredInterestsNightlife: t("userPreferences.fields.preferredInterestsNightlife"),
+    preferredInterestsTvCinema: t("userPreferences.fields.preferredInterestsTvCinema"),
+    maxDistanceKm: t("userPreferences.fields.maxDistanceKm"),
+    ageMin: t("userPreferences.fields.ageMin"),
+    ageMax: t("userPreferences.fields.ageMax"),
+  };
+
   const normalizeValue = (value: any) => {
-    if (!value) return "—";
-
-    // arrays
-    if (Array.isArray(value)) {
-      if (value.length === 0) return "—";
-      return value
-        .map((v) => (typeof v === "object" && v.label ? v.label : v))
-        .join(", ");
+    if (
+      value === null ||
+      value === undefined ||
+      value === "" ||
+      (Array.isArray(value) && value.length === 0)
+    ) {
+      return "—";
     }
 
-    // enums { label }
-    if (typeof value === "object" && value?.label) {
-      return value.label;
-    }
+    if (Array.isArray(value)) return value.join(", ");
 
     return value.toString();
   };
@@ -34,12 +60,14 @@ export default function UserPreferencesView({ preference }: any) {
   return (
     <View style={{ marginTop: 25 }}>
       <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 10 }}>
-        Preferências
+        {t("userPreferences.title")}
       </Text>
 
       {preferenceKeys.map((key) => (
         <Text key={key} style={{ marginBottom: 6 }}>
-          <Text style={{ fontWeight: "bold" }}>{key}: </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            {labels[key] || key}:{" "}
+          </Text>
           {normalizeValue(pref[key])}
         </Text>
       ))}

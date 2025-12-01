@@ -1,12 +1,151 @@
 {
+  "blogCard": {
+    "authorAndDate": "Author and publication date",
+    "coverImage": "Cover image",
+    "noDate": "Date not available",
+    "openPost": "Open post",
+    "subtitle": "Subtitle",
+    "title": "Title",
+    "unknownAuthor": "Unknown author"
+  },
+  "blogCategories": {
+    "empty": "No categories available at the moment.",
+    "errors": {
+      "load": "Error loading categories."
+    },
+    "loading": "Loading categories...",
+    "tapToView": "Tap to view posts"
+  },
+  "chat": {
+    "emptyMessage": "Empty message",
+    "imageMessage": "Image sent",
+    "messageText": "Message",
+    "myMessage": "My message",
+    "otherMessage": "User message"
+  },
+  "chatInput": {
+    "input": "Message field",
+    "logs": {
+      "uploadError": "Error uploading image:",
+      "uploadSuccess": "Upload completed successfully:"
+    },
+    "pickImage": "Select image",
+    "placeholder": "Type a message…",
+    "send": "Send"
+  },
+  "chatRoom": {
+    "loading": "Loading conversation...",
+    "logs": {
+      "ackError": "ACK error:",
+      "ackReceived": "ACK received from server:",
+      "apiResponse": "API response:",
+      "cleanup": "Cleaning up chat:",
+      "emptyPayload": "Empty message payload received, ignoring.",
+      "loadError": "Error loading chat history:",
+      "loadFinish": "Chat history loaded.",
+      "loadingRender": "Rendering loading state...",
+      "loadStart": "Starting history load:",
+      "messageAccepted": "Message accepted.",
+      "messageExtracted": "Message extracted:",
+      "messageIgnored": "Message ignored:",
+      "messageRaw": "Raw message:",
+      "messagesUpdated": "Messages updated:",
+      "noPermission": "No permission.",
+      "render": "Rendering chat:",
+      "renderMessages": "Rendering messages:",
+      "sendCalled": "Send called:",
+      "socketCleanup": "Socket disconnected.",
+      "socketConnect": "Socket connected.",
+      "socketCreated": "Socket created.",
+      "socketDisconnect": "Socket disconnected.",
+      "socketError": "Socket error:",
+      "socketLate": "Late socket.",
+      "socketNullCleanup": "Null socket during cleanup.",
+      "socketNullSend": "Null socket on send.",
+      "stateInfo": "Current state:",
+      "useEffectMount": "Screen mounted:"
+    },
+    "noPermission": "You do not have permission to access this chat."
+  },
+  "feedFree": {
+    "about": "About",
+    "bio": "Bio",
+    "birthday": "Age",
+    "city": "City",
+    "country": "Country",
+    "gender": "Gender",
+    "intention": "Intention",
+    "languages": "Languages",
+    "orientation": "Orientation",
+    "pronoun": "Pronoun",
+    "relationshipType": "Relationship type",
+    "state": "State",
+    "years": "years"
+  },
   "forgot": {
     "backToLogin": "Back to login",
-    "emailError": "Unable to send the email. Try again.",
-    "emailInvalid": "Enter a valid email",
+    "emailError": "Error sending email.",
+    "emailInvalid": "Invalid email",
     "emailPlaceholder": "Enter your email",
-    "emailSent": "We sent a recovery link to your email.",
-    "submit": "Send recovery link",
+    "emailSent": "Recovery link sent to your email.",
+    "submit": "Submit",
     "title": "Recover password"
+  },
+  "inicio": {
+    "emptyFeed": "No users available.",
+    "loading": "Loading feed...",
+    "superLikeLog": "Super like sent!"
+  },
+  "likeButtons": {
+    "container": "Like buttons",
+    "dislike": "Dislike",
+    "like": "Like",
+    "logs": {
+      "dislikeClick": "Dislike clicked",
+      "dislikeError": "Error disliking:",
+      "likeError": "Error liking:",
+      "matchDetected": "Match detected!",
+      "superLikeClick": "Super like clicked",
+      "superLikeError": "Super like error:",
+      "superLikeInvalidUser": "Invalid user.",
+      "superLikeMatched": "Super match!",
+      "superLikeNoMatch": "No match",
+      "superLikeResponse": "Super like API response:",
+      "superLikeSending": "Sending super like..."
+    },
+    "superLike": "Super like"
+  },
+  "likeCard": {
+    "openProfile": "Open profile",
+    "placeholderImage": "Placeholder image",
+    "received": "Received likes",
+    "sent": "Sent likes",
+    "unknown": "Like",
+    "userPhoto": "User photo"
+  },
+  "likesReceived": {
+    "empty": "No one has liked you yet.",
+    "loading": "Loading likes...",
+    "logs": {
+      "loadError": "Error loading likes:"
+    },
+    "title": "Who liked you"
+  },
+  "likesSection": {
+    "container": "Likes",
+    "logs": {
+      "blocked": "Access blocked by plan.",
+      "canSeeSent": "Can see sent likes:",
+      "userPlan": "User plan:"
+    }
+  },
+  "likesSent": {
+    "empty": "You haven't liked anyone yet.",
+    "loading": "Loading likes...",
+    "logs": {
+      "loadError": "Error loading likes:"
+    },
+    "title": "People you liked"
   },
   "login": {
     "email": "Email",
@@ -17,16 +156,43 @@
     "submit": "Sign in",
     "title": "Login"
   },
+  "matches": {
+    "empty": "No matches yet.",
+    "errors": {
+      "load": "Error loading matches."
+    },
+    "loading": "Loading matches...",
+    "tapToChat": "Tap to chat"
+  },
+  "matchModal": {
+    "container": "Match modal",
+    "continue": "Continue",
+    "couple": "Matched users",
+    "goToChat": "Go to chat",
+    "title": "It's a match!",
+    "user1Photo": "Your photo",
+    "user2Photo": "Match photo"
+  },
+  "premiumCheckout": {
+    "title": "Premium checkout"
+  },
   "register": {
     "email": "Email",
     "errorCreate": "Error creating account.",
-    "errorMissingFields": "Fill in all fields and choose a photo.",
-    "name": "",
+    "errorMissingFields": "Fill in all fields.",
+    "name": "Full name",
     "password": "Password",
-    "pickPhoto": "Choose Photo",
+    "pickPhoto": "Choose photo",
     "submit": "Register",
     "success": "Account created successfully!",
     "title": "Create account"
+  },
+  "swipeUserCard": {
+    "container": "User card",
+    "nextPhoto": "Next photo",
+    "photoProgress": "Progress",
+    "userPhoto": "User photo",
+    "years": "years"
   },
   "tabs": {
     "chat": "Chat",
@@ -35,5 +201,73 @@
     "home": "Home",
     "likes": "Likes",
     "profile": "Profile"
-  }
+  },
+  "userCard": {
+    "container": "User",
+    "nextPhoto": "Next photo",
+    "unknownCity": "Unknown city",
+    "unknownName": "Unknown name",
+    "userPhoto": "Photo",
+    "years": "years"
+  },
+  "userPreferences": {
+    "fields": {
+      "ageMax": "Maximum age",
+      "ageMin": "Minimum age",
+      "company": "Company",
+      "heightCm": "Height (cm)",
+      "jobTitle": "Job title",
+      "maxDistanceKm": "Maximum distance (km)",
+      "preferredActivityLevel": "Activity level",
+      "preferredCommunication": "Communication",
+      "preferredDrinking": "Drinks",
+      "preferredEducationLevels": "Education level",
+      "preferredGenders": "Preferred gender",
+      "preferredIntentions": "Intentions",
+      "preferredInterestsActivities": "Interests (Activities)",
+      "preferredInterestsCreativity": "Creativity",
+      "preferredInterestsLifestyle": "Lifestyle",
+      "preferredInterestsMusic": "Music",
+      "preferredInterestsNightlife": "Nightlife",
+      "preferredInterestsSportsFitness": "Sports & Fitness",
+      "preferredInterestsTvCinema": "TV & Cinema",
+      "preferredLanguages": "Languages",
+      "preferredOrientations": "Preferred orientation",
+      "preferredPets": "Pets",
+      "preferredPronouns": "Pronouns",
+      "preferredRelationshipTypes": "Relationship type",
+      "preferredSmoking": "Smokes",
+      "preferredZodiacs": "Zodiac sign"
+    },
+    "title": "Preferences"
+  },
+"feedPremium": {
+  "about": "About",
+  "bio": "Bio",
+  "birthday": "Age",
+  "gender": "Gender",
+  "orientation": "Orientation",
+  "city": "City",
+  "state": "State",
+  "country": "Country",
+  "pronoun": "Pronoun",
+  "intention": "Intention",
+  "relationshipType": "Relationship type",
+
+  "jobTitle": "Job title",
+  "company": "Company",
+  "heightCm": "Height (cm)",
+  "educationLevel": "Education level",
+  "languages": "Languages",
+  "pets": "Pets",
+  "smoking": "Smokes",
+  "drinking": "Drinks",
+  "activityLevel": "Activity level",
+  "communication": "Communication",
+  "zodiac": "Zodiac sign",
+
+  "years": "years"
+}
+
+
 }

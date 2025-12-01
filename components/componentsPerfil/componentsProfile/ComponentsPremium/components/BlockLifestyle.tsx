@@ -1,48 +1,70 @@
-// src/components/userProfile/BlockLifestyle.tsx
 import { View } from "react-native";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 import PreferenceBlock from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceBlock";
 import PreferenceChip from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceChip";
 
 export default function BlockLifestyle({ enums = {}, form = {}, onToggle = () => {} }: any) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
+
   return (
     <View>
-      <PreferenceBlock title="Preferred Pets">
+      {/* ✅ PETS */}
+      <PreferenceBlock title={t("profile.lifestyle.pets")}>
         {(enums.PetsPreference || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredPets || []).includes(o.value)}
-            onPress={() => onToggle("preferredPets", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.pets || []).includes(o.value)}   // ✅ campo correto
+            onPress={() => onToggle("pets", o.value)}     // ✅ campo correto
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Preferred Smoking">
+      {/* ✅ SMOKING */}
+      <PreferenceBlock title={t("profile.lifestyle.smoking")}>
         {(enums.SmokingStatus || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredSmoking || []).includes(o.value)}
-            onPress={() => onToggle("preferredSmoking", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.smoking || []).includes(o.value)}
+            onPress={() => onToggle("smoking", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Preferred Drinking">
+      {/* ✅ DRINKING */}
+      <PreferenceBlock title={t("profile.lifestyle.drinking")}>
         {(enums.DrinkingStatus || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredDrinking || []).includes(o.value)}
-            onPress={() => onToggle("preferredDrinking", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.drinking || []).includes(o.value)}
+            onPress={() => onToggle("drinking", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Preferred Activity Level">
+      {/* ✅ ACTIVITY LEVEL */}
+      <PreferenceBlock title={t("profile.lifestyle.activityLevel")}>
         {(enums.ActivityFrequency || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredActivityLevel || []).includes(o.value)}
-            onPress={() => onToggle("preferredActivityLevel", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.activityLevel || []).includes(o.value)}
+            onPress={() => onToggle("activityLevel", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Preferred Communication Style">
+      {/* ✅ COMMUNICATION */}
+      <PreferenceBlock title={t("profile.lifestyle.communication")}>
         {(enums.CommunicationStyle || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredCommunication || []).includes(o.value)}
-            onPress={() => onToggle("preferredCommunication", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.communication || []).includes(o.value)}
+            onPress={() => onToggle("communication", o.value)}
+          />
         ))}
       </PreferenceBlock>
     </View>

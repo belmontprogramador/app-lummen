@@ -1,4 +1,87 @@
 {
+  "blogCard": {
+    "authorAndDate": "",
+    "coverImage": "",
+    "noDate": "",
+    "openPost": "",
+    "subtitle": "",
+    "title": "",
+    "unknownAuthor": ""
+  },
+  "blogCategories": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToView": ""
+  },
+  "chat": {
+    "emptyMessage": "",
+    "imageMessage": "",
+    "messageText": "",
+    "myMessage": "",
+    "otherMessage": ""
+  },
+  "chatInput": {
+    "input": "",
+    "logs": {
+      "uploadError": "",
+      "uploadSuccess": ""
+    },
+    "pickImage": "",
+    "placeholder": "",
+    "send": ""
+  },
+  "chatRoom": {
+    "loading": "",
+    "logs": {
+      "ackError": "",
+      "ackReceived": "",
+      "apiResponse": "",
+      "cleanup": "",
+      "emptyPayload": "",
+      "loadError": "",
+      "loadFinish": "",
+      "loadingRender": "",
+      "loadStart": "",
+      "messageAccepted": "",
+      "messageExtracted": "",
+      "messageIgnored": "",
+      "messageRaw": "",
+      "messagesUpdated": "",
+      "noPermission": "",
+      "render": "",
+      "renderMessages": "",
+      "sendCalled": "",
+      "socketCleanup": "",
+      "socketConnect": "",
+      "socketCreated": "",
+      "socketDisconnect": "",
+      "socketError": "",
+      "socketLate": "",
+      "socketNullCleanup": "",
+      "socketNullSend": "",
+      "stateInfo": "",
+      "useEffectMount": ""
+    },
+    "noPermission": ""
+  },
+  "feedFree": {
+    "about": "",
+    "bio": "",
+    "birthday": "",
+    "city": "",
+    "country": "",
+    "gender": "",
+    "intention": "",
+    "languages": "",
+    "orientation": "",
+    "pronoun": "",
+    "relationshipType": "",
+    "state": "",
+    "years": ""
+  },
   "forgot": {
     "backToLogin": "العودة إلى تسجيل الدخول",
     "emailError": "تعذر إرسال البريد الإلكتروني. حاول مرة أخرى.",
@@ -8,6 +91,62 @@
     "submit": "إرسال رابط الاستعادة",
     "title": "استعادة كلمة المرور"
   },
+  "inicio": {
+    "emptyFeed": "",
+    "loading": "",
+    "superLikeLog": ""
+  },
+  "likeButtons": {
+    "container": "",
+    "dislike": "",
+    "like": "",
+    "logs": {
+      "dislikeClick": "",
+      "dislikeError": "",
+      "likeError": "",
+      "matchDetected": "",
+      "superLikeClick": "",
+      "superLikeError": "",
+      "superLikeInvalidUser": "",
+      "superLikeMatched": "",
+      "superLikeNoMatch": "",
+      "superLikeResponse": "",
+      "superLikeSending": ""
+    },
+    "superLike": ""
+  },
+  "likeCard": {
+    "openProfile": "",
+    "placeholderImage": "",
+    "received": "",
+    "sent": "",
+    "unknown": "",
+    "userPhoto": ""
+  },
+  "likesReceived": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
+  "likesSection": {
+    "container": "",
+    "logs": {
+      "blocked": "",
+      "canSeeSent": "",
+      "userPlan": ""
+    }
+  },
+  "likesSent": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
   "login": {
     "email": "البريد الإلكتروني",
     "forgotPassword": "هل نسيت كلمة المرور؟",
@@ -16,6 +155,26 @@
     "register": "إنشاء حساب",
     "submit": "تسجيل الدخول",
     "title": "تسجيل الدخول"
+  },
+  "matches": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToChat": ""
+  },
+  "matchModal": {
+    "container": "",
+    "continue": "",
+    "couple": "",
+    "goToChat": "",
+    "title": "",
+    "user1Photo": "",
+    "user2Photo": ""
+  },
+  "premiumCheckout": {
+    "title": ""
   },
   "register": {
     "email": "البريد الإلكتروني",
@@ -28,6 +187,13 @@
     "success": "تم إنشاء الحساب بنجاح!",
     "title": "إنشاء حساب"
   },
+  "swipeUserCard": {
+    "container": "",
+    "nextPhoto": "",
+    "photoProgress": "",
+    "userPhoto": "",
+    "years": ""
+  },
   "tabs": {
     "chat": "الدردشة",
     "community": "المجتمع",
@@ -35,5 +201,44 @@
     "home": "الرئيسية",
     "likes": "الإعجابات",
     "profile": "الملف الشخصي"
+  },
+  "userCard": {
+    "container": "",
+    "nextPhoto": "",
+    "unknownCity": "",
+    "unknownName": "",
+    "userPhoto": "",
+    "years": ""
+  },
+  "userPreferences": {
+    "fields": {
+      "ageMax": "",
+      "ageMin": "",
+      "company": "",
+      "heightCm": "",
+      "jobTitle": "",
+      "maxDistanceKm": "",
+      "preferredActivityLevel": "",
+      "preferredCommunication": "",
+      "preferredDrinking": "",
+      "preferredEducationLevels": "",
+      "preferredGenders": "",
+      "preferredIntentions": "",
+      "preferredInterestsActivities": "",
+      "preferredInterestsCreativity": "",
+      "preferredInterestsLifestyle": "",
+      "preferredInterestsMusic": "",
+      "preferredInterestsNightlife": "",
+      "preferredInterestsSportsFitness": "",
+      "preferredInterestsTvCinema": "",
+      "preferredLanguages": "",
+      "preferredOrientations": "",
+      "preferredPets": "",
+      "preferredPronouns": "",
+      "preferredRelationshipTypes": "",
+      "preferredSmoking": "",
+      "preferredZodiacs": ""
+    },
+    "title": ""
   }
 }

@@ -1,10 +1,14 @@
+// src/components/ComponentsInicio/SwipeUserCard.tsx
+
 import { useState, useMemo } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function SwipeUserCard({ user, onSkip }: any) {
+  const { t } = useTranslation();
 
   const allPhotos = useMemo(() => {
-    const arr = [];
+    const arr: string[] = [];
     if (user.photo) arr.push(user.photo);
     if (user.photos?.length > 0) {
       arr.push(...user.photos.map((p: any) => p.url));
@@ -35,11 +39,12 @@ export default function SwipeUserCard({ user, onSkip }: any) {
   const city = user.profile?.city || "";
 
   return (
-    <View style={{ alignItems: "center" }}>
-
+    <View
+      style={{ alignItems: "center" }}
+      accessibilityLabel={t("swipeUserCard.container")}
+    >
       {/* FOTO + BARRA SOBREPOSTA */}
       <View style={{ width: 330, height: 330, marginBottom: 15 }}>
-
         {/* 🔥 Barra sobreposta na parte superior da foto */}
         <View
           style={{
@@ -52,6 +57,7 @@ export default function SwipeUserCard({ user, onSkip }: any) {
             paddingHorizontal: 12,
             zIndex: 10,
           }}
+          accessibilityLabel={t("swipeUserCard.photoProgress")}
         >
           {allPhotos.map((_, idx) => (
             <View
@@ -69,10 +75,14 @@ export default function SwipeUserCard({ user, onSkip }: any) {
         </View>
 
         {/* FOTO */}
-        <TouchableOpacity onPress={nextPhoto} style={{ flex: 1 }}>
+        <TouchableOpacity
+          onPress={nextPhoto}
+          style={{ flex: 1 }}
+          accessibilityLabel={t("swipeUserCard.nextPhoto")}
+        >
           <Image
             source={{
-              uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`
+              uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`,
             }}
             style={{
               width: "100%",
@@ -80,14 +90,14 @@ export default function SwipeUserCard({ user, onSkip }: any) {
               borderRadius: 20,
               backgroundColor: "#ccc",
             }}
+            accessibilityLabel={t("swipeUserCard.userPhoto")}
           />
         </TouchableOpacity>
-
       </View>
 
       {/* NOME + IDADE */}
       <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>
-        {user.name} {age ? `, ${age}` : ""}
+        {user.name} {age ? `, ${age} ${t("swipeUserCard.years")}` : ""}
       </Text>
 
       {/* CIDADE */}
@@ -97,8 +107,7 @@ export default function SwipeUserCard({ user, onSkip }: any) {
         </Text>
       )}
 
-      {/* ⛔️ Botão de SKIP foi removido */}
-      
+      {/* ⛔️ Botão de SKIP removido (layout) */}
     </View>
   );
 }

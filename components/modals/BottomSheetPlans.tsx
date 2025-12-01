@@ -9,10 +9,12 @@ import {
   Dimensions,
 } from "react-native";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 
 const screenHeight = Dimensions.get("window").height;
 
 export default function BottomSheetPlans({ visible, onClose }: any) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
 
   if (!visible) return null;
 
@@ -62,7 +64,6 @@ export default function BottomSheetPlans({ visible, onClose }: any) {
         justifyContent: "flex-end",
       }}
     >
-
       {/* 🔥 OVERLAY ESCURA */}
       <Animated.View
         style={{
@@ -105,7 +106,7 @@ export default function BottomSheetPlans({ visible, onClose }: any) {
             textAlign: "center",
           }}
         >
-          Upgrade to Premium
+          {t("plans.upgradeTitle")}
         </Text>
 
         <Text
@@ -116,7 +117,7 @@ export default function BottomSheetPlans({ visible, onClose }: any) {
             color: "#555",
           }}
         >
-          Unlock all premium preferences & boost your profile!
+          {t("plans.upgradeSubtitle")}
         </Text>
 
         <TouchableOpacity
@@ -138,7 +139,7 @@ export default function BottomSheetPlans({ visible, onClose }: any) {
               textAlign: "center",
             }}
           >
-            See Plans
+            {t("plans.seePlans")}
           </Text>
         </TouchableOpacity>
 

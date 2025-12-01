@@ -1,7 +1,6 @@
-// src/components/modals/StatusModal.tsx
-
 import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 
 type Props = {
   visible: boolean;
@@ -13,11 +12,13 @@ type Props = {
 
 export default function StatusModal({
   visible,
-  title = "Tudo certo!",
-  message = "Operação realizada com sucesso.",
-  buttonText = "OK",
+  title,
+  message,
+  buttonText,
   onClose,
 }: Props) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
+
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View
@@ -45,7 +46,7 @@ export default function StatusModal({
               marginBottom: 10,
             }}
           >
-            {title}
+            {title || t("modal.successTitle")}
           </Text>
 
           <Text
@@ -56,7 +57,7 @@ export default function StatusModal({
               marginBottom: 25,
             }}
           >
-            {message}
+            {message || t("modal.successMessage")}
           </Text>
 
           <TouchableOpacity
@@ -76,7 +77,7 @@ export default function StatusModal({
                 fontWeight: "bold",
               }}
             >
-              {buttonText}
+              {buttonText || t("modal.ok")}
             </Text>
           </TouchableOpacity>
         </View>

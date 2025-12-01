@@ -2,40 +2,63 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, Image } from "react-native";
 import { LikesAPI } from "@/service/likes";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function MatchList() {
+  const { t } = useTranslation(); // ✅ i18n
   const [loading, setLoading] = useState(true);
   const [matches, setMatches] = useState<any[]>([]);
+  const [errorKey, setErrorKey] = useState<string | null>(null);
 
   async function load() {
-  try {
-    const res = await LikesAPI.matches();
+    try {
+      setLoading(true);
+      setErrorKey(null);
 
-    setMatches(res || []);
-  } catch (e) {
-    console.log("erro ao buscar matches", e);
-  } finally {
-    setLoading(false);
+      const res = await LikesAPI.matches();
+      setMatches(res || []);
+    } catch (e) {
+      console.log(t("matches.errors.load"), e);
+      setErrorKey("matches.errors.load");
+    } finally {
+      setLoading(false);
+    }
   }
-}
-
 
   useEffect(() => {
     load();
   }, []);
 
+  // ✅ Loading internacionalizado
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
+        <Text style={{ marginTop: 10 }}>
+          {t("matches.loading")}
+        </Text>
       </View>
     );
   }
 
+  // ✅ Erro internacionalizado
+  if (errorKey) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+        <Text style={{ color: "red", textAlign: "center" }}>
+          {t(errorKey)}
+        </Text>
+      </View>
+    );
+  }
+
+  // ✅ Estado vazio internacionalizado
   if (matches.length === 0) {
     return (
       <View style={{ marginTop: 40, alignItems: "center" }}>
-        <Text style={{ fontSize: 18, color: "#777" }}>Nenhum match ainda.</Text>
+        <Text style={{ fontSize: 18, color: "#777" }}>
+          {t("matches.empty")}
+        </Text>
       </View>
     );
   }
@@ -71,8 +94,12 @@ export default function MatchList() {
           />
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: "600" }}>{m.name}</Text>
-            <Text style={{ color: "#888", marginTop: 2 }}>Toque para conversar</Text>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>
+              {m.name}
+            </Text>
+            <Text style={{ color: "#888", marginTop: 2 }}>
+              {t("matches.tapToChat")}
+            </Text>
           </View>
         </TouchableOpacity>
       ))}

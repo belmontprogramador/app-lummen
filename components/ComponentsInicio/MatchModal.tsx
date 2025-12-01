@@ -1,7 +1,11 @@
+// src/components/ComponentsInicio/MatchModal.tsx
+
 import { View, Text, Image, TouchableOpacity, Modal } from "react-native";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
-export default function MatchModal({ visible, user1, user2, onClose }: any) {  
+export default function MatchModal({ visible, user1, user2, onClose }: any) {
+  const { t } = useTranslation(); // ✅ i18n
 
   return (
     <Modal animationType="fade" transparent visible={visible}>
@@ -13,8 +17,9 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
           alignItems: "center",
           padding: 20,
         }}
+        accessibilityLabel={t("matchModal.container")}
       >
-        {/* 🔥 CÍRCULOS NEON */}
+        {/* 🔥 CÍRCULOS NEON (VISUAL) */}
         <View
           style={{
             position: "absolute",
@@ -64,6 +69,7 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
             alignItems: "center",
           }}
         >
+          {/* ✅ TÍTULO INTERNACIONALIZADO */}
           <Text
             style={{
               color: "#fff",
@@ -74,7 +80,7 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
               textShadowRadius: 10,
             }}
           >
-            It’s a Match!
+            {t("matchModal.title")}
           </Text>
 
           {/* FOTOS */}
@@ -95,6 +101,7 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
                 borderWidth: 3,
                 borderColor: "#ff00ff",
               }}
+              accessibilityLabel={t("matchModal.user1Photo")}
             />
 
             <Image
@@ -106,9 +113,11 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
                 borderWidth: 3,
                 borderColor: "#00eaff",
               }}
+              accessibilityLabel={t("matchModal.user2Photo")}
             />
           </View>
 
+          {/* ✅ TEXTO DO MATCH INTERNACIONALIZADO */}
           <Text
             style={{
               color: "#fff",
@@ -117,9 +126,13 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
               textAlign: "center",
             }}
           >
-            {user1?.name} ❤️ {user2?.name}
+            {t("matchModal.couple", {
+              user1: user1?.name,
+              user2: user2?.name,
+            })}
           </Text>
 
+          {/* ✅ BOTÃO IR PARA O CHAT */}
           <TouchableOpacity
             onPress={() => {
               onClose();
@@ -135,15 +148,21 @@ export default function MatchModal({ visible, user1, user2, onClose }: any) {
               shadowRadius: 15,
               elevation: 10,
             }}
+            accessibilityLabel={t("matchModal.goToChat")}
           >
             <Text style={{ color: "#fff", fontSize: 18, fontWeight: "600" }}>
-              Go to Chat
+              {t("matchModal.goToChat")}
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={onClose} style={{ marginTop: 18 }}>
+          {/* ✅ CONTINUAR NAVEGANDO */}
+          <TouchableOpacity
+            onPress={onClose}
+            style={{ marginTop: 18 }}
+            accessibilityLabel={t("matchModal.continue")}
+          >
             <Text style={{ color: "#ddd", fontSize: 16 }}>
-              Continue browsing
+              {t("matchModal.continue")}
             </Text>
           </TouchableOpacity>
         </View>

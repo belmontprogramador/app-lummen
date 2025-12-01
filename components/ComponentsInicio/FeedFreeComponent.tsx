@@ -1,8 +1,10 @@
-// src/components/ComponentsInicio/FeedFreeComponent.tsx
+// src/components/FeedFreeComponent.tsx
 
 import { View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function FeedFreeComponent({ user }: any) {
+  const { t } = useTranslation();
   const profile = user.profile || {};
 
   const freeKeys = [
@@ -10,7 +12,6 @@ export default function FeedFreeComponent({ user }: any) {
     "birthday",
     "gender",
     "orientation",
-    "orientationOther",
     "city",
     "state",
     "country",
@@ -21,18 +22,17 @@ export default function FeedFreeComponent({ user }: any) {
   ];
 
   const labels: any = {
-    bio: "Bio",
-    birthday: "Idade",
-    gender: "Gênero",
-    orientation: "Orientação",
-    orientationOther: "Outra orientação",
-    city: "Cidade",
-    state: "Estado",
-    country: "País",
-    pronoun: "Pronome",
-    intention: "Intenção",
-    relationshipType: "Relacionamento",
-    languages: "Idiomas",
+    bio: t("feedFree.bio"),
+    birthday: t("feedFree.birthday"),
+    gender: t("feedFree.gender"),
+    orientation: t("feedFree.orientation"),
+    city: t("feedFree.city"),
+    state: t("feedFree.state"),
+    country: t("feedFree.country"),
+    pronoun: t("feedFree.pronoun"),
+    intention: t("feedFree.intention"),
+    relationshipType: t("feedFree.relationshipType"),
+    languages: t("feedFree.languages"),
   };
 
   const getAge = (date: string) => {
@@ -40,42 +40,50 @@ export default function FeedFreeComponent({ user }: any) {
     const d = new Date(date);
     const now = new Date();
     let age = now.getFullYear() - d.getFullYear();
+
     if (
       now.getMonth() < d.getMonth() ||
       (now.getMonth() === d.getMonth() && now.getDate() < d.getDate())
     ) {
       age--;
     }
+
     return age;
+  };
+
+  const normalizeValue = (key: string, value: any) => {
+    if (
+      value === null ||
+      value === undefined ||
+      value === "" ||
+      (Array.isArray(value) && value.length === 0)
+    ) {
+      return "—";
+    }
+
+    if (key === "birthday") {
+      return `${getAge(value)} ${t("feedFree.years")}`;
+    }
+
+    if (Array.isArray(value)) return value.join(", ");
+
+    return value.toString();
   };
 
   return (
     <View style={{ marginTop: 25 }}>
       <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 10 }}>
-        Sobre
+        {t("feedFree.about")}
       </Text>
 
-      {freeKeys.map((key) => {
-        const value = profile[key];
-        let display = "—"; // 🔥 exibir o título mesmo vazio
-
-        if (key === "birthday" && value) {
-          display = `${getAge(value)} anos`;
-        } else if (Array.isArray(value)) {
-          display = value
-            .map((v) => (typeof v === "object" ? v.label : v))
-            .join(", ");
-        } else if (value) {
-          display = value;
-        }
-
-        return (
-          <Text key={key} style={{ marginBottom: 6 }}>
-            <Text style={{ fontWeight: "bold" }}>{labels[key]}: </Text>
-            {display}
+      {freeKeys.map((key) => (
+        <Text key={key} style={{ marginBottom: 6 }}>
+          <Text style={{ fontWeight: "bold" }}>
+            {labels[key] || key}:{" "}
           </Text>
-        );
-      })}
+          {normalizeValue(key, profile[key])}
+        </Text>
+      ))}
     </View>
   );
 }

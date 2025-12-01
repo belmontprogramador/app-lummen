@@ -1,3 +1,5 @@
+// src/app/(chat)/chatRoom.tsx
+
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState, useRef } from "react";
 import {
@@ -12,8 +14,10 @@ import { MessagesAPI } from "@/service/messages";
 import { createMessagesSocket as createSocket } from "@/service/message";
 import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
+import { useTranslation } from "react-i18next";
 
 export default function ChatRoom() {
+  const { t } = useTranslation(); // ✅ i18n
   const { id } = useLocalSearchParams();
   const scrollRef = useRef<any>(null);
 
@@ -22,17 +26,17 @@ export default function ChatRoom() {
   const [socket, setSocket] = useState<any>(null);
   const [matchUser, setMatchUser] = useState<any>(null);
 
-  console.log("🔵 ChatRoom render — id da rota:", id);
+  console.log(t("chatRoom.logs.render"), id);
 
   // 1️⃣ Carrega histórico da conversa
   async function loadHistory() {
-    console.log("📚 [loadHistory] Iniciando carregamento para id:", id);
+    console.log(t("chatRoom.logs.loadStart"), id);
 
     try {
       const res = await MessagesAPI.getHistory(id as string);
 
       console.log(
-        "📚 [loadHistory] Resposta da API /messages/:id ->",
+        t("chatRoom.logs.apiResponse"),
         JSON.stringify(res, null, 2)
       );
 
@@ -40,22 +44,21 @@ export default function ChatRoom() {
       setMatchUser(res.user || null);
 
       console.log(
-        "📚 [loadHistory] messages.length:",
+        t("chatRoom.logs.stateInfo"),
         res.messages?.length || 0,
-        " | matchUser:",
         res.user
       );
     } catch (e) {
-      console.log("❌ [loadHistory] Erro ao carregar histórico:", e);
+      console.log(t("chatRoom.logs.loadError"), e);
     } finally {
       setLoading(false);
-      console.log("📚 [loadHistory] Finalizado, loading = false");
+      console.log(t("chatRoom.logs.loadFinish"));
     }
   }
 
   // 2️⃣ Conecta WebSocket + listeners
   useEffect(() => {
-    console.log("🟡 useEffect MOUNT/ID change — id:", id);
+    console.log(t("chatRoom.logs.useEffectMount"), id);
 
     let active = true;
     let ws: any = null;
@@ -66,9 +69,7 @@ export default function ChatRoom() {
     createSocket()
       .then((s) => {
         if (!active) {
-          console.log(
-            "⚠️ [WS] Socket criado após unmount, desconectando imediatamente."
-          );
+          console.log(t("chatRoom.logs.socketLate"));
           s.disconnect();
           return;
         }
@@ -77,45 +78,40 @@ export default function ChatRoom() {
         setSocket(s);
 
         console.log(
-          "🟢 [WS] Socket criado. connected?:",
+          t("chatRoom.logs.socketCreated"),
           s.connected,
-          " | id:",
           s.id
         );
 
         s.on("connect", () => {
-          console.log("🟢 [WS] EVENT connect — id:", s.id);
+          console.log(t("chatRoom.logs.socketConnect"), s.id);
         });
 
         s.on("disconnect", (reason: any) => {
-          console.log("🔴 [WS] EVENT disconnect — reason:", reason);
+          console.log(t("chatRoom.logs.socketDisconnect"), reason);
         });
 
         // 🔥 Receber mensagem em tempo real
         s.on("message:new", (payload: any) => {
           console.log(
-            "📩 [WS] EVENT message:new — payload bruto:",
+            t("chatRoom.logs.messageRaw"),
             JSON.stringify(payload, null, 2)
           );
 
-          // backend envia: { conversationId, message }
           const msg = payload?.message || payload;
 
           if (!msg) {
-            console.log("⚠️ [WS] payload.message vazio, ignorando.");
+            console.log(t("chatRoom.logs.emptyPayload"));
             return;
           }
 
           console.log(
-            "📩 [WS] Mensagem extraída:",
+            t("chatRoom.logs.messageExtracted"),
             JSON.stringify(msg, null, 2)
           );
 
-          // só adiciona se envolver o usuário da rota
           if (msg.fromId === id || msg.toId === id) {
-            console.log(
-              "✅ [WS] Mensagem pertence a esta conversa, adicionando ao state."
-            );
+            console.log(t("chatRoom.logs.messageAccepted"));
             setMessages((prev) => [...prev, msg]);
 
             setTimeout(() => {
@@ -123,67 +119,61 @@ export default function ChatRoom() {
             }, 100);
           } else {
             console.log(
-              "⏭ [WS] Mensagem NÃO é dessa conversa. fromId:",
+              t("chatRoom.logs.messageIgnored"),
               msg.fromId,
-              "toId:",
               msg.toId,
-              "id da rota:",
               id
             );
           }
         });
       })
       .catch((err) => {
-        console.log("❌ [WS] Erro ao criar socket:", err);
+        console.log(t("chatRoom.logs.socketError"), err);
       });
 
     return () => {
-      console.log("🧹 [useEffect cleanup] ChatRoom unmount/ID change — id:", id);
+      console.log(t("chatRoom.logs.cleanup"), id);
       active = false;
 
       if (ws) {
-        console.log("🔌 [WS] Desconectando socket no cleanup.");
+        console.log(t("chatRoom.logs.socketCleanup"));
         ws.disconnect();
       } else {
-        console.log("⚠️ [WS] ws ainda null no cleanup, nada para desconectar.");
+        console.log(t("chatRoom.logs.socketNullCleanup"));
       }
     };
   }, [id]);
 
   // 3️⃣ Enviar mensagens
- function handleSend(text: string, imageUrl: string | null) {
-  console.log("✉️ [handleSend] Chamado com:", { text, imageUrl, id });
+  function handleSend(text: string, imageUrl: string | null) {
+    console.log(t("chatRoom.logs.sendCalled"), { text, imageUrl, id });
 
-  if (!socket) {
-    console.log("⚠️ [handleSend] socket ainda null, não é possível enviar.");
-    return;
+    if (!socket) {
+      console.log(t("chatRoom.logs.socketNullSend"));
+      return;
+    }
+
+    socket.emit(
+      "message:send",
+      {
+        toUserId: id,
+        text,
+        imageUrl,
+      },
+      (ack: any) => {
+        console.log(t("chatRoom.logs.ackReceived"), ack);
+
+        if (!ack?.ok) {
+          console.log(t("chatRoom.logs.ackError"), ack?.error);
+        }
+      }
+    );
   }
 
-  socket.emit(
-    "message:send",
-    {
-      toUserId: id,
-      text,
-      imageUrl,
-    },
-    (ack: any) => {
-      console.log("📨 [handleSend] ACK recebido do servidor:", ack);
-
-      if (!ack?.ok) {
-        console.log("❌ [handleSend] Erro no ACK:", ack?.error);
-      }
-
-      // ❗ NÃO adiciona mensagem aqui
-      // O WebSocket enviará message:new automaticamente
-    }
-  );
-}
-
-
-  // 4️⃣ Scroll automático quando o array de mensagens muda
+  // 4️⃣ Scroll automático quando mensagens mudam
   useEffect(() => {
     console.log(
-      "🔁 [useEffect messages] messages.length:",
+      t("chatRoom.logs.messagesUpdated"),
       messages.length
     );
 
@@ -192,32 +182,34 @@ export default function ChatRoom() {
     }, 300);
   }, [messages]);
 
+  // ✅ Loading internacionalizado
   if (loading) {
-    console.log("⏳ [render] Tela em estado de loading...");
+    console.log(t("chatRoom.logs.loadingRender"));
+
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
+        <Text>{t("chatRoom.loading")}</Text>
       </View>
     );
   }
 
+  // ✅ Falta de permissão internacionalizada
   if (!matchUser) {
-    console.log(
-      "🚫 [render] matchUser null — sem permissão para conversar ou erro no backend."
-    );
+    console.log(t("chatRoom.logs.noPermission"));
+
     return (
       <View style={{ padding: 40 }}>
         <Text style={{ fontSize: 18, textAlign: "center" }}>
-          Você não tem permissão para conversar com esse usuário.
+          {t("chatRoom.noPermission")}
         </Text>
       </View>
     );
   }
 
   console.log(
-    "🧩 [render] Renderizando mensagens. messages.length:",
+    t("chatRoom.logs.renderMessages"),
     messages.length,
-    "| matchUser.id:",
     matchUser.id
   );
 

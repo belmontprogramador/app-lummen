@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 import PreferenceBlock from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceBlock";
 
 const GEOAPIFY_KEY = process.env.EXPO_PUBLIC_GEOAPIFY_KEY;
 
 export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
+
   const [query, setQuery] = useState(form.city || "");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,6 +26,7 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
     try {
       setLoading(true);
       setError(null);
+
       const res = await fetch(
         `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
           text
@@ -33,7 +37,7 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
 
       if (!data.features) {
         setSuggestions([]);
-        setError("No results found.");
+        setError(t("profile.location.noResults"));
         return;
       }
 
@@ -48,7 +52,7 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
       setSuggestions(results);
     } catch (err) {
       console.error("❌ Geoapify error:", err);
-      setError("Error fetching location suggestions.");
+      setError(t("profile.location.fetchError"));
     } finally {
       setLoading(false);
     }
@@ -57,6 +61,7 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
   function handleSelect(item: any) {
     setQuery(item.city || "");
     setSuggestions([]);
+
     onChange("city", item.city || "");
     onChange("state", item.state || "");
     onChange("country", item.country || "");
@@ -66,11 +71,13 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
 
   return (
     <View>
-      <PreferenceBlock title="Location">
-        <Text style={{ marginBottom: 6, fontWeight: "500" }}>Search your location</Text>
+      <PreferenceBlock title={t("profile.location.title")}>
+        <Text style={{ marginBottom: 6, fontWeight: "500" }}>
+          {t("profile.location.searchLabel")}
+        </Text>
 
         <TextInput
-          placeholder="Type your city..."
+          placeholder={t("profile.location.placeholder")}
           value={query}
           onChangeText={setQuery}
           style={{
@@ -81,10 +88,18 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
           }}
         />
 
-        {loading && <ActivityIndicator size="small" color="#7b2cff" style={{ marginVertical: 8 }} />}
+        {loading && (
+          <ActivityIndicator
+            size="small"
+            color="#7b2cff"
+            style={{ marginVertical: 8 }}
+          />
+        )}
 
         {error && !loading && (
-          <Text style={{ color: "red", marginBottom: 10, fontSize: 13 }}>{error}</Text>
+          <Text style={{ color: "red", marginBottom: 10, fontSize: 13 }}>
+            {error}
+          </Text>
         )}
 
         {suggestions.length > 0 && (
@@ -116,10 +131,14 @@ export default function BlockLocation({ form = {}, onChange = () => {} }: any) {
           />
         )}
 
-        {/* Coordenadas (somente leitura) */}
+        {/* ✅ Coordenadas (somente leitura) */}
         <View style={{ marginTop: 15 }}>
-          <Text style={{ color: "#777" }}>Latitude: {form.latitude ?? "Not set"}</Text>
-          <Text style={{ color: "#777" }}>Longitude: {form.longitude ?? "Not set"}</Text>
+          <Text style={{ color: "#777" }}>
+            {t("profile.location.latitude")}: {form.latitude ?? t("profile.location.notSet")}
+          </Text>
+          <Text style={{ color: "#777" }}>
+            {t("profile.location.longitude")}: {form.longitude ?? t("profile.location.notSet")}
+          </Text>
         </View>
       </PreferenceBlock>
     </View>

@@ -1,3 +1,5 @@
+// src/components/UserCard.tsx
+
 import { useState } from "react";
 import {
   View,
@@ -6,16 +8,20 @@ import {
   Image,
   Dimensions
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 const BASE_URL = "https://botgrupo.lummen-app.com";
 
 export default function UserCard({ user }: any) {
+  const { t } = useTranslation();
   const screenWidth = Dimensions.get("window").width;
 
   // Fotos: foto de perfil + fotos do carrossel
   const photos = [
     user.photo ? `${BASE_URL}${user.photo}` : null,
-    ...(user.photos?.length ? user.photos.map((p: any) => `${BASE_URL}${p.url}`) : [])
+    ...(user.photos?.length
+      ? user.photos.map((p: any) => `${BASE_URL}${p.url}`)
+      : []),
   ].filter(Boolean);
 
   const [index, setIndex] = useState(0);
@@ -25,24 +31,31 @@ export default function UserCard({ user }: any) {
   }
 
   // Nome
-  const name = user.name || "";
+  const name = user.name || t("userCard.unknownName");
 
   // Idade
   let age = "";
   if (user.profile?.birthday) {
     const birth = new Date(user.profile.birthday);
     const diff = Date.now() - birth.getTime();
-    age = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000)).toString();
+    age = Math.floor(
+      diff / (365.25 * 24 * 60 * 60 * 1000)
+    ).toString();
   }
 
   // Cidade
-  const city = user.profile?.city || "";
+  const city = user.profile?.city || t("userCard.unknownCity");
 
   return (
-    <View style={{ width: screenWidth, padding: 20 }}>
-      
-      {/* FOTO PRINCIPAL + CARROSSEL */}
-      <TouchableOpacity onPress={nextPhoto}>
+    <View
+      style={{ width: screenWidth, padding: 20 }}
+      accessibilityLabel={t("userCard.container")}
+    >
+      {/* ✅ FOTO PRINCIPAL + CARROSSEL */}
+      <TouchableOpacity
+        onPress={nextPhoto}
+        accessibilityLabel={t("userCard.nextPhoto")}
+      >
         <Image
           source={{ uri: photos[index] }}
           style={{
@@ -51,15 +64,19 @@ export default function UserCard({ user }: any) {
             borderRadius: 20,
             backgroundColor: "#eee",
           }}
+          accessibilityLabel={t("userCard.userPhoto")}
         />
       </TouchableOpacity>
 
-      {/* NOME + IDADE + CIDADE */}
+      {/* ✅ NOME + IDADE + CIDADE */}
       <View style={{ marginTop: 15 }}>
         <Text style={{ fontSize: 26, fontWeight: "bold" }}>
-          {name} {age ? `, ${age}` : ""}
+          {name} {age ? `, ${age} ${t("userCard.years")}` : ""}
         </Text>
-        <Text style={{ fontSize: 18, color: "#666" }}>{city}</Text>
+
+        <Text style={{ fontSize: 18, color: "#666" }}>
+          {city}
+        </Text>
       </View>
     </View>
   );

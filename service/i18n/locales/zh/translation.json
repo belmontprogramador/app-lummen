@@ -1,4 +1,87 @@
 {
+  "blogCard": {
+    "authorAndDate": "",
+    "coverImage": "",
+    "noDate": "",
+    "openPost": "",
+    "subtitle": "",
+    "title": "",
+    "unknownAuthor": ""
+  },
+  "blogCategories": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToView": ""
+  },
+  "chat": {
+    "emptyMessage": "",
+    "imageMessage": "",
+    "messageText": "",
+    "myMessage": "",
+    "otherMessage": ""
+  },
+  "chatInput": {
+    "input": "",
+    "logs": {
+      "uploadError": "",
+      "uploadSuccess": ""
+    },
+    "pickImage": "",
+    "placeholder": "",
+    "send": ""
+  },
+  "chatRoom": {
+    "loading": "",
+    "logs": {
+      "ackError": "",
+      "ackReceived": "",
+      "apiResponse": "",
+      "cleanup": "",
+      "emptyPayload": "",
+      "loadError": "",
+      "loadFinish": "",
+      "loadingRender": "",
+      "loadStart": "",
+      "messageAccepted": "",
+      "messageExtracted": "",
+      "messageIgnored": "",
+      "messageRaw": "",
+      "messagesUpdated": "",
+      "noPermission": "",
+      "render": "",
+      "renderMessages": "",
+      "sendCalled": "",
+      "socketCleanup": "",
+      "socketConnect": "",
+      "socketCreated": "",
+      "socketDisconnect": "",
+      "socketError": "",
+      "socketLate": "",
+      "socketNullCleanup": "",
+      "socketNullSend": "",
+      "stateInfo": "",
+      "useEffectMount": ""
+    },
+    "noPermission": ""
+  },
+  "feedFree": {
+    "about": "",
+    "bio": "",
+    "birthday": "",
+    "city": "",
+    "country": "",
+    "gender": "",
+    "intention": "",
+    "languages": "",
+    "orientation": "",
+    "pronoun": "",
+    "relationshipType": "",
+    "state": "",
+    "years": ""
+  },
   "forgot": {
     "backToLogin": "Вернуться ко входу",
     "emailError": "Не удалось отправить письмо. Попробуйте снова.",
@@ -8,6 +91,62 @@
     "submit": "Отправить ссылку восстановления",
     "title": "Восстановить пароль"
   },
+  "inicio": {
+    "emptyFeed": "",
+    "loading": "",
+    "superLikeLog": ""
+  },
+  "likeButtons": {
+    "container": "",
+    "dislike": "",
+    "like": "",
+    "logs": {
+      "dislikeClick": "",
+      "dislikeError": "",
+      "likeError": "",
+      "matchDetected": "",
+      "superLikeClick": "",
+      "superLikeError": "",
+      "superLikeInvalidUser": "",
+      "superLikeMatched": "",
+      "superLikeNoMatch": "",
+      "superLikeResponse": "",
+      "superLikeSending": ""
+    },
+    "superLike": ""
+  },
+  "likeCard": {
+    "openProfile": "",
+    "placeholderImage": "",
+    "received": "",
+    "sent": "",
+    "unknown": "",
+    "userPhoto": ""
+  },
+  "likesReceived": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
+  "likesSection": {
+    "container": "",
+    "logs": {
+      "blocked": "",
+      "canSeeSent": "",
+      "userPlan": ""
+    }
+  },
+  "likesSent": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
   "login": {
     "email": "电子邮箱",
     "forgotPassword": "忘记密码？",
@@ -16,6 +155,26 @@
     "register": "创建账户",
     "submit": "登录",
     "title": "登录"
+  },
+  "matches": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToChat": ""
+  },
+  "matchModal": {
+    "container": "",
+    "continue": "",
+    "couple": "",
+    "goToChat": "",
+    "title": "",
+    "user1Photo": "",
+    "user2Photo": ""
+  },
+  "premiumCheckout": {
+    "title": ""
   },
   "register": {
     "email": "邮箱",
@@ -28,6 +187,13 @@
     "success": "账号创建成功！",
     "title": "创建账号"
   },
+  "swipeUserCard": {
+    "container": "",
+    "nextPhoto": "",
+    "photoProgress": "",
+    "userPhoto": "",
+    "years": ""
+  },
   "tabs": {
     "chat": "聊天",
     "community": "社区",
@@ -35,5 +201,44 @@
     "home": "首页",
     "likes": "点赞",
     "profile": "个人资料"
+  },
+  "userCard": {
+    "container": "",
+    "nextPhoto": "",
+    "unknownCity": "",
+    "unknownName": "",
+    "userPhoto": "",
+    "years": ""
+  },
+  "userPreferences": {
+    "fields": {
+      "ageMax": "",
+      "ageMin": "",
+      "company": "",
+      "heightCm": "",
+      "jobTitle": "",
+      "maxDistanceKm": "",
+      "preferredActivityLevel": "",
+      "preferredCommunication": "",
+      "preferredDrinking": "",
+      "preferredEducationLevels": "",
+      "preferredGenders": "",
+      "preferredIntentions": "",
+      "preferredInterestsActivities": "",
+      "preferredInterestsCreativity": "",
+      "preferredInterestsLifestyle": "",
+      "preferredInterestsMusic": "",
+      "preferredInterestsNightlife": "",
+      "preferredInterestsSportsFitness": "",
+      "preferredInterestsTvCinema": "",
+      "preferredLanguages": "",
+      "preferredOrientations": "",
+      "preferredPets": "",
+      "preferredPronouns": "",
+      "preferredRelationshipTypes": "",
+      "preferredSmoking": "",
+      "preferredZodiacs": ""
+    },
+    "title": ""
   }
 }

@@ -1,4 +1,87 @@
 {
+  "blogCard": {
+    "authorAndDate": "",
+    "coverImage": "",
+    "noDate": "",
+    "openPost": "",
+    "subtitle": "",
+    "title": "",
+    "unknownAuthor": ""
+  },
+  "blogCategories": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToView": ""
+  },
+  "chat": {
+    "emptyMessage": "",
+    "imageMessage": "",
+    "messageText": "",
+    "myMessage": "",
+    "otherMessage": ""
+  },
+  "chatInput": {
+    "input": "",
+    "logs": {
+      "uploadError": "",
+      "uploadSuccess": ""
+    },
+    "pickImage": "",
+    "placeholder": "",
+    "send": ""
+  },
+  "chatRoom": {
+    "loading": "",
+    "logs": {
+      "ackError": "",
+      "ackReceived": "",
+      "apiResponse": "",
+      "cleanup": "",
+      "emptyPayload": "",
+      "loadError": "",
+      "loadFinish": "",
+      "loadingRender": "",
+      "loadStart": "",
+      "messageAccepted": "",
+      "messageExtracted": "",
+      "messageIgnored": "",
+      "messageRaw": "",
+      "messagesUpdated": "",
+      "noPermission": "",
+      "render": "",
+      "renderMessages": "",
+      "sendCalled": "",
+      "socketCleanup": "",
+      "socketConnect": "",
+      "socketCreated": "",
+      "socketDisconnect": "",
+      "socketError": "",
+      "socketLate": "",
+      "socketNullCleanup": "",
+      "socketNullSend": "",
+      "stateInfo": "",
+      "useEffectMount": ""
+    },
+    "noPermission": ""
+  },
+  "feedFree": {
+    "about": "",
+    "bio": "",
+    "birthday": "",
+    "city": "",
+    "country": "",
+    "gender": "",
+    "intention": "",
+    "languages": "",
+    "orientation": "",
+    "pronoun": "",
+    "relationshipType": "",
+    "state": "",
+    "years": ""
+  },
   "forgot": {
     "backToLogin": "ログインに戻る",
     "emailError": "メールを送信できませんでした。もう一度お試しください。",
@@ -8,6 +91,62 @@
     "submit": "回復リンクを送信",
     "title": "パスワードを回復"
   },
+  "inicio": {
+    "emptyFeed": "",
+    "loading": "",
+    "superLikeLog": ""
+  },
+  "likeButtons": {
+    "container": "",
+    "dislike": "",
+    "like": "",
+    "logs": {
+      "dislikeClick": "",
+      "dislikeError": "",
+      "likeError": "",
+      "matchDetected": "",
+      "superLikeClick": "",
+      "superLikeError": "",
+      "superLikeInvalidUser": "",
+      "superLikeMatched": "",
+      "superLikeNoMatch": "",
+      "superLikeResponse": "",
+      "superLikeSending": ""
+    },
+    "superLike": ""
+  },
+  "likeCard": {
+    "openProfile": "",
+    "placeholderImage": "",
+    "received": "",
+    "sent": "",
+    "unknown": "",
+    "userPhoto": ""
+  },
+  "likesReceived": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
+  "likesSection": {
+    "container": "",
+    "logs": {
+      "blocked": "",
+      "canSeeSent": "",
+      "userPlan": ""
+    }
+  },
+  "likesSent": {
+    "empty": "",
+    "loading": "",
+    "logs": {
+      "loadError": ""
+    },
+    "title": ""
+  },
   "login": {
     "email": "メールアドレス",
     "forgotPassword": "パスワードをお忘れですか？",
@@ -16,6 +155,26 @@
     "register": "アカウント作成",
     "submit": "ログイン",
     "title": "ログイン"
+  },
+  "matches": {
+    "empty": "",
+    "errors": {
+      "load": ""
+    },
+    "loading": "",
+    "tapToChat": ""
+  },
+  "matchModal": {
+    "container": "",
+    "continue": "",
+    "couple": "",
+    "goToChat": "",
+    "title": "",
+    "user1Photo": "",
+    "user2Photo": ""
+  },
+  "premiumCheckout": {
+    "title": ""
   },
   "register": {
     "email": "メールアドレス",
@@ -28,6 +187,13 @@
     "success": "アカウントが正常に作成されました！",
     "title": "アカウントを作成"
   },
+  "swipeUserCard": {
+    "container": "",
+    "nextPhoto": "",
+    "photoProgress": "",
+    "userPhoto": "",
+    "years": ""
+  },
   "tabs": {
     "chat": "チャット",
     "community": "コミュニティ",
@@ -35,5 +201,44 @@
     "home": "ホーム",
     "likes": "いいね",
     "profile": "プロフィール"
+  },
+  "userCard": {
+    "container": "",
+    "nextPhoto": "",
+    "unknownCity": "",
+    "unknownName": "",
+    "userPhoto": "",
+    "years": ""
+  },
+  "userPreferences": {
+    "fields": {
+      "ageMax": "",
+      "ageMin": "",
+      "company": "",
+      "heightCm": "",
+      "jobTitle": "",
+      "maxDistanceKm": "",
+      "preferredActivityLevel": "",
+      "preferredCommunication": "",
+      "preferredDrinking": "",
+      "preferredEducationLevels": "",
+      "preferredGenders": "",
+      "preferredIntentions": "",
+      "preferredInterestsActivities": "",
+      "preferredInterestsCreativity": "",
+      "preferredInterestsLifestyle": "",
+      "preferredInterestsMusic": "",
+      "preferredInterestsNightlife": "",
+      "preferredInterestsSportsFitness": "",
+      "preferredInterestsTvCinema": "",
+      "preferredLanguages": "",
+      "preferredOrientations": "",
+      "preferredPets": "",
+      "preferredPronouns": "",
+      "preferredRelationshipTypes": "",
+      "preferredSmoking": "",
+      "preferredZodiacs": ""
+    },
+    "title": ""
   }
 }

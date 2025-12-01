@@ -1,64 +1,87 @@
-// src/components/userProfile/BlockInterests.tsx
 import { View } from "react-native";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 import PreferenceBlock from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceBlock";
 import PreferenceChip from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceChip";
 
 export default function BlockInterests({ enums = {}, form = {}, onToggle = () => {} }: any) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
+
   return (
     <View>
-      <PreferenceBlock title="Activities">
+      <PreferenceBlock title={t("profile.interests.activities")}>
         {(enums.InterestActivity || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsActivities || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsActivities", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsActivities || []).includes(o.value)}
+            onPress={() => onToggle("interestsActivities", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Lifestyle">
+      <PreferenceBlock title={t("profile.interests.lifestyle")}>
         {(enums.InterestLifestyle || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsLifestyle || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsLifestyle", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsLifestyle || []).includes(o.value)}
+            onPress={() => onToggle("interestsLifestyle", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Creativity">
+      <PreferenceBlock title={t("profile.interests.creativity")}>
         {(enums.InterestCreativity || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsCreativity || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsCreativity", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsCreativity || []).includes(o.value)}
+            onPress={() => onToggle("interestsCreativity", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Sports & Fitness">
+      <PreferenceBlock title={t("profile.interests.sportsFitness")}>
         {(enums.InterestSports || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsSportsFitness || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsSportsFitness", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsSportsFitness || []).includes(o.value)}
+            onPress={() => onToggle("interestsSportsFitness", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Music">
+      <PreferenceBlock title={t("profile.interests.music")}>
         {(enums.InterestMusic || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsMusic || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsMusic", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsMusic || []).includes(o.value)}
+            onPress={() => onToggle("interestsMusic", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="Nightlife">
+      <PreferenceBlock title={t("profile.interests.nightlife")}>
         {(enums.InterestNightlife || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsNightlife || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsNightlife", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsNightlife || []).includes(o.value)}
+            onPress={() => onToggle("interestsNightlife", o.value)}
+          />
         ))}
       </PreferenceBlock>
 
-      <PreferenceBlock title="TV & Cinema">
+      <PreferenceBlock title={t("profile.interests.tvCinema")}>
         {(enums.InterestTvCinema || []).map((o: any) => (
-          <PreferenceChip key={o.value} label={o.label}
-            active={(form.preferredInterestsTvCinema || []).includes(o.value)}
-            onPress={() => onToggle("preferredInterestsTvCinema", o.value)} />
+          <PreferenceChip
+            key={o.value}
+            label={o.label}
+            active={(form.interestsTvCinema || []).includes(o.value)}
+            onPress={() => onToggle("interestsTvCinema", o.value)}
+          />
         ))}
       </PreferenceBlock>
     </View>

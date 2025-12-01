@@ -1,32 +1,198 @@
 {
+  "blogCard": {
+    "authorAndDate": "Autor e data de publicação",
+    "coverImage": "Imagem de capa",
+    "noDate": "Data não disponível",
+    "openPost": "Abrir post",
+    "subtitle": "Subtítulo",
+    "title": "Título",
+    "unknownAuthor": "Autor desconhecido"
+  },
+  "blogCategories": {
+    "empty": "Nenhuma categoria disponível no momento.",
+    "errors": {
+      "load": "Erro ao carregar categorias."
+    },
+    "loading": "Carregando categorias...",
+    "tapToView": "Toque para ver os posts"
+  },
+  "chat": {
+    "emptyMessage": "Mensagem vazia",
+    "imageMessage": "Imagem enviada",
+    "messageText": "Mensagem",
+    "myMessage": "Minha mensagem",
+    "otherMessage": "Mensagem do usuário"
+  },
+  "chatInput": {
+    "input": "Campo de mensagem",
+    "logs": {
+      "uploadError": "Erro ao enviar imagem:",
+      "uploadSuccess": "Upload realizado com sucesso:"
+    },
+    "pickImage": "Selecionar imagem",
+    "placeholder": "Digite uma mensagem…",
+    "send": "Enviar"
+  },
+  "chatRoom": {
+    "loading": "Carregando conversa...",
+    "logs": {
+      "ackError": "Erro no ACK:",
+      "ackReceived": "ACK recebido do servidor:",
+      "apiResponse": "Resposta da API:",
+      "cleanup": "Limpando conversa:",
+      "emptyPayload": "Mensagem vazia recebida, ignorando.",
+      "loadError": "Erro ao carregar histórico:",
+      "loadFinish": "Histórico carregado.",
+      "loadingRender": "Renderizando carregamento...",
+      "loadStart": "Iniciando carregamento:",
+      "messageAccepted": "Mensagem aceita.",
+      "messageExtracted": "Mensagem extraída:",
+      "messageIgnored": "Mensagem ignorada:",
+      "messageRaw": "Mensagem bruta:",
+      "messagesUpdated": "Mensagens atualizadas:",
+      "noPermission": "Sem permissão.",
+      "render": "Renderizando chat:",
+      "renderMessages": "Renderizando mensagens:",
+      "sendCalled": "Envio chamado:",
+      "socketCleanup": "Socket desconectado.",
+      "socketConnect": "Socket conectado.",
+      "socketCreated": "Socket criado.",
+      "socketDisconnect": "Socket desconectado.",
+      "socketError": "Erro no socket:",
+      "socketLate": "Socket tardio.",
+      "socketNullCleanup": "Socket nulo na limpeza.",
+      "socketNullSend": "Socket nulo ao enviar.",
+      "stateInfo": "Estado atual:",
+      "useEffectMount": "Tela montada:"
+    },
+    "noPermission": "Você não tem permissão para este chat."
+  },
+  "feedFree": {
+    "about": "Sobre",
+    "bio": "Bio",
+    "birthday": "Idade",
+    "city": "Cidade",
+    "country": "País",
+    "gender": "Gênero",
+    "intention": "Intenção",
+    "languages": "Idiomas",
+    "orientation": "Orientação",
+    "pronoun": "Pronome",
+    "relationshipType": "Tipo de relacionamento",
+    "state": "Estado",
+    "years": "anos"
+  },
   "forgot": {
     "backToLogin": "Voltar ao login",
-    "emailError": "Não foi possível enviar o email. Tente novamente.",
-    "emailInvalid": "Informe um email válido",
-    "emailPlaceholder": "Digite seu email",
-    "emailSent": "Enviamos um link de recuperação para seu email.",
-    "submit": "Enviar link de recuperação",
+    "emailError": "Erro ao enviar e-mail.",
+    "emailInvalid": "E-mail inválido",
+    "emailPlaceholder": "Digite seu e-mail",
+    "emailSent": "Link enviado para seu e-mail.",
+    "submit": "Enviar",
     "title": "Recuperar senha"
+  },
+  "inicio": {
+    "emptyFeed": "Nenhum usuário disponível.",
+    "loading": "Carregando feed...",
+    "superLikeLog": "Super like enviado!"
+  },
+  "likeButtons": {
+    "container": "Botões de curtida",
+    "dislike": "Não curtir",
+    "like": "Curtir",
+    "logs": {
+      "dislikeClick": "Não curtiu",
+      "dislikeError": "Erro ao não curtir:",
+      "likeError": "Erro ao curtir:",
+      "matchDetected": "Match detectado!",
+      "superLikeClick": "Super like clicado",
+      "superLikeError": "Erro no super like:",
+      "superLikeInvalidUser": "Usuário inválido.",
+      "superLikeMatched": "Super match!",
+      "superLikeNoMatch": "Sem match",
+      "superLikeResponse": "Resposta do super like:",
+      "superLikeSending": "Enviando super like..."
+    },
+    "superLike": "Super like"
+  },
+  "likeCard": {
+    "openProfile": "Abrir perfil",
+    "placeholderImage": "Imagem padrão",
+    "received": "Curtidas recebidas",
+    "sent": "Curtidas enviadas",
+    "unknown": "Curtida",
+    "userPhoto": "Foto do usuário"
+  },
+  "likesReceived": {
+    "empty": "Ninguém curtiu você ainda.",
+    "loading": "Carregando curtidas...",
+    "logs": {
+      "loadError": "Erro ao carregar curtidas:"
+    },
+    "title": "Quem curtiu você"
+  },
+  "likesSection": {
+    "container": "Curtidas",
+    "logs": {
+      "blocked": "Acesso bloqueado pelo plano.",
+      "canSeeSent": "Pode ver curtidas enviadas:",
+      "userPlan": "Plano do usuário:"
+    }
+  },
+  "likesSent": {
+    "empty": "Você ainda não curtiu ninguém.",
+    "loading": "Carregando curtidas...",
+    "logs": {
+      "loadError": "Erro ao carregar curtidas:"
+    },
+    "title": "Pessoas que você curtiu"
   },
   "login": {
     "email": "E-mail",
-    "forgotPassword": "Esqueceu sua senha?",
+    "forgotPassword": "Esqueceu a senha?",
     "loading": "Carregando...",
     "password": "Senha",
     "register": "Criar conta",
     "submit": "Entrar",
     "title": "Login"
   },
+  "matches": {
+    "empty": "Nenhum match ainda.",
+    "errors": {
+      "load": "Erro ao carregar matches."
+    },
+    "loading": "Carregando matches...",
+    "tapToChat": "Toque para conversar"
+  },
+  "matchModal": {
+    "container": "Modal de match",
+    "continue": "Continuar",
+    "couple": "Usuários combinados",
+    "goToChat": "Ir para o chat",
+    "title": "É um match!",
+    "user1Photo": "Sua foto",
+    "user2Photo": "Foto do match"
+  },
+  "premiumCheckout": {
+    "title": "Checkout Premium"
+  },
   "register": {
-    "email": "Email",
+    "email": "E-mail",
     "errorCreate": "Erro ao criar conta.",
-    "errorMissingFields": "Preencha todos os campos e escolha uma foto.",
-    "name": "",
+    "errorMissingFields": "Preencha todos os campos.",
+    "name": "Nome completo",
     "password": "Senha",
-    "pickPhoto": "Escolher Foto",
-    "submit": "Registrar",
+    "pickPhoto": "Escolher foto",
+    "submit": "Cadastrar",
     "success": "Conta criada com sucesso!",
     "title": "Criar conta"
+  },
+  "swipeUserCard": {
+    "container": "Cartão do usuário",
+    "nextPhoto": "Próxima foto",
+    "photoProgress": "Progresso",
+    "userPhoto": "Foto do usuário",
+    "years": "anos"
   },
   "tabs": {
     "chat": "Chat",
@@ -35,5 +201,74 @@
     "home": "Início",
     "likes": "Curtidas",
     "profile": "Perfil"
-  }
+  },
+  "userCard": {
+    "container": "Usuário",
+    "nextPhoto": "Próxima foto",
+    "unknownCity": "Cidade desconhecida",
+    "unknownName": "Nome desconhecido",
+    "userPhoto": "Foto",
+    "years": "anos"
+  },
+  "userPreferences": {
+    "fields": {
+      "ageMax": "Idade máxima",
+      "ageMin": "Idade mínima",
+      "company": "Empresa",
+      "heightCm": "Altura (cm)",
+      "jobTitle": "Profissão",
+      "maxDistanceKm": "Distância máxima (km)",
+      "preferredActivityLevel": "Nível de atividade",
+      "preferredCommunication": "Comunicação",
+      "preferredDrinking": "Bebe",
+      "preferredEducationLevels": "Escolaridade",
+      "preferredGenders": "Gênero preferido",
+      "preferredIntentions": "Intenções",
+      "preferredInterestsActivities": "Interesses (Atividades)",
+      "preferredInterestsCreativity": "Criatividade",
+      "preferredInterestsLifestyle": "Estilo de vida",
+      "preferredInterestsMusic": "Música",
+      "preferredInterestsNightlife": "Vida noturna",
+      "preferredInterestsSportsFitness": "Esportes e Fitness",
+      "preferredInterestsTvCinema": "TV e Cinema",
+      "preferredLanguages": "Idiomas",
+      "preferredOrientations": "Orientação preferida",
+      "preferredPets": "Animais de estimação",
+      "preferredPronouns": "Pronomes",
+      "preferredRelationshipTypes": "Tipo de relacionamento",
+      "preferredSmoking": "Fuma",
+      "preferredZodiacs": "Signo"
+    },
+    "title": "Preferências"
+  },
+  "feedPremium": {
+  "about": "Sobre",
+  "bio": "Bio",
+  "birthday": "Idade",
+  "gender": "Gênero",
+  "orientation": "Orientação",
+  "city": "Cidade",
+  "state": "Estado",
+  "country": "País",
+  "pronoun": "Pronome",
+  "intention": "Intenção",
+  "relationshipType": "Tipo de relacionamento",
+
+  "jobTitle": "Profissão",
+  "company": "Empresa",
+  "heightCm": "Altura (cm)",
+  "preferredEducationLevels": "Escolaridade",
+  "preferredLanguages": "Idiomas",
+  "preferredPets": "Animais de estimação",
+  "preferredSmoking": "Fuma",
+  "preferredDrinking": "Bebe",
+  "preferredActivityLevel": "Nível de atividade",
+  "preferredCommunication": "Comunicação",
+  "preferredZodiacs": "Signo",
+  "preferredIntentions": "Intenções",
+  "preferredRelationshipTypes": "Tipo de relação",
+
+  "years": "anos"
+}
+
 }

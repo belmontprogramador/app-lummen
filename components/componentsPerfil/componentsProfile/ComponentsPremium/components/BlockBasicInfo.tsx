@@ -1,7 +1,7 @@
-// src/components/userProfile/BlockBasicInfo.tsx
 import { View, TextInput, TouchableOpacity, Text, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
+import { useTranslation } from "react-i18next"; // ✅ ADICIONADO
 
 import PreferenceBlock from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceBlock";
 import PreferenceChip from "@/components/componentsPerfil/componentsProfile/ComponentsPremium/components/PreferenceChip";
@@ -12,6 +12,8 @@ export default function BlockBasicInfo({
   onChange = () => {},
   onToggle = () => {},
 }: any) {
+  const { t } = useTranslation(); // ✅ ADICIONADO
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showHeightSelect, setShowHeightSelect] = useState(false);
 
@@ -25,7 +27,7 @@ export default function BlockBasicInfo({
   return (
     <View>
       {/* BIO */}
-      <PreferenceBlock title="Bio">
+      <PreferenceBlock title={t("profile.bio")}>
         <TextInput
           value={form.bio || ""}
           onChangeText={(v) => onChange("bio", v)}
@@ -40,7 +42,7 @@ export default function BlockBasicInfo({
       </PreferenceBlock>
 
       {/* BIRTHDAY */}
-      <PreferenceBlock title="Birthday">
+      <PreferenceBlock title={t("profile.birthday")}>
         <TouchableOpacity
           onPress={() => setShowDatePicker(true)}
           style={{
@@ -50,15 +52,13 @@ export default function BlockBasicInfo({
           }}
         >
           <Text style={{ color: form.birthday ? "#000" : "#777" }}>
-            {form.birthday || "Select your birthday"}
+            {form.birthday || t("profile.selectBirthday")}
           </Text>
         </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
-            value={
-              form.birthday ? new Date(form.birthday) : new Date("1990-01-01")
-            }
+            value={form.birthday ? new Date(form.birthday) : new Date("1990-01-01")}
             mode="date"
             display={Platform.OS === "ios" ? "spinner" : "default"}
             onChange={handleDateChange}
@@ -66,44 +66,44 @@ export default function BlockBasicInfo({
         )}
       </PreferenceBlock>
 
-      {/* PREFERRED GENDERS */}
-      <PreferenceBlock title="Preferred Genders">
+      {/* GENDER */}
+      <PreferenceBlock title={t("profile.gender")}>
         {(enums.Gender || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredGenders || []).includes(o.value)}
-            onPress={() => onToggle("preferredGenders", o.value)}
+            active={(form.gender || []).includes(o.value)}  // ✅ MARCAÇÃO CORRETA
+            onPress={() => onToggle("gender", o.value)}
           />
         ))}
       </PreferenceBlock>
 
-      {/* PREFERRED ORIENTATIONS */}
-      <PreferenceBlock title="Preferred Orientations">
+      {/* ORIENTATION */}
+      <PreferenceBlock title={t("profile.orientation")}>
         {(enums.SexualOrientation || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredOrientations || []).includes(o.value)}
-            onPress={() => onToggle("preferredOrientations", o.value)}
+            active={(form.orientation || []).includes(o.value)}
+            onPress={() => onToggle("orientation", o.value)}
           />
         ))}
       </PreferenceBlock>
 
-      {/* PREFERRED PRONOUNS */}
-      <PreferenceBlock title="Preferred Pronouns">
+      {/* PRONOUN */}
+      <PreferenceBlock title={t("profile.pronoun")}>
         {(enums.Pronoun || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredPronouns || []).includes(o.value)}
-            onPress={() => onToggle("preferredPronouns", o.value)}
+            active={(form.pronoun || []).includes(o.value)}
+            onPress={() => onToggle("pronoun", o.value)}
           />
         ))}
       </PreferenceBlock>
 
       {/* HEIGHT */}
-      <PreferenceBlock title="Height (cm)">
+      <PreferenceBlock title={t("profile.height")}>
         <TouchableOpacity
           onPress={() => setShowHeightSelect((s) => !s)}
           style={{
@@ -114,7 +114,7 @@ export default function BlockBasicInfo({
           }}
         >
           <Text style={{ fontSize: 16 }}>
-            {form.heightCm ? `${form.heightCm} cm` : "Select your height"}
+            {form.heightCm ? `${form.heightCm} cm` : t("profile.selectHeight")}
           </Text>
         </TouchableOpacity>
 
@@ -148,38 +148,38 @@ export default function BlockBasicInfo({
         )}
       </PreferenceBlock>
 
-      {/* PREFERRED INTENTIONS */}
-      <PreferenceBlock title="Preferred Intentions">
+      {/* INTENTION */}
+      <PreferenceBlock title={t("profile.intention")}>
         {(enums.Intention || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredIntentions || []).includes(o.value)}
-            onPress={() => onToggle("preferredIntentions", o.value)}
+            active={(form.intention || []).includes(o.value)}
+            onPress={() => onToggle("intention", o.value)}
           />
         ))}
       </PreferenceBlock>
 
-      {/* PREFERRED RELATIONSHIP TYPES */}
-      <PreferenceBlock title="Preferred Relationship Types">
+      {/* RELATIONSHIP TYPE */}
+      <PreferenceBlock title={t("profile.relationshipType")}>
         {(enums.RelationshipType || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredRelationshipTypes || []).includes(o.value)}
-            onPress={() => onToggle("preferredRelationshipTypes", o.value)}
+            active={(form.relationshipType || []).includes(o.value)}
+            onPress={() => onToggle("relationshipType", o.value)}
           />
         ))}
       </PreferenceBlock>
 
-      {/* PREFERRED ZODIACS */}
-      <PreferenceBlock title="Preferred Zodiacs">
+      {/* ZODIAC */}
+      <PreferenceBlock title={t("profile.zodiac")}>
         {(enums.ZodiacSign || []).map((o: any) => (
           <PreferenceChip
             key={o.value}
             label={o.label}
-            active={(form.preferredZodiacs || []).includes(o.value)}
-            onPress={() => onToggle("preferredZodiacs", o.value)}
+            active={(form.zodiac || []).includes(o.value)}
+            onPress={() => onToggle("zodiac", o.value)}
           />
         ))}
       </PreferenceBlock>

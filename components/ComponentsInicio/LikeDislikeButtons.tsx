@@ -1,6 +1,9 @@
+// src/components/ComponentsInicio/LikeDislikeButtons.tsx
+
 import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LikesAPI } from "@/service/likes";
+import { useTranslation } from "react-i18next";
 
 export default function LikeDislikeButtons({
   user,
@@ -9,70 +12,83 @@ export default function LikeDislikeButtons({
   onSuperLike,
   onMatch
 }: any) {
+  const { t } = useTranslation(); // ✅ i18n
 
- const handleLike = async () => {
-  try {
-    const res = await LikesAPI.create(user.id);
+  const handleLike = async () => {
+    try {
+      const res = await LikesAPI.create(user.id);
 
-    if (res?.matched) {
-      console.log("🎉 MATCH DETECTADO");
+      if (res?.matched) {
+        console.log(t("likeButtons.logs.matchDetected"));
 
-      const matchedData =
-        res?.otherUser ||
-        res?.targetUser ||
-        res?.matchedUser ||
-        res?.user ||
-        user;
+        const matchedData =
+          res?.otherUser ||
+          res?.targetUser ||
+          res?.matchedUser ||
+          res?.user ||
+          user;
 
-      if (onMatch) onMatch(matchedData);
+        if (onMatch) onMatch(matchedData);
 
-      return; // ⛔ MUITO IMPORTANTE → NÃO PULA O USER !!!
+        return; // ⛔ MUITO IMPORTANTE → NÃO PULA O USER !!!
+      }
+
+      // Só pula SE NÃO tiver match
+      if (onLike) onLike();
+
+    } catch (err) {
+      console.log(t("likeButtons.logs.likeError"), err);
     }
-
-    // Só pula SE NÃO tiver match
-    if (onLike) onLike();
-
-  } catch (err) {
-    console.log("🔥 [ERRO LIKE] Detalhes:", err);
-  }
-};
+  };
 
   const handleSuperLike = async () => {
     try {
-      console.log("👉 [SUPER LIKE CLICK] Usuário:", user?.id);
+      console.log(
+        t("likeButtons.logs.superLikeClick"),
+        user?.id
+      );
 
       if (!user?.id) {
-        console.log("⚠️ [SUPER LIKE] user.id inexistente. Cancelando.");
+        console.log(t("likeButtons.logs.superLikeInvalidUser"));
         return;
       }
 
-      console.log("📡 [SUPER LIKE] Enviando requisição para API...");
+      console.log(t("likeButtons.logs.superLikeSending"));
       const res = await LikesAPI.create(user.id, true);
 
-      console.log("💎 [SUPER LIKE RESPOSTA] API:", res);
+      console.log(
+        t("likeButtons.logs.superLikeResponse"),
+        res
+      );
 
       if (res?.matched) {
-        console.log("🎉💎 [MATCH SUPER LIKE] MATCH com:", user.id);
+        console.log(
+          t("likeButtons.logs.superLikeMatched"),
+          user.id
+        );
         if (onMatch) onMatch(user);
       } else {
-        console.log("❌💎 [NO MATCH SUPER LIKE] Nenhum match.");
+        console.log(t("likeButtons.logs.superLikeNoMatch"));
       }
 
       if (onSuperLike) onSuperLike();
 
     } catch (err) {
-      console.log("🔥 [ERRO SUPER LIKE] Detalhes:", err);
+      console.log(t("likeButtons.logs.superLikeError"), err);
     }
   };
 
   const handleDislike = async () => {
     try {
-      console.log("👎 [DISLIKE CLICK] Usuário:", user?.id);
+      console.log(
+        t("likeButtons.logs.dislikeClick"),
+        user?.id
+      );
 
       if (onDislike) onDislike();
 
     } catch (err) {
-      console.log("🔥 [ERRO DISLIKE] Detalhes:", err);
+      console.log(t("likeButtons.logs.dislikeError"), err);
     }
   };
 
@@ -85,10 +101,12 @@ export default function LikeDislikeButtons({
         marginTop: 25,
         paddingVertical: 10,
       }}
+      accessibilityLabel={t("likeButtons.container")}
     >
-      {/* DISLIKE */}
+      {/* ✅ DISLIKE */}
       <TouchableOpacity
         onPress={handleDislike}
+        accessibilityLabel={t("likeButtons.dislike")}
         style={{
           width: 70,
           height: 70,
@@ -105,9 +123,10 @@ export default function LikeDislikeButtons({
         <Ionicons name="close" size={36} color="#ff4444" />
       </TouchableOpacity>
 
-      {/* SUPER LIKE */}
+      {/* ✅ SUPER LIKE */}
       <TouchableOpacity
         onPress={handleSuperLike}
+        accessibilityLabel={t("likeButtons.superLike")}
         style={{
           width: 60,
           height: 60,
@@ -124,9 +143,10 @@ export default function LikeDislikeButtons({
         <Ionicons name="star" size={28} color="#0099ff" />
       </TouchableOpacity>
 
-      {/* LIKE */}
+      {/* ✅ LIKE */}
       <TouchableOpacity
         onPress={handleLike}
+        accessibilityLabel={t("likeButtons.like")}
         style={{
           width: 70,
           height: 70,
