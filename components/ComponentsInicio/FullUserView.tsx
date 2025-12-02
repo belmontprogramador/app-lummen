@@ -61,7 +61,14 @@ export default function FullUserView({
       showsVerticalScrollIndicator={false}
     >
       {/* Foto + Carousel */}
-      <SwipeUserCard user={user} onSkip={onSkip} />
+      <SwipeUserCard 
+  user={user} 
+  onSkip={() => {
+    console.log("⏭️ FullUserView: onSkip RECEBIDO do SwipeUserCard para user:", user.id);
+    onSkip?.(user.id);
+  }} 
+/>
+
 
       {/* LIKE / DISLIKE / SUPER LIKE BOTÕES */}
       <LikeDislikeButtons

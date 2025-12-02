@@ -79,18 +79,26 @@ export default function LikeDislikeButtons({
   };
 
   const handleDislike = async () => {
-    try {
-      console.log(
-        t("likeButtons.logs.dislikeClick"),
-        user?.id
-      );
+  try {
+    console.log(t("likeButtons.logs.dislikeClick"), user?.id);
 
-      if (onDislike) onDislike();
-
-    } catch (err) {
-      console.log(t("likeButtons.logs.dislikeError"), err);
+    if (!user?.id) {
+      console.log("❌ Usuário inválido no dislike");
+      return;
     }
-  };
+
+    // 🔥 AQUI ESTAVA FALTANDO!!!
+    const res = await LikesAPI.dislike(user.id);
+
+    console.log("💔 Dislike enviado →", res);
+
+    if (onDislike) onDislike();
+
+  } catch (err) {
+    console.log(t("likeButtons.logs.dislikeError"), err);
+  }
+};
+
 
   return (
     <View

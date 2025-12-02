@@ -1,8 +1,9 @@
 // src/components/ComponentsInicio/SwipeUserCard.tsx
 
 import { useState, useMemo } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, Animated } from "react-native";
 import { useTranslation } from "react-i18next";
+import { PanGestureHandler, State } from "react-native-gesture-handler";
 
 export default function SwipeUserCard({ user, onSkip }: any) {
   const { t } = useTranslation();
@@ -17,9 +18,32 @@ export default function SwipeUserCard({ user, onSkip }: any) {
   }, [user]);
 
   const [photoIndex, setPhotoIndex] = useState(0);
+  const translateX = new Animated.Value(0);
 
   function nextPhoto() {
     setPhotoIndex((prev) => (prev + 1) % allPhotos.length);
+  }
+
+  function onGestureEvent(event: any) {
+    translateX.setValue(event.nativeEvent.translationX);
+  }
+
+  function onHandlerStateChange(event: any) {
+    if (event.nativeEvent.state === State.END) {
+      const dx = event.nativeEvent.translationX;
+
+      console.log("👉 Swipe detectado! dx =", dx);
+
+      if (dx < -80) {
+        console.log("⏭️ Swipe LEFT → SKIP acionado para", user.id);
+        onSkip?.(user.id);
+      }
+
+      Animated.spring(translateX, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start();
+    }
   }
 
   const age = useMemo(() => {
@@ -39,75 +63,42 @@ export default function SwipeUserCard({ user, onSkip }: any) {
   const city = user.profile?.city || "";
 
   return (
-    <View
-      style={{ alignItems: "center" }}
-      accessibilityLabel={t("swipeUserCard.container")}
+    <PanGestureHandler
+      onGestureEvent={onGestureEvent}
+      onHandlerStateChange={onHandlerStateChange}
     >
-      {/* FOTO + BARRA SOBREPOSTA */}
-      <View style={{ width: 330, height: 330, marginBottom: 15 }}>
-        {/* 🔥 Barra sobreposta na parte superior da foto */}
-        <View
-          style={{
-            position: "absolute",
-            top: 10,
-            left: 0,
-            right: 0,
-            flexDirection: "row",
-            justifyContent: "center",
-            paddingHorizontal: 12,
-            zIndex: 10,
-          }}
-          accessibilityLabel={t("swipeUserCard.photoProgress")}
-        >
-          {allPhotos.map((_, idx) => (
-            <View
-              key={idx}
+      <Animated.View
+        style={{
+          transform: [{ translateX }],
+          alignItems: "center",
+        }}
+      >
+        <View style={{ width: 330, height: 330, marginBottom: 15 }}>
+          <TouchableOpacity onPress={nextPhoto} style={{ flex: 1 }}>
+            <Image
+              source={{
+                uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`,
+              }}
               style={{
-                flex: 1,
-                height: 4,
-                marginHorizontal: 3,
-                borderRadius: 4,
-                backgroundColor:
-                  idx === photoIndex ? "#fff" : "rgba(255,255,255,0.4)",
+                width: "100%",
+                height: "100%",
+                borderRadius: 20,
+                backgroundColor: "#ccc",
               }}
             />
-          ))}
+          </TouchableOpacity>
         </View>
 
-        {/* FOTO */}
-        <TouchableOpacity
-          onPress={nextPhoto}
-          style={{ flex: 1 }}
-          accessibilityLabel={t("swipeUserCard.nextPhoto")}
-        >
-          <Image
-            source={{
-              uri: `https://botgrupo.lummen-app.com${allPhotos[photoIndex]}`,
-            }}
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 20,
-              backgroundColor: "#ccc",
-            }}
-            accessibilityLabel={t("swipeUserCard.userPhoto")}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* NOME + IDADE */}
-      <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>
-        {user.name} {age ? `, ${age} ${t("swipeUserCard.years")}` : ""}
-      </Text>
-
-      {/* CIDADE */}
-      {city !== "" && (
-        <Text style={{ fontSize: 18, color: "#444", marginTop: 4 }}>
-          {city}
+        <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>
+          {user.name} {age ? `, ${age} ${t("swipeUserCard.years")}` : ""}
         </Text>
-      )}
 
-      {/* ⛔️ Botão de SKIP removido (layout) */}
-    </View>
+        {city !== "" && (
+          <Text style={{ fontSize: 18, color: "#444", marginTop: 4 }}>
+            {city}
+          </Text>
+        )}
+      </Animated.View>
+    </PanGestureHandler>
   );
 }

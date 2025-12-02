@@ -1,5 +1,3 @@
-// src/app/(tabs)/preferences-free.tsx
-
 import { useEffect, useState, useContext, useCallback } from "react";
 import {
   View,
@@ -22,6 +20,10 @@ import DistanceSlider from "@/components/componentsPerfil/compenentsPreferences/
 import GenderSelector from "@/components/componentsPerfil/compenentsPreferences/componentspFree/GenderSelector";
 import OrientationSelector from "@/components/componentsPerfil/compenentsPreferences/componentspFree/OrientationSelector";
 
+// NOVOS BLOCOS ADICIONADOS
+import BlockRelationshipTypes from "@/components/componentsPerfil/compenentsPreferences/componentsPremium/BlockRelationshipTypes";
+import BlockIntentions from "@/components/componentsPerfil/compenentsPreferences/componentsPremium/BlockIntentions";
+
 // Modal de confirmação
 import ConfirmModal from "@/components/modals/ConfirmModal";
 
@@ -31,22 +33,27 @@ export default function PreferencesFreeScreen() {
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState<any>(null);
 
+  // Estado completo das preferências
   const [prefs, setPrefs] = useState<any>({
     maxDistanceKm: 50,
     ageMin: 18,
     ageMax: 99,
     preferredGenders: [],
     preferredOrientations: [],
+    preferredRelationshipTypes: [], // ADICIONADO
+    preferredIntentions: [],        // ADICIONADO
   });
 
-  const [showConfirm, setShowConfirm] = useState(false); // 👈 modal
+  const [showConfirm, setShowConfirm] = useState(false);
 
+  // Atualiza usuário ao entrar na tela
   useFocusEffect(
-  useCallback(() => {
-    refreshUser();  
-  }, [])
-);
+    useCallback(() => {
+      refreshUser();
+    }, [])
+  );
 
+  // Carregar opções e preferências atuais
   useEffect(() => {
     (async () => {
       try {
@@ -87,9 +94,7 @@ export default function PreferencesFreeScreen() {
     Alert.alert("Sucesso", "Preferências salvas!");
   };
 
-  // =================================
   // 🔐 BLOQUEIO GLOBAL
-  // =================================
   if (loading) return <ActivityIndicator style={{ marginTop: 40 }} />;
 
   const blockScreen = checkAccess(user, "preferences_update_free");
@@ -100,7 +105,6 @@ export default function PreferencesFreeScreen() {
   // ================================
   return (
     <View style={{ flex: 1 }}>
-      
       {/* Modal de confirmação */}
       <ConfirmModal
         visible={showConfirm}
@@ -111,7 +115,7 @@ export default function PreferencesFreeScreen() {
         onCancel={() => setShowConfirm(false)}
         onConfirm={() => {
           setShowConfirm(false);
-          save(); // chama função original
+          save();
         }}
       />
 
@@ -123,11 +127,13 @@ export default function PreferencesFreeScreen() {
           Basic Preferences
         </Text>
 
+        {/* Distância */}
         <DistanceSlider
           value={prefs.maxDistanceKm}
           onChange={(v) => setPrefs({ ...prefs, maxDistanceKm: v })}
         />
 
+        {/* Idade */}
         <AgeRange
           minAge={prefs.ageMin}
           maxAge={prefs.ageMax}
@@ -136,6 +142,7 @@ export default function PreferencesFreeScreen() {
           }
         />
 
+        {/* Gênero */}
         {options?.Gender && (
           <GenderSelector
             options={options.Gender}
@@ -146,6 +153,7 @@ export default function PreferencesFreeScreen() {
           />
         )}
 
+        {/* Orientação Sexual */}
         {options?.SexualOrientation && (
           <OrientationSelector
             options={options.SexualOrientation}
@@ -156,9 +164,51 @@ export default function PreferencesFreeScreen() {
           />
         )}
 
+        {/* INTENÇÕES */}
+      {options?.Intention && (
+  <BlockIntentions
+    options={options.Intention}
+    prefs={prefs.preferredIntentions}
+    onToggle={(value: string) => {
+      const current: string[] = prefs.preferredIntentions || [];
+
+      const updated = current.includes(value)
+        ? current.filter((v: string) => v !== value)
+        : [...current, value];
+
+      setPrefs({
+        ...prefs,
+        preferredIntentions: updated,
+      });
+    }}
+  />
+)}
+
+
+        {/* TIPO DE RELACIONAMENTO */}
+     {options?.RelationshipType && (
+  <BlockRelationshipTypes
+    options={options.RelationshipType}
+    prefs={prefs.preferredRelationshipTypes}
+    onToggle={(value: string) => {
+      const current: string[] = prefs.preferredRelationshipTypes || [];
+
+      const updated = current.includes(value)
+        ? current.filter((v: string) => v !== value)
+        : [...current, value];
+
+      setPrefs({
+        ...prefs,
+        preferredRelationshipTypes: updated,
+      });
+    }}
+  />
+)}
+
+
         {/* BOTÃO SALVAR */}
         <TouchableOpacity
-          onPress={() => setShowConfirm(true)} // 👈 abre o modal
+          onPress={() => setShowConfirm(true)}
           style={{
             backgroundColor: "black",
             padding: 15,

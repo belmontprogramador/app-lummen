@@ -2,8 +2,6 @@
 
 import BlockPronouns from "./BlockPronouns";
 import BlockZodiac from "./BlockZodiac";
-import BlockIntentions from "./BlockIntentions";
-import BlockRelationshipTypes from "./BlockRelationshipTypes";
 import BlockPets from "./BlockPets";
 import BlockSmoking from "./BlockSmoking";
 import BlockDrinking from "./BlockDrinking";
@@ -41,17 +39,9 @@ export default function BlocksAllPremium({ options, prefs, toggle }: Props) {
         onToggle={(v: string) => toggle("preferredZodiacs", v)}
       />
 
-      <BlockIntentions
-        options={options.Intention}
-        prefs={prefs.preferredIntentions}
-        onToggle={(v: string) => toggle("preferredIntentions", v)}
-      />
+      {/* 🔥 INTENTIONS REMOVIDO */}
 
-      <BlockRelationshipTypes
-        options={options.RelationshipType}
-        prefs={prefs.preferredRelationshipTypes}
-        onToggle={(v: string) => toggle("preferredRelationshipTypes", v)}
-      />
+      {/* 🔥 RELATIONSHIP TYPES REMOVIDO */}
 
       <BlockPets
         options={options.PetsPreference}
@@ -95,7 +85,7 @@ export default function BlocksAllPremium({ options, prefs, toggle }: Props) {
         onToggle={(v: string) => toggle("preferredLanguages", v)}
       />
 
-      {/* INTERESTS */}
+      {/* INTEREST BLOCKS */}
       <BlockInterestsActivities
         options={options.InterestActivity}
         prefs={prefs.preferredInterestsActivities}

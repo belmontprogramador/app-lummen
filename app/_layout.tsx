@@ -19,10 +19,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function RootLayout() {
   const pathname = usePathname();
 
-  useEffect(() => {
-    OneSignal.setAppId("SEU-ONESIGNAL-APP-ID");
-    OneSignal.promptForPushNotificationsWithUserResponse();
-  }, []);
+  // useEffect(() => {
+  //   OneSignal.setAppId("SEU-ONESIGNAL-APP-ID");
+  //   OneSignal.promptForPushNotificationsWithUserResponse();
+  // }, []);
 
   const isAereaShow = pathname === "/aereashow";
 
