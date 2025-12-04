@@ -4,7 +4,7 @@ import { LoginResponse } from "@/types/auth";
 import { PaginationResponse } from "@/types/api";
 
 // ----------------------------------------------------
-// UPLOAD UTIL (mantido 100% intacto)
+// UPLOAD UTIL — com correções IMPORTANTES
 // ----------------------------------------------------
 export async function uploadWithPhoto(
   endpoint: string,
@@ -14,7 +14,21 @@ export async function uploadWithPhoto(
   const form = new FormData();
 
   for (const key in data) {
-    const value = data[key];
+    let value = data[key];
+
+    // ❌ Não enviar campos vazios
+    if (value === "" || value === null || value === undefined) continue;
+
+    // ✅ Converter birthday para ISO antes de enviar
+    if (key === "birthday") {
+      try {
+        value = new Date(value).toISOString(); // PRISMA ACEITA AGORA
+        form.append("birthday", value);
+      } catch (e) {
+        console.log("Erro ao converter aniversário:", e);
+      }
+      continue;
+    }
 
     // 1) FOTO PRINCIPAL
     if (key === "photo" && value) {
@@ -38,13 +52,12 @@ export async function uploadWithPhoto(
       form.append("photo_position_file", file as any);
       continue;
     }
-
     if (key === "photo_position_index") {
       form.append("photo_position_index", String(value));
       continue;
     }
 
-    // 4) CAMPOS SIMPLES
+    // 4) CAMPOS SIMPLES (texto, número, boolean)
     if (
       typeof value === "string" ||
       typeof value === "number" ||
@@ -80,7 +93,7 @@ async function prepareFile(item: any): Promise<any> {
     return item;
   }
 
-  // WEB (URI)
+  // WEB — via URI
   if (item?.uri && typeof window !== "undefined") {
     const blob = await fetch(item.uri).then((res) => res.blob());
     return new File([blob], item.name || "file.jpg", { type: blob.type });
@@ -95,7 +108,7 @@ async function prepareFile(item: any): Promise<any> {
 }
 
 // ----------------------------------------------------
-// USERS API — total refactor
+// USERS API — COMPLETO
 // ----------------------------------------------------
 
 export const UsersAPI = {
@@ -107,7 +120,7 @@ export const UsersAPI = {
   login: (email: string, password: string) =>
     api.post<LoginResponse>("/users/login", { email, password }),
 
-  // ⭐ NOVO: GET USER ME (atualiza dados após mudar plano, etc)
+  // GET USER ME
   me: () => api.get<User>("/users/me"),
 
   // LIST USERS
@@ -116,7 +129,7 @@ export const UsersAPI = {
       params: { page, limit, q },
     }),
 
-  // GET SINGLE
+  // GET ONE
   getOne: (id: string) => api.get<User>(`/users/${id}`),
 
   // UPDATE USER (com ou sem foto)
@@ -130,14 +143,16 @@ export const UsersAPI = {
       return uploadWithPhoto(`/users/${id}`, data, "PATCH");
     }
 
+    // Remover birthday vazio
+    if (data.birthday === "") delete data.birthday;
+
     return api.patch(`/users/${id}`, data);
   },
 
-  // DELETE USER
+  // DELETE
   remove: (id: string) => api.delete(`/users/${id}`),
 
-  // ADMIN: STATUS
+  // ADMIN STATUS UPDATE
   setStatus: (id: string, status: string) =>
     api.patch(`/users/${id}/status`, { status }),
 };
-

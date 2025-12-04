@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
   baseURL: "https://botgrupo.lummen-app.com",
-  timeout: 10000,
+  timeout: 30000,
 });
 
 // Interceptor para incluir token JWT
