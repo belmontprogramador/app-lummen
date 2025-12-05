@@ -1,7 +1,61 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { router } from "expo-router";
+import { PlanAPI } from "@/service/planService";
+
+interface Plan {
+  id: string;
+  name: string;
+  title: string;
+  price: number | null;
+  currency: string;
+  features: any;
+  durationDays: number;
+}
 
 export default function PlansScreen() {
+  const [plans, setPlans] = useState<Plan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const data = await PlanAPI.listPublicPlans();
+        setPlans(data);
+      } catch (err) {
+        console.log("Erro ao carregar planos:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+  }, []);
+
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#f5f5f5",
+        }}
+      >
+        <ActivityIndicator size="large" color="#7b2cff" />
+        <Text style={{ marginTop: 10, color: "#444" }}>
+          Loading your plans...
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -33,131 +87,122 @@ export default function PlansScreen() {
         Unlock advanced filters, premium preferences and better match control.
       </Text>
 
-      {/* =========================== */}
-      {/* PLAN FREE */}
-      {/* =========================== */}
-      <View
-        style={{
-          backgroundColor: "white",
-          padding: 20,
-          borderRadius: 16,
-          marginBottom: 20,
-          shadowColor: "#000",
-          shadowOpacity: 0.07,
-          shadowRadius: 6,
-          elevation: 3,
-        }}
-      >
-        <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 4 }}>
-          Free Plan
-        </Text>
+      {/* ====== LISTAGEM DINÂMICA DE PLANOS ====== */}
+      {plans.map((plan) => {
+        const isFree = plan.name.toLowerCase() === "free";
 
-        <Text style={{ color: "#666", marginBottom: 15 }}>
-          Basic experience with limited features.
-        </Text>
-
-        <View style={{ marginBottom: 10 }}>
-          <Text style={{ fontSize: 15 }}>• Limited discovery</Text>
-          <Text style={{ fontSize: 15 }}>• Standard filters</Text>
-          <Text style={{ fontSize: 15 }}>
-            • No access to premium preferences
-          </Text>
-        </View>
-
-        <TouchableOpacity
-          disabled
-          style={{
-            backgroundColor: "#ccc",
-            paddingVertical: 12,
-            borderRadius: 10,
-            marginTop: 10,
-            opacity: 0.6,
-          }}
-        >
-          <Text
+        return (
+          <View
+            key={plan.id}
             style={{
-              color: "white",
-              textAlign: "center",
-              fontSize: 16,
-              fontWeight: "600",
+              backgroundColor: "white",
+              padding: 20,
+              borderRadius: 16,
+              marginBottom: 20,
+              shadowColor: "#000",
+              shadowOpacity: 0.07,
+              shadowRadius: 6,
+              elevation: 3,
             }}
           >
-            Current Plan
-          </Text>
-        </TouchableOpacity>
-      </View>
+            {/* TITLE */}
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "bold",
+                marginBottom: 4,
+                color: isFree ? "#000" : "#7b2cff",
+              }}
+            >
+              {plan.title}
+            </Text>
 
-      {/* =========================== */}
-      {/* PLAN PREMIUM */}
-      {/* =========================== */}
-      <View
-        style={{
-          backgroundColor: "white",
-          padding: 20,
-          borderRadius: 16,
-          shadowColor: "#000",
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 4,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 22,
-            fontWeight: "bold",
-            marginBottom: 4,
-            color: "#7b2cff",
-          }}
-        >
-          Premium
-        </Text>
+            {/* PRICE */}
+            {!isFree && (
+              <Text
+                style={{
+                  fontSize: 26,
+                  fontWeight: "bold",
+                  marginTop: 10,
+                  marginBottom: 15,
+                }}
+              >
+                {plan.currency} {plan.price}
+                <Text style={{ fontSize: 16 }}>/month</Text>
+              </Text>
+            )}
 
-        <Text style={{ color: "#666", marginBottom: 15 }}>
-          Everything you need to elevate your experience.
-        </Text>
+            {/* FEATURES */}
+            <View style={{ marginBottom: 15 }}>
+              {/* features pode vir como JSON complexo ou array simples */}
+              {Array.isArray(plan.features) ? (
+                plan.features.map((f, i) => (
+                  <Text key={i} style={{ fontSize: 15 }}>
+                    • {f}
+                  </Text>
+                ))
+              ) : typeof plan.features === "object" ? (
+                Object.entries(plan.features).map(([key, value], i) => (
+                  <Text key={i} style={{ fontSize: 15 }}>
+                    • {key}: {JSON.stringify(value)}
+                  </Text>
+                ))
+              ) : (
+                <Text style={{ fontSize: 15 }}>• {String(plan.features)}</Text>
+              )}
+            </View>
 
-        <View style={{ marginBottom: 10 }}>
-          <Text style={{ fontSize: 15 }}>• Unlimited filters & discovery</Text>
-          <Text style={{ fontSize: 15 }}>• Premium preferences unlocked</Text>
-          <Text style={{ fontSize: 15 }}>• Priority visibility</Text>
-          <Text style={{ fontSize: 15 }}>• Match with high-intent users</Text>
-        </View>
+            {/* BUTTON */}
+            {isFree ? (
+              <TouchableOpacity
+                disabled
+                style={{
+                  backgroundColor: "#ccc",
+                  paddingVertical: 12,
+                  borderRadius: 10,
+                  opacity: 0.6,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: 16,
+                    fontWeight: "600",
+                  }}
+                >
+                  Current Plan
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+  onPress={() =>
+    router.push(`/checkout/premium?id=${plan.id}&name=${plan.name}&price=${plan.price}&currency=${plan.currency}`)
+  }
+  style={{
+    backgroundColor: "#7b2cff",
+    paddingVertical: 14,
+    borderRadius: 12,
+  }}
+>
+  <Text
+    style={{
+      color: "white",
+      textAlign: "center",
+      fontSize: 17,
+      fontWeight: "600",
+    }}
+  >
+    Upgrade to {plan.title}
+  </Text>
+</TouchableOpacity>
 
-        <Text
-          style={{
-            fontSize: 26,
-            fontWeight: "bold",
-            marginTop: 10,
-            marginBottom: 15,
-          }}
-        >
-          $14.99 <Text style={{ fontSize: 16 }}>/month</Text>
-        </Text>
+            )}
+          </View>
+        );
+      })}
 
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/checkout/premium");
-          }}
-          style={{
-            backgroundColor: "#7b2cff",
-            paddingVertical: 14,
-            borderRadius: 12,
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              fontSize: 17,
-              fontWeight: "600",
-            }}
-          >
-            Upgrade to Premium
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* ====== BACK BUTTON ====== */}
+      {/* BACK BUTTON */}
       <TouchableOpacity
         onPress={() => router.back()}
         style={{ marginTop: 30, alignSelf: "center" }}
