@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Platform,
+  Linking,
 } from "react-native";
 import { router } from "expo-router";
 import { PlanAPI } from "@/service/planService";
@@ -23,21 +25,33 @@ export default function PlansScreen() {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // ==========================================
+  // 🔥 Busca os planos no backend
+  // ==========================================
   useEffect(() => {
     async function load() {
       try {
         const data = await PlanAPI.listPublicPlans();
         setPlans(data);
       } catch (err) {
-        console.log("Erro ao carregar planos:", err);
+        console.log("❌ Erro ao carregar planos:", err);
       } finally {
         setLoading(false);
       }
     }
-
     load();
   }, []);
 
+  // ==========================================
+  // 🔥 Monta a URL do checkout externo (iOS)
+  // ==========================================
+  function buildCheckoutUrl(plan: Plan) {
+    return `https://lummenapp.com/checkout?id=${plan.id}&name=${plan.name}&price=${plan.price}&currency=${plan.currency}`;
+  }
+
+  // ==========================================
+  // 🔥 Enquanto carrega
+  // ==========================================
   if (loading) {
     return (
       <View
@@ -65,6 +79,7 @@ export default function PlansScreen() {
         flexGrow: 1,
       }}
     >
+      {/* HEADER */}
       <Text
         style={{
           fontSize: 28,
@@ -87,7 +102,9 @@ export default function PlansScreen() {
         Unlock advanced filters, premium preferences and better match control.
       </Text>
 
-      {/* ====== LISTAGEM DINÂMICA DE PLANOS ====== */}
+      {/* ==========================================
+          🔥 LISTAGEM DINÂMICA DE PLANOS
+         ========================================== */}
       {plans.map((plan) => {
         const isFree = plan.name.toLowerCase() === "free";
 
@@ -134,7 +151,6 @@ export default function PlansScreen() {
 
             {/* FEATURES */}
             <View style={{ marginBottom: 15 }}>
-              {/* features pode vir como JSON complexo ou array simples */}
               {Array.isArray(plan.features) ? (
                 plan.features.map((f, i) => (
                   <Text key={i} style={{ fontSize: 15 }}>
@@ -152,7 +168,9 @@ export default function PlansScreen() {
               )}
             </View>
 
-            {/* BUTTON */}
+            {/* ==========================================
+                🔥 BOTÃO PARA UPGRADE
+               ========================================== */}
             {isFree ? (
               <TouchableOpacity
                 disabled
@@ -176,27 +194,35 @@ export default function PlansScreen() {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-  onPress={() =>
-    router.push(`/checkout/premium?id=${plan.id}&name=${plan.name}&price=${plan.price}&currency=${plan.currency}`)
-  }
-  style={{
-    backgroundColor: "#7b2cff",
-    paddingVertical: 14,
-    borderRadius: 12,
-  }}
->
-  <Text
-    style={{
-      color: "white",
-      textAlign: "center",
-      fontSize: 17,
-      fontWeight: "600",
-    }}
-  >
-    Upgrade to {plan.title}
-  </Text>
-</TouchableOpacity>
-
+                onPress={() => {
+                  if (Platform.OS === "ios") {
+                    // 🔥 iPhone → abrir checkout externo
+                    const url = buildCheckoutUrl(plan);
+                    Linking.openURL(url);
+                  } else {
+                    // 🔥 Android + Web → navegar dentro do app
+                    router.push(
+                      `/checkout/premium?id=${plan.id}&name=${plan.name}&price=${plan.price}&currency=${plan.currency}`
+                    );
+                  }
+                }}
+                style={{
+                  backgroundColor: "#7b2cff",
+                  paddingVertical: 14,
+                  borderRadius: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: 17,
+                    fontWeight: "600",
+                  }}
+                >
+                  Upgrade to {plan.title}
+                </Text>
+              </TouchableOpacity>
             )}
           </View>
         );

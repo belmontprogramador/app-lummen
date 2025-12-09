@@ -16,7 +16,9 @@ export default function UserCard({ user }: any) {
   const { t } = useTranslation();
   const screenWidth = Dimensions.get("window").width;
 
-  // Fotos: foto de perfil + fotos do carrossel
+  /** ------------------------------------------
+   * Fotos do usuário (1 foto + galeria)
+   * -----------------------------------------*/
   const photos = [
     user.photo ? `${BASE_URL}${user.photo}` : null,
     ...(user.photos?.length
@@ -24,59 +26,55 @@ export default function UserCard({ user }: any) {
       : []),
   ].filter(Boolean);
 
+  const hasPhotos = photos.length > 0;
   const [index, setIndex] = useState(0);
 
   function nextPhoto() {
-    setIndex((prev) => (prev + 1) % photos.length);
+    if (hasPhotos) {
+      setIndex((prev) => (prev + 1) % photos.length);
+    }
   }
 
-  // Nome
+  const photoUrl = hasPhotos
+    ? photos[index]
+    : "https://via.placeholder.com/400x400.png?text=No+Photo";
+
+  /** ------------------------------------------
+   * Nome, idade e cidade
+   * -----------------------------------------*/
   const name = user.name || t("userCard.unknownName");
 
-  // Idade
   let age = "";
   if (user.profile?.birthday) {
     const birth = new Date(user.profile.birthday);
     const diff = Date.now() - birth.getTime();
-    age = Math.floor(
-      diff / (365.25 * 24 * 60 * 60 * 1000)
-    ).toString();
+    age = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000)).toString();
   }
 
-  // Cidade
   const city = user.profile?.city || t("userCard.unknownCity");
 
   return (
-    <View
-      style={{ width: screenWidth, padding: 20 }}
-      accessibilityLabel={t("userCard.container")}
-    >
-      {/* ✅ FOTO PRINCIPAL + CARROSSEL */}
-      <TouchableOpacity
-        onPress={nextPhoto}
-        accessibilityLabel={t("userCard.nextPhoto")}
-      >
+    <View style={{ width: screenWidth, padding: 20 }}>
+      {/* FOTO + CARROSSEL */}
+      <TouchableOpacity onPress={nextPhoto}>
         <Image
-          source={{ uri: photos[index] }}
+          source={{ uri: photoUrl }}
           style={{
             width: "100%",
             height: 380,
             borderRadius: 20,
             backgroundColor: "#eee",
           }}
-          accessibilityLabel={t("userCard.userPhoto")}
         />
       </TouchableOpacity>
 
-      {/* ✅ NOME + IDADE + CIDADE */}
+      {/* NOME + IDADE + CIDADE */}
       <View style={{ marginTop: 15 }}>
         <Text style={{ fontSize: 26, fontWeight: "bold" }}>
           {name} {age ? `, ${age} ${t("userCard.years")}` : ""}
         </Text>
 
-        <Text style={{ fontSize: 18, color: "#666" }}>
-          {city}
-        </Text>
+        <Text style={{ fontSize: 18, color: "#666" }}>{city}</Text>
       </View>
     </View>
   );

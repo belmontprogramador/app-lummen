@@ -213,14 +213,22 @@ export default function Inicio() {
         scrollEventThrottle={16}
       >
         {users.map((u) => (
-          <FullUserView
-            key={u.id}
-            user={u}
-            onLike={() => handleSkip(u.id)}
-            onDislike={() => handleSkip(u.id)}
-            onSkip={() => handleSkip(u.id)}
-            onSuperLike={() => console.log("⭐ SUPERLIKE:", u.id)}
-          />
+        <FullUserView
+  key={u.id}
+  user={u}
+
+  // LIKE → NÃO envia SKIP
+  onLike={() => setUsers((prev) => prev.slice(1))}
+
+  // DISLIKE → NÃO envia SKIP
+  onDislike={() => setUsers((prev) => prev.slice(1))}
+
+  // SKIP verdadeiro → envia skip para backend
+  onSkip={() => handleSkip(u.id)}
+
+  onSuperLike={() => console.log("⭐ SUPERLIKE:", u.id)}
+/>
+
         ))}
       </ScrollView>
 
